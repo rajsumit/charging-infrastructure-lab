@@ -1,0 +1,30 @@
+page({ id: 'home', mod: 'home', title: 'Exam Hub', kw: 'start plan strategy exam pattern', render(body) {
+  H(body, `<div class="crumb"><span>NPTEL · IIT Roorkee · Prof. Apurv Kumar Yadav</span><span class="pill hot">Exam: Sat 17 Oct 2026</span></div>
+  <h1>Charging Infrastructure: pass-the-exam lab</h1>
+  <p class="lede">Every topic of the course explained with live waveforms, calculators and 3D models, with the topics that decide your marks highlighted. All <b>126 assignment questions</b> (W1-W12) are built in, because the exam mostly re-uses them.</p>`);
+  const qs = window.QBANK, tot = qs.length;
+  const prog = () => { const a = Object.keys(QPROG).length, ok = Object.values(QPROG).filter(x => x === 1).length; return [a, ok]; };
+  const [a, ok] = prog();
+  H(body, `<div class="readout" style="margin:14px 0"><div><small>days to exam</small><b>${Math.max(0, Math.ceil((new Date('2026-10-17T09:00:00+05:30') - new Date()) / 864e5))}</b></div><div><small>assignment Qs</small><b>${tot}</b></div><div><small>practised</small><b>${a}/${tot}</b></div><div><small>correct</small><b>${ok}</b></div><div><small>topics studied</small><b>${Object.values(done).filter(Boolean).length}/22</b></div></div>`);
+  H(body, MUST(
+    `Final score = ${HOT('25 % assignments')} (best 8 of 12 weeks) + ${HOT('75 % proctored in-person exam')}. To pass you need roughly <b>≥ 40 % in the exam</b> (30 of 75) <b>and ≥ 10 of 25 from assignments</b> (NPTEL FAQ).`,
+    `Students widely report that ${HOT('most exam questions are the same or near-same as the weekly assignments')} (same MCQ / MSQ / numerical-with-range format). This is not an official guarantee, so also read the concepts.`,
+    `Numerical questions accept a <b>range</b>: slight rounding is fine. Derivations are not asked; ${HOT('formula + concept + picture of the waveform')} is.`
+  ));
+  H(body, `<h2>How to use this site</h2><ol class="steps"><li><div><b>Read a topic page</b> (15-25 min). Yellow <mark class="hot">highlights</mark> and the <b>★ Must remember</b> boxes are exam material. A tag like <mark class="hot" data-q="W2Q8">fact</mark> means a real assignment question asked it.</div></li><li><div><b>Play with the widgets.</b> Move sliders until the waveform change is obvious. The picture is what you will recall in the exam.</div></li><li><div><b>Answer the assignment questions</b> at the bottom of the page, then read the reason, including for ones you got right.</div></li><li><div><b>Last two days:</b> Formula sheet, then Question Bank → "Redo my wrong answers".</div></li></ol>`);
+  H(body, `<div class="card" style="border-left:5px solid var(--ch-i)"><h3>New: end-to-end charger simulator</h3><p>See how every stage connects in an AC and a DC charger, click each block, and watch the waveforms change as the battery charges.</p><button class="btn primary" onclick="go('simulator')">Open the simulator</button> <button class="btn" onclick="go('charger3d')">3D charger: explode &amp; inspect</button></div>`);
+  H(body, '<h2>Where the marks are (heat map)</h2><p class="cap">Bar length = number of assignment questions on that topic. Click a name to open it.</p>');
+  const heat = h('div', { class: 'heat' }); body.append(heat);
+  const topics = PAGES.filter(p => p.topic); const mx = Math.max(...topics.map(p => questionsFor(p.id).length));
+  topics.map(p => [p, questionsFor(p.id).length]).sort((x, y) => y[1] - x[1]).forEach(([p, n]) => heat.append(h('div', { class: 'heatrow' }, h('button', { onclick: () => go(p.id) }, p.title), h('div', { class: 'bar' }, h('i', { style: `width:${n / mx * 100}%` })), h('b', {}, n + ' Q'))));
+  H(body, `<h2>Study plan: 6 days + exam day</h2><p class="cap">Built on the question counts above. Assumes about 4-5 focused hours a day. If you fall behind, drop "Good to know" topics (★☆☆) and never drop the ★★★ ones.</p>` + TBL(['Day', 'Do this', 'Why'], [
+    ['<b>Sun 11 Oct</b>', 'Standards (3D connectors) · Charger architecture · Rectifier · <b>Boost PFC</b>', 'W1-W2: easy marks, and boost PFC is the base of everything after it'],
+    ['<b>Mon 12 Oct</b>', 'PFC stresses · PFC control · Bridgeless/Totem-pole · DCM &amp; Flyback PFC', 'W3-W5: 23 questions, mostly "which statement is true" and one-line formulas'],
+    ['<b>Tue 13 Oct</b>', 'SPWM · 3-phase converter · dq control · <b>Forward converter</b>', 'W5-W6: phasors, PF with dq axis, PI pole-zero cancel'],
+    ['<b>Wed 14 Oct</b>', 'Bridges · Soft switching · <b>PSFB</b> · <b>DAB</b> · Magnetics', 'W7-W9: most numerical questions of the course'],
+    ['<b>Thu 15 Oct</b>', '<b>AC Type-2 (CP/PP)</b> · <b>CCS2 (PLC, SLAC)</b>', 'W10-W11: 23 questions, almost all pure recall'],
+    ['<b>Fri 16 Oct</b>', 'BEVC-DC001 &amp; CAN · Stations &amp; OCPP · Formula sheet · redo wrong answers', 'W11-W12: CAN ID decoding is a guaranteed type'],
+    ['<b>Sat 17 Oct</b>', 'Read only the ★ Must-remember boxes and Formula sheet. Sleep. Carry ID/hall ticket.', 'Do not start new topics today']]));
+  H(body, `<h2>Exam strategy</h2><div class="grid2">${CARD('MSQ: all-or-nothing', '<p>Multiple-select usually needs <b>every</b> correct option and no wrong one. Only tick what you can justify with a fact.</p>')}${CARD('Numericals', '<p>Write the formula, plug values, keep 3 significant digits. Ranges are accepted. Check units (µs vs ms, kW vs W, degrees vs radians).</p>')}${CARD('Trap words', '<p>"Which axis is aligned with the voltage?" (dq PF) · "leading or lagging leg?" (PSFB) · "per switch or per period?" (duty). Read these twice.</p>')}${CARD('Answer keys', '<p>Where the official key looked odd, the explanation says so. In the exam, follow the key logic you saw in the assignment.</p>')}</div>`);
+  H(body, `<p class="cap" style="margin-top:28px">Sources: NPTEL course "Charging Infrastructure" (IIT Roorkee) lecture material and 12 weekly assignments with answer keys; NPTEL exam FAQ (nptel.ac.in/faq); exam-pattern summaries (Careers360); standards IEC 61851-1, SAE J1772, ISO 15118, GB/T 27930, OCPP 1.6J.</p>`);
+} });
