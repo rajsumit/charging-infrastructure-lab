@@ -23,3 +23,6 @@ IEC 61851-1, SAE J1772, IEC 62196, ISO 15118, DIN 70121, GB/T 20234 and GB/T 279
 
 ## Built with
 Written with the help of Claude (Anthropic) as a coding and research assistant.
+
+## Course source material (`course-material/`)
+Lecture slides, summary notes, transcripts and assignments from the NPTEL course **Charging Infrastructure** (IIT Roorkee, Prof. Apurv Kumar Yadav), https://nptel.ac.in. All rights remain with the original authors and NPTEL / IIT Roorkee; included here for study reference with full credit. The separate reference textbook is intentionally not included (third-party copyright).
