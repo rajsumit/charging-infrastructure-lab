@@ -40,3 +40,6 @@ docs/             built site (GitHub Pages)
 
 ## Credits and licence
 Code and original explanations: MIT (see `LICENSE`). Course questions and figures belong to NPTEL / IIT Roorkee and the instructor; see `CREDITS.md`. Not affiliated with NPTEL.
+
+## Source material
+The original NPTEL lecture slides, summary notes, transcripts and weekly assignments are in [`course-material/`](course-material/). See [CREDITS.md](CREDITS.md) for attribution.
