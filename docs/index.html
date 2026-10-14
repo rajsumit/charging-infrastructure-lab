@@ -165,6 +165,44 @@ summary{cursor:pointer;font-weight:700}
 .arr.off{animation:none;opacity:.25}
 .spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
 @media (prefers-reduced-motion:reduce){.arr{animation:none}}
+/* easy marks */
+.card.easy ul{margin:.4rem 0 .2rem;padding-left:1.2rem}.card.easy li{margin:.18rem 0}
+.easyh{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.easyh h3{margin:0;flex:1 1 220px}
+.rank{font:800 .95rem var(--f-mono);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:var(--brand-ink);flex:none}
+/* waveform chain */
+.wchain{display:flex;flex-direction:column;margin-top:14px}
+.wrow{display:grid;grid-template-columns:230px minmax(0,1fr);gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+.wside{min-width:0}.wside h3{margin:.2rem 0 .2rem;font-size:1.02rem}.wside .cap{margin:.2rem 0 .5rem}
+.wnum{font:800 .8rem var(--f-mono);color:var(--muted)}
+.wplot{min-width:0}.wplot .cap{margin:.3rem 0 0}
+.wread{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin:.3rem 0 .6rem}
+.wread div{background:var(--surface2);border-radius:7px;padding:3px 7px}.wread small{display:block;color:var(--muted);font:600 .68rem var(--f-mono)}.wread b{font:700 .88rem var(--f-mono);font-variant-numeric:tabular-nums}
+.wstep{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 0 8px 18px;font:600 .82rem var(--f-mono);color:var(--muted)}
+.warr{width:2px;height:22px;background:var(--ch-i);position:relative;flex:none}.warr::after{content:'';position:absolute;left:-5px;bottom:-2px;border:6px solid transparent;border-top-color:var(--ch-i)}
+@media (max-width:900px){.wrow{grid-template-columns:minmax(0,1fr)}}
+/* states */
+.evh{font:700 .74rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.evrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.evrow+.evrow{margin-top:10px}
+.fbtn[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.stgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;margin-top:12px}
+@media (max-width:900px){.stgrid{grid-template-columns:minmax(0,1fr)}}
+.stgrid .card{margin:0}
+.sthead{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}.sthead b{font-family:var(--f-display);font-size:1.05rem;margin-right:4px}
+.svgwrap{overflow-x:auto}.stsvg{width:100%;min-width:520px;height:auto;display:block}
+.stsvg .se{stroke:var(--muted);stroke-width:1.4}.stsvg .se.hot{stroke:var(--ch-i);stroke-width:2.6}
+.stsvg .ahp{fill:var(--muted)}.stsvg .ahh{fill:var(--ch-i)}
+.stsvg .sl{fill:var(--muted);font:600 10px var(--f-mono)}
+.stsvg .sn rect{fill:var(--surface2);stroke:var(--line);stroke-width:1.4}.stsvg .sn text{fill:var(--ink);font:700 11.5px var(--f-mono)}
+.stsvg .sn.bad rect{stroke:var(--bad)}
+.stsvg .sn.on rect{fill:var(--brand);stroke:var(--brand)}.stsvg .sn.on text{fill:var(--brand-ink)}
+.stsvg .sn.on.bad rect{fill:var(--bad);stroke:var(--bad)}.stsvg .sn.on.bad text{fill:#fff}
+.stinfo h3{margin-top:0}.stinfo p{font-size:.95rem}.stinfo .fl{color:var(--bad);font-weight:700}
+canvas.lanes{width:100%;display:block;background:var(--scope);border-radius:8px}
+.evlog{list-style:none;margin:0;padding:0;max-height:330px;overflow-y:auto;font-size:.88rem}
+.evlog li{display:grid;grid-template-columns:28px 52px minmax(0,1fr);gap:6px;padding:5px 4px;border-bottom:1px solid var(--line)}
+.evlog .n{font:700 .75rem var(--f-mono);color:var(--muted)}.evlog .t{font:600 .75rem var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.evlog li.w{background:color-mix(in srgb,var(--warn) 10%,transparent)}.evlog li.f{background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.stsvg.dc .sn text{font-size:10.5px}
 </style>
 <div class="app">
   <aside class="rail" id="rail">
@@ -693,6 +731,7 @@ page({ id: 'home', mod: 'home', title: 'Exam Hub', kw: 'start plan strategy exam
   ));
   H(body, `<h2>How to use this site</h2><ol class="steps"><li><div><b>Read a topic page</b> (15-25 min). Yellow <mark class="hot">highlights</mark> and the <b>★ Must remember</b> boxes are exam material. A tag like <mark class="hot" data-q="W2Q8">fact</mark> means a real assignment question asked it.</div></li><li><div><b>Play with the widgets.</b> Move sliders until the waveform change is obvious. The picture is what you will recall in the exam.</div></li><li><div><b>Answer the assignment questions</b> at the bottom of the page, then read the reason, including for ones you got right.</div></li><li><div><b>Last two days:</b> Formula sheet, then Question Bank → "Redo my wrong answers".</div></li></ol>`);
   H(body, `<div class="card" style="border-left:5px solid var(--ch-i)"><h3>New: end-to-end charger simulator</h3><p>See how every stage connects in an AC and a DC charger, click each block, and watch the waveforms change as the battery charges.</p><button class="btn primary" onclick="go('simulator')">Open the simulator</button> <button class="btn" onclick="go('charger3d')">3D charger: explode &amp; inspect</button></div>`);
+  H(body, `<div class="grid2"><div class="card" style="border-left:5px solid var(--hot)"><h3>Easy marks: do not skip</h3><p>15 short cards covering 71 assignment questions that need no derivation. About 2 hours in total, best value first.</p><button class="btn primary" onclick="go('easy-marks')">Open easy marks</button></div><div class="card" style="border-left:5px solid var(--ch-v)"><h3>See the whole charger work</h3><p>Grid → battery waveforms stage by stage, and a live state machine with fault injection.</p><button class="btn" onclick="go('waveform-chain')">Waveform chain</button> <button class="btn" onclick="go('charger-states')">States &amp; faults</button></div></div>`);
   H(body, '<h2>Where the marks are (heat map)</h2><p class="cap">Bar length = number of assignment questions on that topic. Click a name to open it.</p>');
   const heat = h('div', { class: 'heat' }); body.append(heat);
   const topics = PAGES.filter(p => p.topic); const mx = Math.max(...topics.map(p => questionsFor(p.id).length));
@@ -707,6 +746,92 @@ page({ id: 'home', mod: 'home', title: 'Exam Hub', kw: 'start plan strategy exam
     ['<b>Sat 17 Oct</b>', 'Read only the ★ Must-remember boxes and Formula sheet. Sleep. Carry ID/hall ticket.', 'Do not start new topics today']]));
   H(body, `<h2>Exam strategy</h2><div class="grid2">${CARD('MSQ: all-or-nothing', '<p>Multiple-select usually needs <b>every</b> correct option and no wrong one. Only tick what you can justify with a fact.</p>')}${CARD('Numericals', '<p>Write the formula, plug values, keep 3 significant digits. Ranges are accepted. Check units (µs vs ms, kW vs W, degrees vs radians).</p>')}${CARD('Trap words', '<p>"Which axis is aligned with the voltage?" (dq PF) · "leading or lagging leg?" (PSFB) · "per switch or per period?" (duty). Read these twice.</p>')}${CARD('Answer keys', '<p>Where the official key looked odd, the explanation says so. In the exam, follow the key logic you saw in the assignment.</p>')}</div>`);
   H(body, `<p class="cap" style="margin-top:28px">Sources: NPTEL course "Charging Infrastructure" (IIT Roorkee) lecture material and 12 weekly assignments with answer keys; NPTEL exam FAQ (nptel.ac.in/faq); exam-pattern summaries (Careers360); standards IEC 61851-1, SAE J1772, ISO 15118, GB/T 27930, OCPP 1.6J.</p>`);
+} });
+
+;
+/* ===== Easy marks: low effort, high yield ===== */
+page({ id: 'easy-marks', mod: 'home', title: 'Easy marks: do not skip', kw: 'easy marks quick recall scoring revision last day cheat', render(body) {
+  H(body, `<div class="crumb"><span>Revision</span><span class="pill hot">Highest marks per minute</span></div><h1>Easy marks: never skip these</h1>
+  <p class="lede">These topics need <b>no derivation and almost no maths</b>: a table, a rule or a one-line formula. Each card lists what to memorise and the assignment questions that tested it. Learn a card, then press <b>Drill</b> to answer its questions on the spot.</p>`);
+  H(body, `<p class="cap">How this list was made: every one of the 126 assignment questions was sorted by how long it takes to learn the idea behind it. The cards below cover the ones that take under 15 minutes each. Questions whose answer key disagrees with the lecture (for example W5Q5) are left out on purpose.</p>`);
+  const E = [
+    { t: 'Charging modes and connectors', m: 10, topic: 'standards', q: ['W1Q1', 'W1Q2', 'W1Q3', 'W1Q4', 'W1Q10'], f: [
+      `<b>Mode 1</b> plain socket · <b>Mode 2</b> socket + in-cable control &amp; protection box (ICCPD) · <b>Mode 3</b> dedicated AC EVSE · <b>Mode 4</b> DC charger.`,
+      `<b>3-phase AC</b> only through inlets with L1-L2-L3-N pins: <b>CCS2 (Type-2 top)</b> and <b>GB/T AC</b>.`,
+      `Uses <b>CAN</b>: <b>CHAdeMO</b> and <b>Type-7</b> (light-EV inlet). CCS uses <b>PLC</b>.`,
+      `CCS1 = Type-1 (J1772) top + 2 DC pins · CCS2 = Type-2 top + 2 DC pins.`] },
+    { t: 'What is inside an AC vs a DC EVSE', m: 5, topic: 'charger-arch', q: ['W1Q5', 'W1Q6'], f: [
+      `<b>AC EVSE</b> = smart switch: contactor, RCD, meter, CP/PP controller, safety interlocks. <b>No converter.</b>`,
+      `<b>DC EVSE</b> = rectifier + isolated DC-DC + interlocks. The on-board charger is bypassed.`] },
+    { t: 'Rectifier one-liners', m: 8, topic: 'rectifier', q: ['W1Q7', 'W1Q8', 'W2Q5'], f: [
+      `Half-wave average = V<sub>m</sub>/π · full-wave average = 2V<sub>m</sub>/π.`,
+      `Diode peak reverse voltage = <b>V<sub>pk</sub></b> of the source (half-wave and bridge + C).`] },
+    { t: 'Which ripple frequency? (3 Qs, one rule)', m: 5, topic: 'pfc-stress', q: ['W3Q4', 'W4Q3', 'W5Q3'], f: [
+      `Single-phase PFC (boost or totem-pole) at unity PF: output ripple at <b>2 × line = 100 Hz</b>, whatever the switching frequency.`,
+      `Balanced 3-phase at unity PF: input power is constant, so no 100 Hz; the dominant ripple is at the <b>switching frequency</b>.`] },
+    { t: 'Boost PFC: the four facts', m: 12, topic: 'boost-pfc', q: ['W2Q1', 'W2Q4', 'W2Q10', 'W2Q8'], f: [
+      `Switch on: inductor voltage = <b>|v<sub>s</sub>|</b>.`,
+      `d = 1 − |v<sub>s</sub>|/V<sub>o</sub>; d<sub>min</sub> at the highest peak: 1 − √2·V<sub>max</sub>/V<sub>o</sub>.`,
+      `Inductor ripple is largest at <b>|v<sub>s</sub>| = V<sub>o</sub>/2</b>.`,
+      `L = V<sub>o</sub>/(4·ΔI·f<sub>sw</sub>), with ΔI = ripple % × √2·P/V<sub>rms</sub>.`] },
+    { t: 'State-space vocabulary', m: 5, topic: 'pfc-control', q: ['W3Q8', 'W3Q9', 'W3Q10', 'W3Q1'], f: [
+      `State variables = <b>inductor current, capacitor voltage</b>. Inputs = <b>duty ratio, input AC voltage</b>.`,
+      `Small-signal: f<sub>sw</sub> ≫ f<sub>line</sub>, perturbations ≪ operating point; perturb the <b>average large-signal model</b>.`] },
+    { t: 'Totem-pole / bridgeless facts', m: 8, topic: 'bridgeless', q: ['W4Q4', 'W4Q6', 'W4Q10'], f: [
+      `Totem-pole: <b>2 devices conduct</b> at any time; needs at least two fast switches; inductor sized like the boost PFC.`,
+      `Bridgeless: D1 conducts for v<sub>s</sub> &gt; 0, D2 for v<sub>s</sub> &lt; 0.`] },
+    { t: 'dq transformation facts', m: 8, topic: 'dq-control', q: ['W6Q4', 'W6Q5', 'W6Q7', 'W6Q2'], f: [
+      `Balanced 3-phase → <b>αβ = sinusoids at line frequency</b>, <b>dq = constants</b>.`,
+      `d-axis on the voltage: PF = i<sub>d</sub>/√(i<sub>d</sub>² + i<sub>q</sub>²). Current on the q-axis only → <b>zero-PF</b> current.`] },
+    { t: 'Flux swing and voltage stress', m: 8, topic: 'bridges', q: ['W6Q1', 'W7Q8', 'W7Q2', 'W7Q5'], f: [
+      `Forward: flux <b>0 → B<sub>max</sub></b> (one quadrant). Full-bridge / push-pull: <b>−B<sub>max</sub> → +B<sub>max</sub></b>.`,
+      `Dual-switch forward: stress = <b>V<sub>in</sub></b>. Push-pull: stress = <b>2V<sub>in</sub></b>.`] },
+    { t: 'PSFB and DAB one-liners', m: 10, topic: 'psfb', q: ['W8Q6', 'W8Q10', 'W8Q1', 'W8Q2', 'W9Q1'], f: [
+      `PSFB: V<sub>o</sub>/V<sub>in</sub> = n(1 − φ/180°) → φ = 180° gives <b>0</b>, 72° gives <b>0.6</b>.`,
+      `Leading leg gets ZVS easily (energy from L<sub>lkg</sub> + L/n²); lagging leg has only L<sub>lkg</sub>.`,
+      `DAB: <b>two active bridges</b>, <b>bidirectional</b> power (V2G).`] },
+    { t: 'Magnetics: two quick ones', m: 4, topic: 'magnetics', q: ['W10Q6', 'W9Q10'], f: [
+      `Air gap: more ampere-turns before saturation, inductance set by the gap (independent of µ<sub>r</sub>).`,
+      `Core loss rises with frequency → the <b>lowest-frequency line (f1)</b> has the lowest loss.`] },
+    { t: 'AC Type-2: CP states and duty', m: 12, topic: 'ac-type2', q: ['W10Q1', 'W10Q2', 'W10Q3', 'W10Q7', 'W10Q8', 'W10Q10', 'W1Q9'], f: [
+      `CP: <b>A +12 V</b> unplugged · <b>B +9 V</b> plugged · <b>C +6 V</b> charging · <b>D +3 V</b> vent · <b>E 0 V</b> error · <b>F −12 V</b> EVSE fault.`,
+      `I = 0.6 × D (10-85 %) · I = 2.5 × (D − 64) (85-96 %) · 5 % = digital comms. 36 A → 60 %; 48 A → 80 % → <b>800 µs</b> at 1 kHz.`,
+      `PP detects the plug and cable rating; CP carries state and current limit (SAE J1772 / IEC 61851).`] },
+    { t: 'CCS2: layers and SLAC (biggest free block)', m: 15, topic: 'ccs2', q: ['W10Q9', 'W11Q1', 'W11Q2', 'W11Q3', 'W11Q4', 'W11Q5', 'W11Q6', 'W11Q7', 'W11Q9', 'W11Q10', 'W11Q11', 'W11Q12', 'W11Q13', 'W11Q14'], f: [
+      `PLC on <b>CP-PE</b>; SLAC in state <b>B2</b>; contactors close in <b>C2</b>.`,
+      `SLAC = <b>data link</b> · SLAAC = <b>network</b> · SDP = <b>application</b> · EXI = <b>presentation</b> · "fast, reliable, safer" = <b>transport</b>.`,
+      `3 × START_ATTEN_CHAR, <b>58</b> frequency groups, <b>lowest attenuation</b> wins.`,
+      `Pre-charge: current limit <b>2 A</b>, close when ΔV &lt; <b>20 V</b>.`] },
+    { t: 'CAN and BEVC-DC001', m: 12, topic: 'dc001-can', q: ['W11Q8', 'W11Q15', 'W12Q1', 'W12Q3', 'W12Q5', 'W12Q6', 'W12Q7'], f: [
+      `Termination <b>120 Ω</b>; CAN 2.0B 29-bit ID → <b>2²⁹</b> IDs; <b>lowest ID wins</b> arbitration.`,
+      `Fixed addresses: BMS = <b>0xF4</b>, charger = <b>0x56</b>.`,
+      `0x<b>18</b>10<b>56</b><b>F4</b>: priority = top 3 bits of 0x18 (000<b>110</b>00) = <b>6</b>; PGN = 0x00<b>10</b>00; destination 0x56 (charger); source 0xF4 (BMS).`] },
+    { t: 'OCPP-J message frame', m: 6, topic: 'stations-ocpp', q: ['W12Q2', 'W12Q4', 'W12Q9', 'W12Q10'], f: [
+      `[<b>2</b> = CALL, id, action, payload] · [<b>3</b> = CALLRESULT, id, payload] · [<b>4</b> = CALLERROR, id, code, text, details].`,
+      `The id is unique per CALL and repeated unchanged in its reply.`] }
+  ];
+  const byId = Object.fromEntries((window.QBANK || []).map(q => [q.id, q]));
+  E.forEach(e => e.q = e.q.filter(id => byId[id]));
+  E.sort((a, b) => b.q.length / b.m - a.q.length / a.m);
+  const totQ = E.reduce((s, e) => s + e.q.length, 0), totM = E.reduce((s, e) => s + e.m, 0);
+  const sum = h('div', { class: 'readout', style: 'margin:12px 0' }); body.append(sum);
+  const upd = () => { const ok = E.flatMap(e => e.q).filter(id => QPROG[id] === 1).length; sum.innerHTML = `<div><small>assignment Qs covered</small><b>${totQ} / ${(window.QBANK || []).length}</b></div><div><small>study time</small><b>≈ ${Math.round(totM / 6) / 10} h</b></div><div><small>you got right</small><b>${ok} / ${totQ}</b></div>`; };
+  upd(); window.addEventListener('qprog', upd); onLeave(() => window.removeEventListener('qprog', upd));
+  H(body, `<p class="cap">Sorted by assignment questions per minute of study, best value first.</p>`);
+  E.forEach((e, i) => {
+    const c = h('div', { class: 'card easy' });
+    const done = () => e.q.filter(id => QPROG[id] === 1).length;
+    const badge = h('span', { class: 'pill' });
+    const setB = () => badge.textContent = `${done()}/${e.q.length} right`;
+    setB(); window.addEventListener('qprog', setB); onLeave(() => window.removeEventListener('qprog', setB));
+    c.append(h('div', { class: 'easyh' }, h('span', { class: 'rank' }, String(i + 1)), h('h3', {}, e.t), h('span', { class: 'pill hot' }, `${e.q.length} Qs · ${e.m} min`), badge));
+    c.append(h('ul', { html: e.f.map(x => `<li>${x}</li>`).join('') }));
+    const drill = h('div');
+    const tg = h('button', { class: 'btn primary', onclick: () => { if (drill.childElementCount) { drill.innerHTML = ''; tg.textContent = 'Drill ' + e.q.length + ' questions'; } else { e.q.forEach(id => drill.append(renderQuestion(byId[id], { showTopic: true }))); tg.textContent = 'Hide questions'; } } }, 'Drill ' + e.q.length + ' questions');
+    c.append(h('div', { class: 'nextprev', style: 'margin:6px 0 0;justify-content:flex-start' }, tg, h('button', { class: 'btn', onclick: () => go(e.topic) }, 'Open topic page →')), drill);
+    body.append(c);
+  });
+  H(body, `<h2>Exam-day pattern for easy marks</h2><ol class="steps"><li><div>First pass: answer every recall question you recognise from these cards (CP levels, OSI layers, CAN, OCPP, modes). Do not stop on numericals.</div></li><li><div>Second pass: the one-line numericals (duty from current, PSFB ratio, CAN priority, ripple frequency).</div></li><li><div>Last pass: the long numericals (PFC stresses, dead time, DAB power).</div></li></ol>`);
 } });
 
 ;
@@ -783,7 +908,7 @@ page({ id: 'simulator', mod: 'home', title: 'Charger simulator (end to end)', kw
     const r = M.link * .006; return SC([{ fn: x => M.link + r * tri(x * 20), c: '--ch-v', w: 2.6, n: 400 }], { xmin: 0, xmax: .2, ymin: M.link - 12, ymax: M.link + 12, xl: 'ms', yl: 'Vdc (V)', xt: 4, yt: 4 }, { h: [{ y: M.link, c: '--muted', t: 'Vdc' }] }); };
   const sq = ph => { const x = ((ph % 1) + 1) % 1; return x < .5 ? 1 : -1; };
   const sigDcdc = s => { const M = s.M, N = 600, X = t(N, f => f * 30), ax = { xmin: 0, xmax: 30, ymin: -1.3, ymax: 1.3, xl: 'µs (3 periods at 100 kHz)', yl: 'pu', xt: 6, yt: 4 };
-    if (topo === 'psfb') { const phi = Math.max(0, Math.min(175, 180 * (1 - s.Vb / (1.12 * M.Ns * 4.2)))); const sh = phi / 360; return SC([{ x: X, y: X.map(x => (sq(x / 10) - sq(x / 10 - sh)) / 2), c: '--ch-b', w: 2.4, fill: true }], ax, { t: [{ x: 15, y: 1.15, s: `phase shift φ = ${phi.toFixed(0)}°  → Vo/(nVin) = ${(1 - phi / 180).toFixed(2)}`, a: 'center', c: '--ink' }] }); }
+    if (topo === 'psfb') { const phi = Math.max(0, Math.min(175, 180 * (1 - s.Vb / (1.12 * M.Ns * 4.2)))); const sh = (180 - phi) / 360; return SC([{ x: X, y: X.map(x => (sq(x / 10) - sq(x / 10 - sh)) / 2), c: '--ch-b', w: 2.4, fill: true }], ax, { t: [{ x: 15, y: 1.15, s: `phase shift φ = ${phi.toFixed(0)}°  → Vo/(nVin) = ${(1 - phi / 180).toFixed(2)}`, a: 'center', c: '--ink' }] }); }
     const x0 = Math.min(.95, s.P / (M.Pmax * 2)), dl = C.dabDeltaForFrac(Math.min(.99, x0 * 2)) / 360 * 1, Y = [], Z = [], Ii = []; let acc = 0; X.forEach((x, i) => { const vp = sq(x / 10), vs = sq(x / 10 - dl); Y.push(vp); Z.push(vs * .8); acc += (vp - vs * .8) * 30 / N; Ii.push(acc); }); const m = Ii.reduce((a, b) => a + b, 0) / Ii.length, mx = Math.max(...Ii.map(v => Math.abs(v - m))) || 1;
     return SC([{ x: X, y: Y, c: '--ch-v', w: 2 }, { x: X, y: Z, c: '--ch-b', w: 2, dash: [5, 3] }, { x: X, y: Ii.map(v => (v - m) / mx), c: '--ch-i', w: 2.4 }], ax, { t: [{ x: 15, y: 1.15, s: `DAB single phase shift δ = ${(dl * 360).toFixed(0)}°`, a: 'center', c: '--ink' }] }); };
   const sigCP = s => { const M = s.M, d = M.dc ? 5 : C.ampToDuty(M.Imax); const hi = s.ph === 'done' ? 9 : 6; const X = [], Y = []; for (let k = 0; k < 3; k++) { X.push(k, k + d / 100, k + d / 100, k + 1); Y.push(hi, hi, -12, -12); }
@@ -838,6 +963,429 @@ page({ id: 'simulator', mod: 'home', title: 'Charger simulator (end to end)', kw
   }
   refresh();
   H(body, `<h2>How to read this</h2><ol class="steps"><li><div><b>AC charger:</b> the station is only a smart switch. All the conversion (PFC → DC link → isolated DC-DC) is in the vehicle's on-board charger, so power is small (3.7-22 kW).</div></li><li><div><b>DC charger:</b> the same chain is moved into the station, which allows 50-350 kW. The car only closes its contactor and its BMS says how much voltage/current it wants.</div></li><li><div><b>Both:</b> the BMS is the master; the charger follows its CC-CV request. Compare AC 1-φ vs 3-φ at the <b>DC link</b>: 100 Hz ripple disappears with 3 phases.</div></li></ol><p class="cap">Simplified, steady-state model for learning: efficiencies are typical values and the PSFB/DAB waveforms are idealised.</p>`);
+} });
+
+;
+/* ===== Grid-to-battery waveform chain ===== */
+page({ id: 'waveform-chain', mod: 'home', title: 'Grid → battery waveforms', kw: 'waveform chain stage by stage power flow ac to dc rectifier pfc dc link psfb dab transformer battery line cycle switching zoom', render(body) {
+  H(body, `<div class="crumb"><span>Whole-system view</span><span class="pill hot">★ How AC becomes DC</span></div><h1>Grid → battery, one waveform per stage</h1>
+  <p class="lede">The same instant, probed at every stage of the charger. Read top to bottom: the grid sine wave is rectified, shaped by the PFC, stored in the DC link, chopped at high frequency to cross the transformer, rectified again and smoothed into the battery. Drag the <b>line angle</b> (or press play) and watch every stage react.</p>`);
+  const MODES = {
+    ac1: { name: 'AC OBC, single-phase 7.4 kW', ph: 1, Vrms: 230, P: 7400, Vdc: 400, Cdc: 2e-3, Ns: 96, n: 1.15, dcdc: 'psfb', fpfc: 65e3, Lpfc: 400e-6, fdc: 100e3, Lo: 100e-6 },
+    ac3: { name: 'AC OBC, three-phase 11 kW', ph: 3, Vrms: 400, P: 11000, Vdc: 700, Cdc: .4e-3, Ns: 96, n: .65, dcdc: 'psfb', fvsc: 20e3, Lg: 1.5e-3, fdc: 100e3, Lo: 100e-6 },
+    dc: { name: 'DC charger, 150 kW (5 × 30 kW modules)', ph: 3, Vrms: 400, P: 150000, Vdc: 800, Cdc: 1e-3, Ns: 192, n: 1, dcdc: 'dab', fvsc: 20e3, Lg: .25e-3, fdc: 100e3, mods: 5 }
+  };
+  let mode = 'ac1', view = 'line', th = 60, soc = .4, play = null;
+  const Voc = s => 3.0 + 1.0 * s + .2 * Math.pow(s, 6), w = T2 * 50;
+  const sq = x => (((x % 1) + 1) % 1) < .5 ? 1 : -1, frac = x => ((x % 1) + 1) % 1;
+  function base() {
+    const M = MODES[mode], Vb = M.Ns * Voc(soc), Pb = soc < .8 ? M.P : M.P * Math.max(.05, Math.exp(-(soc - .8) / .07)), eta = .95, Pin = Pb / eta, Ib = Pb / Vb;
+    const Vpk = M.ph === 1 ? M.Vrms * Math.SQRT2 : M.Vrms * Math.SQRT2 / Math.sqrt(3);
+    const Ipk = M.ph === 1 ? Math.SQRT2 * Pin / M.Vrms : Math.SQRT2 * Pin / (Math.sqrt(3) * M.Vrms);
+    const dV = M.ph === 1 ? Pb / (.95 / .97) / (T2 * 50 * M.Vdc * M.Cdc) : 0; // pk-pk 100 Hz ripple, 1-phase only
+    return { M, Vb, Pb, Pin, Ib, Vpk, Ipk, dV };
+  }
+  const vdcAt = (B, ms) => B.M.Vdc - B.dV / 2 * Math.sin(2 * w * ms / 1e3);
+  const phiAt = (B, vdc) => Math.max(0, Math.min(178, 180 * (1 - B.Vb / (B.M.n * vdc))));
+  function dabDelta(B) { const M = B.M, P = B.Pb / M.mods, Vs = B.Vb / M.n, L = 14.8e-6, k = P * 2 * Math.PI * Math.PI * M.fdc * L / (M.Vdc * Vs); const d = (Math.PI - Math.sqrt(Math.max(0, Math.PI * Math.PI - 4 * k))) / 2; return { d, L, Vs, P }; }
+  const LINE = { xmin: 0, xmax: 40, xl: 'time (ms) · 2 line cycles', xt: 8 };
+  const tms = () => th / 360 * 20; // cursor time inside the first cycle
+  const cursor = () => [{ x: tms(), c: '--hot', t: '' }, { x: tms() + 20, c: '--hot', t: '' }];
+  const X = (n, a, b) => rng(n + 1, i => a + (b - a) * i / n);
+  const kfmt = v => Math.abs(v) >= 1000 ? (v / 1000).toFixed(1) + ' k' : v.toFixed(Math.abs(v) < 10 ? 2 : 0) + ' ';
+  /* ------------------------------ stage library ------------------------------ */
+  const ST = {};
+  ST.grid1 = { n: 'Grid (single-phase AC)', r: 'Sine voltage, sine current in phase: unity power factor.', topic: 'boost-pfc',
+    read: (B, t) => [['v<sub>s</sub>', (B.Vpk * Math.sin(w * t / 1e3)).toFixed(0) + ' V'], ['i<sub>s</sub>', (B.Ipk * Math.sin(w * t / 1e3)).toFixed(1) + ' A'], ['p(t)', kfmt(2 * B.Pin * Math.sin(w * t / 1e3) ** 2) + 'W']],
+    line: B => { const x = X(400, 0, 40); return { s: [{ x, y: x.map(t => B.Vpk * Math.sin(w * t / 1e3)), c: '--ch-v', w: 2.4 }, { x, y: x.map(t => B.Ipk * Math.sin(w * t / 1e3) * B.Vpk / B.Ipk * .7), c: '--ch-i', w: 2.4 }], ax: Object.assign({ ymin: -B.Vpk * 1.15, ymax: B.Vpk * 1.15, yl: 'V', yt: 4 }, LINE), lg: [['v<sub>s</sub> (V)', '--ch-v'], [`i<sub>s</sub> (scaled, ${B.Ipk.toFixed(0)} A pk)`, '--ch-i']] }; },
+    zoom: (B, t0) => { const M = B.M, x = X(500, 0, 100), v = B.Vpk * Math.sin(w * t0 / 1e3), i = B.Ipk * Math.sin(w * t0 / 1e3); return { s: [{ x, y: x.map(() => v), c: '--ch-v', w: 2.4 }, { x, y: x.map(u => (i + .03 * B.Ipk * tri(u * 1e-6 * M.fpfc)) * B.Vpk / B.Ipk * .7), c: '--ch-i', w: 2 }], ax: { xmin: 0, xmax: 100, xl: 'µs', xt: 5, ymin: -B.Vpk * 1.15, ymax: B.Vpk * 1.15, yl: 'V', yt: 4 }, lg: [['v<sub>s</sub> (V)', '--ch-v'], ['i<sub>s</sub> (scaled)', '--ch-i']], note: 'Over 100 µs the grid looks like DC. The EMI filter leaves only a tiny trace of the switching ripple in the line current.' }; } };
+  ST.bridge = { n: 'EMI filter + diode bridge', r: 'Folds the negative half-cycle up: |v<sub>s</sub>| and |i<sub>s</sub>|. Still not DC.', topic: 'rectifier', ch: 'AC → rectified (unidirectional, still pulsing at 100 Hz)',
+    read: (B, t) => [['|v<sub>s</sub>|', Math.abs(B.Vpk * Math.sin(w * t / 1e3)).toFixed(0) + ' V'], ['|i<sub>s</sub>|', Math.abs(B.Ipk * Math.sin(w * t / 1e3)).toFixed(1) + ' A']],
+    line: B => { const x = X(400, 0, 40); return { s: [{ x, y: x.map(t => Math.abs(B.Vpk * Math.sin(w * t / 1e3))), c: '--ch-v', w: 2.4 }, { x, y: x.map(t => Math.abs(Math.sin(w * t / 1e3)) * B.Vpk * .7), c: '--ch-i', w: 2.4 }], ax: Object.assign({ ymin: 0, ymax: B.Vpk * 1.15, yl: 'V', yt: 4 }, LINE), lg: [['|v<sub>s</sub>| (V)', '--ch-v'], ['|i<sub>s</sub>| (scaled)', '--ch-i']] }; } };
+  ST.boost = { n: 'Boost PFC switch + inductor', r: 'Duty d = 1 − |v<sub>s</sub>|/V<sub>o</sub> changes every switching period so the inductor current follows |v<sub>s</sub>|.', topic: 'boost-pfc', ch: 'Current shaped to a rectified sine; voltage stepped up to the DC link',
+    p: (B, t) => { const M = B.M, vs = Math.abs(B.Vpk * Math.sin(w * t / 1e3)), vo = vdcAt(B, t), d = Math.max(0, 1 - vs / vo), iL = Math.abs(B.Ipk * Math.sin(w * t / 1e3)), dI = vs * d / (M.Lpfc * M.fpfc); return { vs, vo, d, iL, dI }; },
+    read: (B, t) => { const p = ST.boost.p(B, t); return [['d', p.d.toFixed(2)], ['i<sub>L</sub>', p.iL.toFixed(1) + ' A'], ['ripple Δi<sub>L</sub>', p.dI.toFixed(1) + ' A pp']]; },
+    line: B => { const x = X(500, 0, 40), P = x.map(t => ST.boost.p(B, t)), k = 1 / (B.Ipk * 1.15); return { s: [{ x, y: P.map(p => p.d), c: '--ch-b', w: 2.4 }, { x, y: P.map(p => (p.iL + p.dI / 2) * k), c: '--ch-i', w: 1, fill: true, fillTo: 0 }, { x, y: P.map(p => Math.max(0, p.iL - p.dI / 2) * k), c: '--ch-i', w: 1 }, { x, y: P.map(p => p.iL * k), c: '--ch-i', w: 2.2 }], ax: Object.assign({ ymin: 0, ymax: 1.1, yl: 'duty / pu', yt: 4 }, LINE), lg: [['duty d(t)', '--ch-b'], ['i<sub>L</sub> with ripple band (pu)', '--ch-i']] }; },
+    zoom: (B, t0) => { const M = B.M, p = ST.boost.p(B, t0), x = X(800, 0, 100), Tn = 1e6 / M.fpfc; return { s: [{ x, y: x.map(u => frac(u / Tn) < p.d ? 0 : p.vo), c: '--ch-v', w: 2, step: false }, { x, y: x.map(u => { const f = frac(u / Tn); const il = f < p.d ? p.iL - p.dI / 2 + p.dI * f / Math.max(p.d, 1e-3) : p.iL + p.dI / 2 - p.dI * (f - p.d) / (1 - p.d); return il / (B.Ipk * 1.15) * p.vo; }), c: '--ch-i', w: 2.2 }], ax: { xmin: 0, xmax: 100, xl: `µs · ${(M.fpfc / 1e3).toFixed(0)} kHz switching`, xt: 5, ymin: -20, ymax: B.M.Vdc * 1.15, yl: 'V', yt: 4 }, lg: [['switch-node voltage (V)', '--ch-v'], ['i<sub>L</sub> (scaled)', '--ch-i']], note: `Switch ON (node at 0 V): i<sub>L</sub> rises with slope |v<sub>s</sub>|/L. OFF (node at V<sub>o</sub>): falls with (|v<sub>s</sub>| − V<sub>o</sub>)/L. Near the zero crossing d → 1; at the crest d is smallest (${(1 - B.Vpk / B.M.Vdc).toFixed(2)}).` }; } };
+  ST.grid3 = { n: 'Grid (three-phase AC)', r: 'Three sines 120° apart. Balanced currents in phase with their voltages.', topic: 'vsc3',
+    read: (B, t) => [['v<sub>a</sub>', (B.Vpk * Math.sin(w * t / 1e3)).toFixed(0) + ' V'], ['i<sub>a</sub>', (B.Ipk * Math.sin(w * t / 1e3)).toFixed(1) + ' A'], ['p(t)', kfmt(B.Pin) + 'W (constant)']],
+    line: B => { const x = X(400, 0, 40), s = []; [0, 1, 2].forEach(k => { s.push({ x, y: x.map(t => B.Vpk * Math.sin(w * t / 1e3 - k * T2 / 3)), c: '--ch-v', w: k ? 1 : 2.2, dash: k ? [4, 3] : null }); s.push({ x, y: x.map(t => .7 * B.Vpk * Math.sin(w * t / 1e3 - k * T2 / 3)), c: '--ch-i', w: k ? 1 : 2.2, dash: k ? [4, 3] : null }); }); return { s, ax: Object.assign({ ymin: -B.Vpk * 1.15, ymax: B.Vpk * 1.15, yl: 'V (phase)', yt: 4 }, LINE), lg: [['v<sub>a,b,c</sub>', '--ch-v'], [`i<sub>a,b,c</sub> (scaled, ${B.Ipk.toFixed(0)} A pk)`, '--ch-i']] }; } };
+  ST.vsc = { n: 'Three-phase active rectifier (VSC)', r: 'Six switches with sine PWM. Each leg\'s duty follows its phase; the dq current loop holds i<sub>q</sub> = 0 for unity PF.', topic: 'vsc3', ch: 'Three AC currents → one DC current; constant power, so no 100 Hz in the DC link',
+    m: B => B.Vpk / (B.M.Vdc / 2),
+    read: (B, t) => { const m = ST.vsc.m(B), a = w * t / 1e3; return [['m', m.toFixed(2)], ['d<sub>a</sub>', (.5 + .5 * m * Math.sin(a)).toFixed(2)], ['d<sub>b</sub>', (.5 + .5 * m * Math.sin(a - T2 / 3)).toFixed(2)], ['d<sub>c</sub>', (.5 + .5 * m * Math.sin(a + T2 / 3)).toFixed(2)]]; },
+    line: B => { const x = X(400, 0, 40), m = ST.vsc.m(B); return { s: [0, 1, 2].map(k => ({ x, y: x.map(t => .5 + .5 * m * Math.sin(w * t / 1e3 - k * T2 / 3)), c: ['--ch-v', '--ch-i', '--ch-d'][k], w: 2.2 })), ax: Object.assign({ ymin: 0, ymax: 1.05, yl: 'leg duty', yt: 4 }, LINE), lg: [['d<sub>a</sub>', '--ch-v'], ['d<sub>b</sub>', '--ch-i'], ['d<sub>c</sub>', '--ch-d']] }; },
+    zoom: (B, t0) => { const M = B.M, m = ST.vsc.m(B), a = w * t0 / 1e3, x = X(1000, 0, 100), car = u => tri(u * 1e-6 * M.fvsc); const leg = k => u => (m * Math.sin(a - k * T2 / 3) > car(u) ? 1 : 0); return { s: [0, 1, 2].map(k => ({ x, y: x.map(u => (2 - k) * 1.3 + leg(k)(u)), c: ['--ch-v', '--ch-i', '--ch-d'][k], w: 2 })), ax: { xmin: 0, xmax: 100, xl: `µs · ${M.fvsc / 1e3} kHz carrier`, xt: 5, ymin: -.2, ymax: 3.8, yl: 'pole a / b / c', yt: 1, yfmt: () => '' }, lg: [['pole a (0 or V<sub>dc</sub>)', '--ch-v'], ['pole b', '--ch-i'], ['pole c', '--ch-d']], note: 'Each pole switches between 0 and V<sub>dc</sub>. The pulse widths encode the three phase angles of this instant; the grid inductors filter the PWM into sinusoidal currents.' }; } };
+  ST.link = { n: 'DC link capacitor', r: 'Energy buffer between the line-frequency side and the HF side.', topic: 'pfc-stress', ch: 'Pulsating power in, constant power out: the capacitor absorbs the difference',
+    read: (B, t) => [['v<sub>dc</sub>', vdcAt(B, t).toFixed(1) + ' V'], ['ripple', B.M.ph === 1 ? B.dV.toFixed(1) + ' V pp @ 100 Hz' : '≈ 0 at 100 Hz']],
+    line: B => { const x = X(400, 0, 40), V = B.M.Vdc, r = Math.max(B.dV, 8); return { s: [{ x, y: x.map(t => vdcAt(B, t)), c: '--ch-v', w: 2.6 }], ax: Object.assign({ ymin: V - r * 1.2, ymax: V + r * 1.2, yl: 'V', yt: 4 }, LINE), ex: { h: [{ y: V, c: '--muted', t: '' }] }, lg: [['v<sub>dc</sub> (V), zoomed axis', '--ch-v']] }; },
+    zoom: (B, t0) => { const x = X(400, 0, 100), v = vdcAt(B, t0); return { s: [{ x, y: x.map(u => v + .4 * tri(u * 1e-6 * 2 * B.M.fdc)), c: '--ch-v', w: 2.4 }], ax: { xmin: 0, xmax: 100, xl: 'µs', xt: 5, ymin: v - 6, ymax: v + 6, yl: 'V', yt: 4 }, note: 'Seen over 100 µs the DC link is flat apart from a fraction of a volt of switching ripple.' }; } };
+  const psfbP = (B, t) => { const vdc = vdcAt(B, t), phi = phiAt(B, vdc), De = 1 - phi / 180; return { vdc, phi, De }; };
+  ST.inv = { n: 'HF full bridge + transformer (PSFB)', r: 'Chops the DC link into a 100 kHz quasi-square wave. The phase shift φ between the legs sets the output; the transformer isolates and scales by n.', topic: 'psfb', ch: 'DC → high-frequency AC (100 kHz) so a small transformer can isolate',
+    read: (B, t) => { const p = psfbP(B, t); return [['φ', p.phi.toFixed(0) + '°'], ['D<sub>eff</sub> = 1 − φ/180', p.De.toFixed(2)], ['n', B.M.n]]; },
+    line: B => { const x = X(400, 0, 40), P = x.map(t => psfbP(B, t)); return { s: [{ x, y: P.map(p => p.vdc), c: '--ch-v', w: 1, fill: true, fillTo: 0 }, { x, y: P.map(p => -p.vdc), c: '--ch-v', w: 1, fill: true, fillTo: 0 }, { x, y: P.map(p => p.phi / 180 * B.M.Vdc), c: '--ch-b', w: 2.4 }], ax: Object.assign({ ymin: -B.M.Vdc * 1.15, ymax: B.M.Vdc * 1.15, yl: 'V', yt: 4 }, LINE), lg: [['v<sub>AB</sub> envelope ±v<sub>dc</sub> (100 kHz inside)', '--ch-v'], ['φ (scaled: V<sub>dc</sub> ≡ 180°)', '--ch-b']], note2: B.M.ph === 1 ? 'φ rises and falls at 100 Hz: the DC-DC loop cancels the DC-link ripple so the battery sees a steady voltage.' : '' }; },
+    zoom: (B, t0) => { const M = B.M, p = psfbP(B, t0), x = X(1200, 0, 30), T = 1e6 / M.fdc, sh = (180 - p.phi) / 360, Io = B.Ib * M.n, loss = .03; const v = u => p.vdc * (sq(u / T) - sq(u / T - sh)) / 2; const ip = u => { const hp = 2 * frac(u / T), k = Math.floor(hp), f = hp - k, sgn = k ? -1 : 1; return f < loss ? sgn * Io * (-1 + 2 * f / loss) : sgn * Io; }; return { s: [{ x, y: x.map(v), c: '--ch-v', w: 2.2, fill: true }, { x, y: x.map(u => ip(u) / (Io * 1.2) * p.vdc * .8), c: '--ch-i', w: 2 }], ax: { xmin: 0, xmax: 30, xl: 'µs · 3 periods at 100 kHz', xt: 6, ymin: -M.Vdc * 1.15, ymax: M.Vdc * 1.15, yl: 'V', yt: 4 }, lg: [['v<sub>AB</sub> primary (V)', '--ch-v'], [`i<sub>p</sub> (scaled, ≈ ${Io.toFixed(0)} A)`, '--ch-i']], note: `Active for ${(p.De * 100).toFixed(0)} % of each half-period, zero (freewheeling) for the rest. The primary current reverses during the short duty-loss interval set by L<sub>lkg</sub>.` }; } };
+  ST.rect = { n: 'Output rectifier + LC filter', r: 'Rectifies the transformer secondary into pulses at 200 kHz; L<sub>o</sub>C<sub>o</sub> averages them.', topic: 'psfb', ch: 'HF AC → DC pulses → smooth DC',
+    read: (B, t) => { const p = psfbP(B, t); return [['pulse height n·v<sub>dc</sub>', (B.M.n * p.vdc).toFixed(0) + ' V'], ['average', (B.M.n * p.vdc * p.De).toFixed(0) + ' V']]; },
+    line: B => { const x = X(400, 0, 40), P = x.map(t => psfbP(B, t)); return { s: [{ x, y: P.map(p => B.M.n * p.vdc), c: '--ch-x', w: 1, fill: true, fillTo: 0 }, { x, y: P.map(p => B.M.n * p.vdc * p.De), c: '--ch-d', w: 2.6 }], ax: Object.assign({ ymin: 0, ymax: B.M.n * B.M.Vdc * 1.2, yl: 'V', yt: 4 }, LINE), lg: [['rectified pulses (envelope)', '--ch-x'], ['filtered average = V<sub>bat</sub>', '--ch-d']] }; },
+    zoom: (B, t0) => { const M = B.M, p = psfbP(B, t0), x = X(1200, 0, 30), T = 1e6 / M.fdc, h2 = T / 2, Vp = M.n * p.vdc, dI = B.Vb * (1 - p.De) / (M.Lo * 2 * M.fdc); const vr = u => frac(u / h2) < p.De ? Vp : 0; const iL = u => { const f = frac(u / h2); return f < p.De ? B.Ib - dI / 2 + dI * f / p.De : B.Ib + dI / 2 - dI * (f - p.De) / (1 - p.De); }; return { s: [{ x, y: x.map(vr), c: '--ch-x', w: 2, fill: true }, { x, y: x.map(u => iL(u) / (B.Ib * 1.3) * Vp * .9), c: '--ch-i', w: 2.2 }, { x, y: x.map(() => B.Vb), c: '--ch-d', w: 2, dash: [5, 3] }], ax: { xmin: 0, xmax: 30, xl: 'µs (pulses at 2 × 100 kHz)', xt: 6, ymin: 0, ymax: Vp * 1.15, yl: 'V', yt: 4 }, lg: [['rectified voltage', '--ch-x'], [`i<sub>Lo</sub> (scaled, ${B.Ib.toFixed(0)} A, ${dI.toFixed(1)} A pp)`, '--ch-i'], ['V<sub>bat</sub>', '--ch-d']], note: 'The filter inductor current ramps up while the pulse is present and down during the gap; its average is the battery current.' }; } };
+  ST.dab = { n: 'DAB module (2 active bridges + transformer)', r: 'Both bridges switch square waves; the phase shift δ between them pushes power through the series inductance. Bidirectional (V2G).', topic: 'dab', ch: 'DC → HF AC → DC, isolated, with power set by δ',
+    read: B => { const q = dabDelta(B); return [['δ', (q.d * 180 / Math.PI).toFixed(1) + '°'], ['per module', kfmt(q.P) + 'W'], ['V<sub>bat</sub>/n', q.Vs.toFixed(0) + ' V']]; },
+    line: B => { const x = X(400, 0, 40), q = dabDelta(B); return { s: [{ x, y: x.map(() => B.M.Vdc), c: '--ch-v', w: 1, fill: true, fillTo: 0 }, { x, y: x.map(() => -B.M.Vdc), c: '--ch-v', w: 1, fill: true, fillTo: 0 }, { x, y: x.map(() => q.d * 180 / Math.PI / 90 * B.M.Vdc), c: '--ch-b', w: 2.4 }], ax: Object.assign({ ymin: -B.M.Vdc * 1.15, ymax: B.M.Vdc * 1.15, yl: 'V', yt: 4 }, LINE), lg: [['v<sub>p</sub> envelope (100 kHz inside)', '--ch-v'], ['δ (scaled: V<sub>dc</sub> ≡ 90°)', '--ch-b']], note2: 'Three-phase input gives constant power, so δ is constant over the line cycle.' }; },
+    zoom: B => { const M = B.M, q = dabDelta(B), x = X(1200, 0, 30), T = 1e6 / M.fdc, dl = q.d / T2; const vp = u => M.Vdc * sq(u / T), vs = u => q.Vs * sq(u / T - dl); let acc = 0; const I = x.map((u, i) => { if (i) acc += (vp(u) - vs(u)) / q.L * (x[1] - x[0]) * 1e-6; return acc; }); const per = Math.round(T / (x[1] - x[0])), seg = I.slice(0, per), mn = seg.reduce((a, b) => a + b, 0) / seg.length, Ii = I.map(v => v - mn), pk = Math.max(...Ii.map(Math.abs)); return { s: [{ x, y: x.map(vp), c: '--ch-v', w: 2 }, { x, y: x.map(vs), c: '--ch-b', w: 2, dash: [5, 3] }, { x, y: Ii.map(v => v / pk * M.Vdc * .8), c: '--ch-i', w: 2.4 }], ax: { xmin: 0, xmax: 30, xl: 'µs · 3 periods at 100 kHz', xt: 6, ymin: -M.Vdc * 1.15, ymax: M.Vdc * 1.15, yl: 'V', yt: 4 }, lg: [['v<sub>p</sub> primary bridge', '--ch-v'], ['v<sub>s</sub>′ secondary (referred)', '--ch-b'], [`i<sub>L</sub> (scaled, ${pk.toFixed(0)} A pk)`, '--ch-i']], note: 'Power flows from the leading bridge to the lagging one. Flip the sign of δ and power flows back to the grid (V2G).' }; } };
+  ST.dabout = { n: 'Secondary bridge + output filter', r: 'The secondary bridge rectifies (actively) the inductor current; the output capacitors and cable deliver smooth DC.', topic: 'dab', ch: 'HF current → DC current into the battery',
+    read: B => [['I<sub>out</sub> total', B.Ib.toFixed(0) + ' A'], ['per module', (B.Ib / B.M.mods).toFixed(0) + ' A']],
+    line: B => { const x = X(200, 0, 40); return { s: [{ x, y: x.map(() => B.Vb), c: '--ch-d', w: 2.6 }, { x, y: x.map(() => B.Ib / (B.Ib * 1.3) * B.Vb), c: '--ch-i', w: 2.2 }], ax: Object.assign({ ymin: 0, ymax: B.Vb * 1.25, yl: 'V', yt: 4 }, LINE), lg: [['V<sub>out</sub> (V)', '--ch-d'], [`I<sub>out</sub> (scaled, ${B.Ib.toFixed(0)} A)`, '--ch-i']] }; } };
+  ST.batt = { n: 'Battery + BMS', r: 'Sees steady DC. The BMS asks for current (CC) or voltage (CV).', topic: 'ev-system', ch: 'Smooth DC: chemical energy storage',
+    read: B => [['V<sub>bat</sub>', B.Vb.toFixed(0) + ' V'], ['I<sub>bat</sub>', B.Ib.toFixed(1) + ' A'], ['P', kfmt(B.Pb) + 'W'], ['phase', soc < .8 ? 'CC' : 'CV']],
+    line: B => { const x = X(200, 0, 40); return { s: [{ x, y: x.map(() => B.Vb), c: '--ch-d', w: 2.6 }, { x, y: x.map(() => B.Ib / (B.Ib * 1.3) * B.Vb), c: '--ch-i', w: 2.2 }], ax: Object.assign({ ymin: 0, ymax: B.Vb * 1.25, yl: 'V', yt: 4 }, LINE), lg: [['V<sub>bat</sub> (V)', '--ch-d'], [`I<sub>bat</sub> (scaled, ${B.Ib.toFixed(1)} A)`, '--ch-i']] }; } };
+  const CH = { ac1: ['grid1', 'bridge', 'boost', 'link', 'inv', 'rect', 'batt'], ac3: ['grid3', 'vsc', 'link', 'inv', 'rect', 'batt'], dc: ['grid3', 'vsc', 'link', 'dab', 'dabout', 'batt'] };
+  const ISO = { ac1: 'inv', ac3: 'inv', dc: 'dab' };
+  /* ------------------------------ controls ------------------------------ */
+  const top = h('div', { class: 'card' }); body.append(top);
+  segmented(top, Object.keys(MODES).map(k => [k, MODES[k].name]), mode, k => { mode = k; draw(); });
+  const vrow = h('div', { style: 'margin-top:10px' }); top.append(vrow);
+  segmented(vrow, [['line', 'Line-cycle view (40 ms)'], ['zoom', 'Switching zoom at the cursor (µs)']], view, k => { view = k; draw(); });
+  const angI = h('input', { type: 'range', min: 0, max: 359, value: th, 'aria-label': 'line angle' }), angO = h('output');
+  const socI = h('input', { type: 'range', min: 5, max: 99, value: soc * 100, 'aria-label': 'state of charge' }), socO = h('output');
+  const pb = h('button', { class: 'btn primary', onclick: () => { if (play) stop(); else { pb.textContent = '❚❚ Pause'; play = setInterval(() => { th = (th + 4) % 360; angI.value = th; draw(true); }, 70); } } }, '▶ Play line cycle');
+  const stop = () => { clearInterval(play); play = null; pb.textContent = '▶ Play line cycle'; };
+  onLeave(() => play && clearInterval(play));
+  top.append(h('div', { class: 'ctls' }, h('div', { class: 'ctl' }, h('label', {}, 'Line angle (cursor)'), angI, angO), h('div', { class: 'ctl' }, h('label', {}, 'Battery SOC'), socI, socO)), h('div', { class: 'nextprev', style: 'margin:6px 0 0;justify-content:flex-start' }, pb, h('button', { class: 'btn', onclick: () => go('simulator') }, 'Block-diagram simulator'), h('button', { class: 'btn', onclick: () => go('charger-states') }, 'States & faults →')));
+  angI.addEventListener('input', () => { th = +angI.value; draw(true); }); socI.addEventListener('input', () => { soc = +socI.value / 100; draw(); });
+  const host = h('div', { class: 'wchain' }); body.append(host);
+  const pwr = lab(body, 'Power balance over the line cycle', 'Instantaneous power at the grid, into the battery, and the difference that the DC-link capacitor must store and return.');
+  const pS = pwr.scope({ h: 200 }); pwr.legend([['p<sub>grid</sub>(t)', '--ch-v'], ['p<sub>battery</sub>', '--ch-d'], ['p<sub>capacitor</sub> = difference', '--ch-i']]); const pNote = pwr.add(h('p', { class: 'cap' }));
+  let rows = [];
+  function build() {
+    host.innerHTML = ''; rows = [];
+    const ids = CH[mode];
+    ids.forEach((id, i) => {
+      const g = ST[id];
+      if (i) host.append(h('div', { class: 'wstep' }, h('span', { class: 'warr' }), h('span', { html: id === 'link' && mode !== 'ac1' ? 'Constant three-phase power in and out: the capacitor only absorbs switching ripple' : g.ch || '' }), id === ISO[mode] ? h('span', { class: 'pill hot' }, 'galvanic isolation') : null));
+      const cv = h('canvas', { class: 'scope' }), ro = h('div', { class: 'wread' }), lg = h('div', { class: 'legend' }), nt = h('p', { class: 'cap' });
+      const card = h('section', { class: 'wrow' }, h('div', { class: 'wside' }, h('div', { class: 'wnum' }, String(i + 1)), h('h3', {}, g.n), h('p', { class: 'cap', html: g.r }), ro, h('button', { class: 'btn', onclick: () => go(g.topic) }, 'Topic page →')), h('div', { class: 'wplot' }, cv, lg, nt));
+      host.append(card);
+      rows.push({ id, g, S: new Scope(cv, { h: 170 }), ro, lg, nt });
+    });
+  }
+  let lastKey = '';
+  function draw(fast) {
+    const key = mode + view; if (key !== lastKey) { build(); lastKey = key; }
+    const B = base(), t = tms();
+    angO.textContent = th + '° · t = ' + t.toFixed(2) + ' ms'; socO.textContent = (soc * 100).toFixed(0) + ' %';
+    rows.forEach(r => {
+      r.ro.innerHTML = r.g.read(B, t).map(([k, v]) => `<div><small>${k}</small><b>${v}</b></div>`).join('');
+      const z = view === 'zoom' && r.g.zoom;
+      if (fast && !z && r.drawn) { r.S.draw(r.S.last.s, Object.assign({}, r.S.last.x, { v: cursor() })); return; }
+      const d = z ? r.g.zoom(B, t) : r.g.line(B);
+      r.S.set(Object.assign({ yfmt: null }, d.ax)); r.S.draw(d.s, Object.assign({}, d.ex || {}, z ? {} : { v: cursor() })); r.drawn = true;
+      r.lg.innerHTML = (d.lg || []).map(i => `<span style="--c:var(${i[1]})">${i[0]}</span>`).join('');
+      r.nt.innerHTML = view === 'zoom' && !r.g.zoom ? 'No switching inside this stage: the line-cycle view applies at any zoom.' : (z ? d.note || '' : d.note2 || '');
+    });
+    // power balance
+    const x = X(400, 0, 40), M = B.M, pg = t2 => M.ph === 1 ? 2 * B.Pin * Math.sin(w * t2 / 1e3) ** 2 : B.Pin, pmax = (M.ph === 1 ? 2.2 : 1.3) * B.Pin;
+    pS.set({ xmin: 0, xmax: 40, xt: 8, xl: 'time (ms)', ymin: M.ph === 1 ? -B.Pin * 1.2 : 0, ymax: pmax, yt: 4, yl: 'kW', yfmt: v => (v / 1000).toFixed(1) });
+    pS.draw([{ x, y: x.map(pg), c: '--ch-v', w: 2.4 }, { x, y: x.map(() => B.Pb), c: '--ch-d', w: 2.4 }, { x, y: x.map(t2 => pg(t2) * .97 - B.Pb / (.95 / .97)), c: '--ch-i', w: 2, fill: true }], { v: cursor() });
+    pNote.innerHTML = M.ph === 1 ? `Single-phase power is p(t) = 2P·sin²ωt: it swings between 0 and 2P at <b>100 Hz</b>. The capacitor takes the surplus near the crest and releases it near the zero crossing, giving <b>${B.dV.toFixed(1)} V pp</b> ripple on ${M.Vdc} V with ${(M.Cdc * 1e3).toFixed(1)} mF (ΔV<sub>pp</sub> = P/(2π f V<sub>o</sub> C)).` : 'Balanced three-phase power is constant, so the capacitor only handles switching ripple. This is why three-phase and DC chargers need far less DC-link capacitance per kW.';
+  }
+  draw();
+  H(body, `<h2>What each conversion does, in one line</h2>${TBL(['From', 'To', 'Done by', 'Why'], [['AC (50 Hz, bidirectional)', 'rectified, unidirectional', 'diode bridge or active rectifier', 'the DC side needs one polarity'], ['distorted current', 'sinusoidal current, PF ≈ 1', 'PFC current loop (boost / totem-pole / VSC)', 'grid codes (IEC 61000-3-2/-12) and less loss'], ['pulsating power (1-φ)', 'steady DC link', 'DC-link capacitor', 'store the 100 Hz energy swing'], ['DC', '100 kHz AC', 'full bridge (PSFB) / DAB', 'small transformer at high frequency'], ['primary side', 'secondary side', 'HF transformer', 'galvanic isolation and voltage matching'], ['HF AC', 'smooth DC at battery voltage', 'rectifier + LC filter', 'the battery needs DC with low ripple']])}
+  <p class="cap">Values are illustrative but realistic: 400 µH boost inductor at 65 kHz, 2 mF DC link, PSFB/DAB at 100 kHz, 96-cell (≈ 400 V) and 192-cell (≈ 800 V) packs. Losses are lumped (η ≈ 95 %). The zoom view freezes the line-frequency quantities at the cursor and shows a few switching periods.</p>`);
+} });
+
+;
+/* ===== Charger states, signals and fault injection ===== */
+page({ id: 'charger-states', mod: 'home', title: 'Charger states & fault injection', kw: 'state machine standby precharge charge fault hvil insulation imd rcd cp state e pp unplug derating can timeout ccs2 sequence cable check welding detection emergency stop', render(body) {
+  H(body, `<div class="crumb"><span>Whole-system view</span><span class="pill hot">Beyond the syllabus: how a real charger behaves</span></div><h1>Charger states, live signals and fault injection</h1>
+  <p class="lede">Run a charging session, then break it. The state machine on the left reacts to the plug, the pilot signal, the vehicle's request and to faults you inject. Every signal is recorded on a 20-second logic-analyser trace, and the log explains <b>why</b> each transition happened.</p>
+  <p class="cap">The <b>CP/PP levels, CCS2 message sequence, pre-charge limits and Ω/V insulation rule</b> follow IEC 61851-1/-23, ISO 15118/DIN 70121 and the course. The <b>on-board-charger internal states, timings and thresholds are a generic illustration</b> (every OEM names and tunes them differently); times are slowed down so you can watch them.</p>`);
+  let kind = 'ac', speed = 1, S, hist, logL, timers, tmr = null, evN = 0;
+  /* ------------------------------------------------ common helpers */
+  const LOG = (txt, lv = 'i') => { evN++; logL.unshift({ t: S.t, txt, lv, n: evN }); S.marks.push({ t: S.t, n: evN, lv }); renderLog(); };
+  const after = (dt, fn) => timers.push({ at: S.t + dt, fn });
+  const slew = (x, tgt, rate, dt) => x < tgt ? Math.min(tgt, x + rate * dt) : Math.max(tgt, x - rate * dt);
+  const Voc = s => 96 * (3.0 + 1.0 * s + .2 * Math.pow(s, 6)), VocDC = s => 2 * Voc(s);
+  /* ================================================= AC ON-BOARD CHARGER ============ */
+  const AC = {
+    states: { OFF: [120, 40], STANDBY: [120, 150], PRECHARGE: [270, 150], 'RAMP UP': [420, 150], CHARGE: [578, 150], 'RAMP DOWN': [578, 255], FAULT: [345, 262] },
+    edges: [['OFF', 'STANDBY', 'plug / PP valid'], ['STANDBY', 'OFF', 'unplug'], ['STANDBY', 'PRECHARGE', 'request + CP PWM'], ['PRECHARGE', 'RAMP UP', 'v_dc ≥ 90 %'], ['RAMP UP', 'CHARGE', 'output matched'], ['CHARGE', 'RAMP DOWN', 'stop / full'], ['RAMP DOWN', 'STANDBY', 'I = 0'], ['PRECHARGE', 'FAULT', ''], ['CHARGE', 'FAULT', 'fault'], ['FAULT', 'STANDBY', 'reset']],
+    init() { return { t: 0, st: 'OFF', plug: false, req: false, evsePWM: false, evseOK: true, cpShort: false, offer: 32, S2: false, K: false, grid: true, pre: false, byp: false, outR: false, pfc: false, vdc: 0, i: 0, temp: 35, cool: true, can: true, hvil: true, iso: true, preBroken: false, dump: false, soc: .45, fault: '', latched: false, why: '', tSt: 0, tK: null, tPWM: null, canLost: null, fast: false, marks: [] }; },
+    cp() { if (!S.plug) return { hi: S.grid ? 12 : 0, lo: S.grid ? 12 : 0, d: 0, L: S.grid ? 'A' : 'E' }; if (S.cpShort || !S.grid) return { hi: 0, lo: 0, d: 0, L: 'E' }; const hi = S.S2 ? 6 : 9; return S.evsePWM ? { hi, lo: -12, d: C.ampToDuty(S.offer), L: (S.S2 ? 'C' : 'B') + '2' } : { hi, lo: hi, d: 0, L: (S.S2 ? 'C' : 'B') + '1' }; },
+    go(st, why, lv) { if (S.st === st) return; S.st = st; S.tSt = S.t; S.why = why || ''; LOG(`→ <b>${st}</b>${why ? ': ' + why : ''}`, lv || (st === 'FAULT' ? 'f' : 'i')); },
+    fault(msg, latched = true) { S.i = 0; S.pfc = false; S.outR = false; S.byp = false; S.pre = false; S.S2 = false; S.fault = msg; S.latched = latched; AC.go('FAULT', msg + (latched ? ' (latched: fix it, then Reset)' : ' (auto-recovers)'), 'f'); },
+    step(dt) {
+      const cp = AC.cp(), Vb = Voc(S.soc), Vac = 230 * Math.SQRT2, active = ['PRECHARGE', 'RAMP UP', 'CHARGE', 'RAMP DOWN'].includes(S.st);
+      /* --- EVSE (station) behaviour --- */
+      if (S.plug && S.evseOK && !S.cpShort && S.grid) { if (!S.evsePWM && S.tPWM == null) { S.tPWM = S.t + 1; } if (!S.evsePWM && S.tPWM != null && S.t >= S.tPWM) { S.evsePWM = true; LOG(`EVSE: CP state B1 → <b>B2</b>, PWM ${C.ampToDuty(S.offer).toFixed(0)} % = ${S.offer} A available`); } }
+      else { if (S.evsePWM && !S.plug) LOG('EVSE: plug removed → CP back to +12 V (state A)'); else if (S.evsePWM) LOG(!S.grid ? 'EVSE: no utility power → CP 0 V (<b>state E</b>), contactor open' : S.cpShort ? 'EVSE: CP at 0 V = <b>state E</b> (CP shorted to PE) → stops PWM, opens contactor' : 'EVSE: not available → stops PWM, opens contactor', 'w'); S.evsePWM = false; S.tPWM = null; }
+      const wantK = S.evsePWM && cp.hi === 6;
+      if (wantK && !S.K) { if (S.tK == null) S.tK = S.t + .3; else if (S.t >= S.tK) { S.K = true; LOG('EVSE: CP = <b>C2</b> (+6 V) → AC contactor closes'); } }
+      if (!wantK) { if (S.K) LOG('EVSE: AC contactor opens', 'i'); S.K = false; S.tK = null; }
+      const acIn = S.K && S.grid;
+      /* --- physics --- */
+      if (acIn && S.pre && !S.byp) S.vdc += ((S.preBroken ? 25 : Vac) - S.vdc) * dt / .25;
+      else if (acIn && S.byp && S.pfc) S.vdc = slew(S.vdc, 400, 220, dt);
+      else S.vdc = Math.max(0, S.vdc - S.vdc * dt / (S.st === 'FAULT' || S.st === 'STANDBY' || S.st === 'OFF' ? .35 : 1.2));
+      if (S.dump && S.outR) S.vdc = Math.min(520, S.vdc + 900 * dt);
+      const Imax = 7400 * .93 / Vb, Iac = S.offer * 230 * .93 / Vb, derate = S.temp < 75 ? 1 : Math.max(0, (90 - S.temp) / 15);
+      let tgt = 0;
+      if (S.st === 'CHARGE') { tgt = Math.min(Imax, Iac) * derate; if (S.soc > .8) tgt *= Math.max(.06, Math.exp(-(S.soc - .8) / .07)); }
+      S.i = S.st === 'FAULT' || !acIn && S.st !== 'RAMP DOWN' ? 0 : slew(S.i, tgt, S.fast ? 2000 : (S.st === 'RAMP DOWN' ? 40 : 12), dt);
+      if (S.st === 'CHARGE') S.soc = Math.min(1, S.soc + S.i / Imax * .006 * dt);
+      const heat = S.i / Imax; S.temp = S.cool ? S.temp + ((38 + 30 * heat) - S.temp) * dt / 6 : S.temp + (1.2 + 3 * heat) * dt;
+      /* --- OBC state machine --- */
+      const fl = !S.hvil ? 'HVIL loop open (a HV connector or cover is open)' : !S.iso ? 'Insulation fault: HV-to-chassis resistance too low' : S.vdc > 470 ? 'Output / DC-link over-voltage (load dump)' : S.temp > 90 ? 'Over-temperature (> 90 °C)' : '';
+      if (fl && S.st !== 'FAULT' && (active || S.st === 'STANDBY')) { if (fl.startsWith('Over-t')) AC.fault(fl, false); else AC.fault(fl, true); }
+      if (S.can) S.canLost = null; else if (S.canLost == null) S.canLost = S.t;
+      switch (S.st) {
+        case 'OFF': if (S.plug) AC.go('STANDBY', 'PP resistor detected → OBC wakes up, self-test'); break;
+        case 'STANDBY':
+          S.S2 = false; S.pre = S.byp = S.pfc = S.outR = false;
+          if (!S.plug) { if (S.t - S.tSt > .5) AC.go('OFF', 'plug removed → sleep'); break; }
+          if (S.req && S.evsePWM && S.can && S.hvil && S.iso && S.temp < 70 && S.t - S.tSt > .6) { S.S2 = true; AC.go('PRECHARGE', 'charge requested, CP PWM valid, checks passed → EV closes S2'); }
+          break;
+        case 'PRECHARGE':
+          S.S2 = true; if (S.K && !S.pre && !S.byp) { S.pre = true; S.tPre = S.t; LOG('OBC: pre-charge relay closes (inrush limited by resistor)'); }
+          if (!S.evsePWM) { AC.go('STANDBY', 'CP PWM lost'); break; }
+          if (S.pre && S.vdc > .9 * Vac) { S.byp = true; S.pre = false; LOG('OBC: bypass relay closes, pre-charge resistor shorted'); S.pfc = true; AC.go('RAMP UP', 'DC link pre-charged to ' + S.vdc.toFixed(0) + ' V'); }
+          else if (S.pre && S.t - S.tPre > 2.5) AC.fault('Pre-charge timeout: DC link stuck at ' + S.vdc.toFixed(0) + ' V', true);
+          if (!S.req) AC.go('RAMP DOWN', 'request withdrawn');
+          break;
+        case 'RAMP UP':
+          if (!acIn) { AC.go('STANDBY', 'AC input lost during start-up'); break; }
+          if (S.vdc > 395 && !S.outR) { S.outR = true; LOG(`OBC: PFC at 400 V; DC-DC soft-starts, output relay closes at |V<sub>out</sub> − V<sub>bat</sub>| &lt; 5 V`); AC.go('CHARGE', 'power stage running'); }
+          break;
+        case 'CHARGE':
+          if (!acIn) { S.i = 0; S.pfc = false; S.outR = false; S.byp = false; AC.go('STANDBY', S.grid ? 'AC contactor opened by EVSE' : 'grid outage: AC under-voltage → stop, wait for grid', 'w'); break; }
+          if (!S.req) { AC.go('RAMP DOWN', 'stop requested by vehicle (HCU/BMS)'); break; }
+          if (S.soc >= .995) { S.req = false; AC.go('RAMP DOWN', 'battery full (CV current below cut-off)'); break; }
+          if (S.canLost != null && S.t - S.canLost > .5) { AC.go('RAMP DOWN', 'CAN timeout: no command from HCU for 0.5 s', 'w'); break; }
+          if (S.temp >= 75 && !S.derLog) { S.derLog = 1; LOG('Thermal derating: current limited linearly 75 → 90 °C', 'w'); } if (S.temp < 72) S.derLog = 0;
+          break;
+        case 'RAMP DOWN':
+          if (S.i < .3) { S.i = 0; S.outR = false; S.pfc = false; S.byp = false; S.S2 = false; S.fast = false; LOG('OBC: output relay opens, EV opens S2 (CP back to +9 V)'); AC.go('STANDBY', 'current at zero'); }
+          break;
+        case 'FAULT':
+          S.S2 = false; S.i = 0;
+          if (!S.latched && S.temp < 65) { S.fault = ''; AC.go('STANDBY', 'temperature back below 65 °C → recover'); }
+          break;
+      }
+      if (S.cpShort && active) { S.i = 0; }
+    },
+    lanes: [
+      { n: 'State', k: 'state' },
+      { n: 'CP pin', k: 'cp' },
+      { n: 'PP / plug', k: 'dig', f: s => s.plug, c: '--ch-x' },
+      { n: 'S2 (EV)', k: 'dig', f: s => s.S2, c: '--ch-b' },
+      { n: 'AC contactor', k: 'dig', f: s => s.K, c: '--ch-v' },
+      { n: 'Pre-charge rly', k: 'dig', f: s => s.pre, c: '--warn' },
+      { n: 'Bypass rly', k: 'dig', f: s => s.byp, c: '--ch-d' },
+      { n: 'Output rly', k: 'dig', f: s => s.outR, c: '--ch-d' },
+      { n: 'DC link', k: 'ana', f: s => s.vdc, min: 0, max: 520, u: 'V', c: '--ch-v', ref: [[325, '√2·230'], [400, '400']] },
+      { n: 'I to battery', k: 'ana', f: s => s.i, min: 0, max: 22, u: 'A', c: '--ch-i' },
+      { n: 'Temperature', k: 'ana', f: s => s.temp, min: 20, max: 100, u: '°C', c: '--bad', ref: [[75, 'derate'], [90, 'trip']] }
+    ],
+    events: [
+      ['plug', 'Plug in', () => { if (!S.plug) { S.plug = true; LOG('Cable plugged: PP resistor 220 Ω → 32 A cable'); } }],
+      ['req', 'Request charge (HCU)', () => { S.req = true; LOG('HCU/BMS: charge request = 1'); }],
+      ['stop', 'Stop charge', () => { S.req = false; LOG('HCU/BMS: charge request = 0'); }],
+      ['unplug', 'Unplug', () => { if (!S.plug) return; if (['PRECHARGE', 'RAMP UP', 'CHARGE'].includes(S.st)) { LOG('Plug release pressed: PP changes → OBC forces current to 0 before the pins separate', 'w'); S.req = false; S.fast = true; AC.go('RAMP DOWN', 'PP change detected'); after(.4, () => { S.plug = false; LOG('Plug removed'); }); } else { S.plug = false; S.req = false; LOG('Plug removed'); } }],
+      ['offer', 'EVSE lowers offer to 16 A', () => { S.offer = S.offer === 32 ? 16 : 32; LOG(`EVSE changes PWM to ${C.ampToDuty(S.offer).toFixed(1)} % → ${S.offer} A (load management)`); }]
+    ],
+    faults: [
+      ['hvil', 'HVIL open', s => !s.hvil, v => { S.hvil = !v; LOG(v ? 'Injected: HVIL loop broken' : 'HVIL loop restored', v ? 'f' : 'i'); }, 'Interlock wire through every HV connector. Open loop → gates blocked and relays opened within milliseconds, latched.'],
+      ['iso', 'Insulation fault', s => !s.iso, v => { S.iso = !v; LOG(v ? 'Injected: HV+ to chassis resistance drops (IMD alarm)' : 'Insulation restored', v ? 'f' : 'i'); }, 'Vehicle insulation monitor sees low R between HV and chassis → shock risk → shutdown, latched.'],
+      ['rcd', 'RCD trip (EVSE)', s => !s.evseOK, v => { S.evseOK = !v; LOG(v ? 'Injected: residual current > 30 mA AC / 6 mA DC → EVSE RCD trips' : 'EVSE reset by operator', v ? 'f' : 'i'); }, 'Protection is in the station. The OBC only sees its AC input disappear.'],
+      ['cpE', 'CP short to PE', s => s.cpShort, v => { S.cpShort = v; LOG(v ? 'Injected: CP shorted to PE (0 V)' : 'CP short removed', v ? 'f' : 'i'); }, 'CP at 0 V is state E. The EVSE must stop and open its contactor.'],
+      ['grid', 'Grid outage', s => !s.grid, v => { S.grid = !v; LOG(v ? 'Injected: grid outage' : 'Grid restored: charging resumes automatically if still requested', v ? 'w' : 'i'); }, 'Not a fault of the charger: it stops, waits and restarts by itself.'],
+      ['cool', 'Coolant pump failure', s => !s.cool, v => { S.cool = !v; LOG(v ? 'Injected: coolant flow lost, heatsink heating up' : 'Cooling restored', v ? 'w' : 'i'); }, 'Watch the temperature: derating from 75 °C, trip at 90 °C, recovery below 65 °C.'],
+      ['can', 'CAN timeout', s => !s.can, v => { S.can = !v; LOG(v ? 'Injected: HCU messages stop arriving' : 'CAN messages back', v ? 'w' : 'i'); }, 'No valid command for longer than the timeout → controlled stop, not a hard trip.'],
+      ['pre', 'Broken pre-charge resistor', s => s.preBroken, v => { S.preBroken = v; LOG(v ? 'Injected: pre-charge path open' : 'Pre-charge path repaired', v ? 'w' : 'i'); }, 'DC link never reaches its threshold → pre-charge timeout fault. Try it before requesting charge.'],
+      ['dump', 'Battery contactor opens (load dump)', s => s.dump, v => { S.dump = v; LOG(v ? 'Injected: HV battery disconnected under load' : 'Battery reconnected', v ? 'f' : 'i'); }, 'The output loses its load, energy in the inductors pumps the voltage up → over-voltage trip.']
+    ],
+    reset() { if (S.st === 'FAULT' && S.latched) { const still = !S.hvil || !S.iso || S.vdc > 470 || S.dump; if (still) { LOG('Reset refused: fault condition still present', 'w'); return; } S.fault = ''; S.latched = false; AC.go('STANDBY', 'latched fault cleared by reset'); } },
+    script: [[0, 'plug'], [2, 'req'], [16, 'stop'], [19, 'unplug']],
+    info: {
+      OFF: ['Sleeping, only wake-up circuits powered.', 'Wake sources: PP (plug inserted), CP edge, CAN wake-up, ignition.', 'PP valid → STANDBY.'],
+      STANDBY: ['Awake, all relays open, power stage off. Reads PP (cable rating), CP (state, duty → current), HVIL, insulation, temperatures, CAN.', 'Conditions to start: charge request from HCU/BMS, CP in B2 with valid duty, no faults, temperature OK.', 'Start → PRECHARGE (EV closes S2) · unplug → OFF.'],
+      PRECHARGE: ['EV closed S2 → CP = +6 V (C2) → EVSE closes its contactor. The DC-link capacitor charges through a resistor to ≈ √2·230 = 325 V so the inrush current stays small.', 'Watches: v<sub>dc</sub> rising, timeout.', 'v<sub>dc</sub> ≥ 90 % of peak → bypass relay closes → RAMP UP · timeout → FAULT.'],
+      'RAMP UP': ['PFC starts and boosts the DC link to 400 V, then the DC-DC soft-starts and matches the battery voltage before the output relay closes.', 'Watches: v<sub>dc</sub> regulation, output-voltage match.', 'Matched → CHARGE.'],
+      CHARGE: ['Power flows. Current limit = min(CP offer, OBC rating, BMS CC/CV request, thermal derating).', 'Watches: HVIL, insulation, over-voltage, temperature, CAN timeout, CP/PP, AC input.', 'Stop / full / CAN timeout → RAMP DOWN · hard fault → FAULT · AC lost → STANDBY.'],
+      'RAMP DOWN': ['Current is ramped to zero before any relay opens (relays must not break DC current). Then S2 opens and the EVSE opens its contactor.', 'Watches: current = 0.', '→ STANDBY.'],
+      FAULT: ['Gates blocked, all relays open, S2 open. The fault is stored with a diagnostic code.', 'Latched faults (HVIL, insulation, over-voltage, pre-charge) need the cause removed and a reset. Over-temperature recovers by itself.', 'Reset / recovery → STANDBY.']
+    }
+  };
+  /* ================================================= DC FAST CHARGING (CCS2) ============ */
+  const SEQ = ['A', 'B1', 'SLAC', 'SDP + TLS', 'Session & auth', 'ChargeParam', 'CableCheck', 'PreCharge', 'CurrentDemand', 'PowerDelivery stop', 'WeldingDetection', 'SessionStop', 'ABORT'];
+  const DUR = { SLAC: 1.6, 'SDP + TLS': .8, 'Session & auth': 1.2, ChargeParam: .7, CableCheck: 2.2, WeldingDetection: 1.2, SessionStop: .6 };
+  const DC = {
+    states: Object.fromEntries(SEQ.map((n, i) => n === 'ABORT' ? [n, [375, 270]] : [n, i < 6 ? [62 + i * 125, 45] : [687 - (i - 6) * 125, 160]])),
+    edges: SEQ.slice(0, 11).map((n, i) => [n, SEQ[i + 1], '']).concat([['SessionStop', 'B1', ''], ['CurrentDemand', 'ABORT', 'fault'], ['CableCheck', 'ABORT', ''], ['PreCharge', 'ABORT', '']]),
+    init() { return { t: 0, st: 'A', plug: false, pwm5: false, plc: false, S2: false, v: 0, i: 0, evK: false, imd: 5000, temp: 35, soc: .3, isoBad: false, plcLost: false, estop: false, welded: false, preFail: false, req: false, tSt: 0, why: '', fault: '', marks: [], vEV: 0 }; },
+    go(st, why, lv) { if (S.st === st) return; S.st = st; S.tSt = S.t; S.why = why || ''; LOG(`→ <b>${st}</b>${why ? ': ' + why : ''}`, lv || (st === 'ABORT' ? 'f' : 'i')); },
+    abort(msg) { S.i = 0; S.fault = msg; S.req = false; DC.go('ABORT', msg, 'f'); after(.4, () => { S.evK = false; LOG('EV opens its DC contactors (current already zero)', 'w'); }); },
+    cp() { if (!S.plug) return { hi: 12, lo: 12, d: 0, L: 'A' }; const hi = S.S2 ? 6 : 9; return S.pwm5 ? { hi, lo: -12, d: 5, L: (S.S2 ? 'C' : 'B') + '2' } : { hi, lo: hi, d: 0, L: (S.S2 ? 'C' : 'B') + '1' }; },
+    step(dt) {
+      const Vb = VocDC(S.soc), el = S.t - S.tSt, Ibat = Math.min(300, 150000 / Math.max(Vb, 1));
+      S.imd = S.isoBad ? 40 : 5000; // kΩ, 800 V system → 100 Ω/V = 80 kΩ
+      if (!S.estop) S.estopHit = false; if (S.estop && !S.estopHit && !['A', 'B1', 'ABORT', 'SessionStop', 'WeldingDetection'].includes(S.st)) { S.estopHit = true; S.i = 0; S.v = 0; DC.abort('Emergency stop pressed at the station: output disabled immediately'); }
+      if (S.plcLost && S.plc) { S.plc = false; LOG('PLC link lost (no V2G message within timeout)', 'w'); if (['CurrentDemand', 'PreCharge', 'CableCheck'].includes(S.st)) DC.abort('Communication timeout: EVSE shuts down output'); }
+      switch (S.st) {
+        case 'A': S.v = 0; if (S.plug) DC.go('B1', 'plug detected: CP +9 V (no PWM yet)'); break;
+        case 'B1': if (!S.plug) { DC.go('A', 'unplugged'); break; } if (el > .8 && !S.plcLost && !S.estop && !S.done) { S.pwm5 = true; DC.go('SLAC', 'EVSE sets <b>5 % PWM</b> = digital communication; state B2. SLAC starts'); } break;
+        case 'SLAC': if (S.plcLost) { if (el > 3) DC.abort('SLAC failed: no matching response'); break; } if (el > DUR.SLAC) { S.plc = true; LOG('SLAC: 3 × CM_START_ATTEN_CHAR, 10 M-SOUNDs × 58 groups → lowest attenuation EVSE chosen, logical link set'); DC.go('SDP + TLS', 'IPv6 link-local (SLAAC), UDP SDP request → SECC IP/port, TCP (+ TLS) socket'); } break;
+        case 'SDP + TLS': if (el > DUR['SDP + TLS']) DC.go('Session & auth', 'SupportedAppProtocol, SessionSetup, ServiceDiscovery, Authorization (EIM/PnC)'); break;
+        case 'Session & auth': if (el > DUR['Session & auth']) DC.go('ChargeParam', 'ChargeParameterDiscovery: EV max V/I, EVSE limits exchanged'); break;
+        case 'ChargeParam': if (el > DUR.ChargeParam) { S.S2 = true; DC.go('CableCheck', 'EV closes S2 → CP +6 V (C2). EVSE tests insulation of the cable at elevated voltage'); } break;
+        case 'CableCheck': S.v = el < 1.4 ? Math.min(500, S.v + 700 * dt) : slew(S.v, 0, 900, dt);
+          if (el > .8 && S.imd < 80) { DC.abort(`CableCheck failed: insulation ${S.imd} kΩ &lt; 100 Ω/V × 800 V = 80 kΩ`); break; }
+          if (el > DUR.CableCheck) DC.go('PreCharge', 'insulation OK. EVSE matches battery voltage with I ≤ 2 A'); break;
+        case 'PreCharge': S.v = slew(S.v, S.preFail ? Vb - 60 : Vb, 450, dt); S.i = Math.min(2, S.i + 4 * dt);
+          if (Math.abs(S.v - Vb) < 20 && el > .6) { S.evK = true; S.i = 0; LOG(`|V<sub>EVSE</sub> − V<sub>bat</sub>| = ${Math.abs(S.v - Vb).toFixed(0)} V &lt; 20 V → EV closes its DC contactors`); DC.go('CurrentDemand', 'PowerDelivery(start). EV sends CurrentDemandReq every ~100 ms'); S.req = true; }
+          else if (el > 3) DC.abort('PreCharge timeout: EVSE could not reach the battery voltage within 20 V'); break;
+        case 'CurrentDemand': { S.v = Vb + S.i * .02; let tgt = Ibat; if (S.soc > .8) tgt *= Math.max(.05, Math.exp(-(S.soc - .8) / .07)); if (S.temp > 80) tgt *= Math.max(.2, (95 - S.temp) / 15);
+          S.i = slew(S.i, S.req ? tgt : 0, 150, dt); S.soc = Math.min(1, S.soc + S.i / 300 * .01 * dt); S.temp += ((40 + 45 * (S.i / 300) ** 2 * (S.hot ? 2.2 : 1)) - S.temp) * dt / 4;
+          if (S.imd < 80) { DC.abort('Insulation fault during charging → emergency shutdown'); break; }
+          if (S.soc >= .99) S.req = false;
+          if (!S.req) DC.go('PowerDelivery stop', S.soc >= .99 ? 'target SOC reached' : 'stop requested'); break; }
+        case 'PowerDelivery stop': S.i = slew(S.i, 0, 400, dt); if (S.i === 0) { S.evK = false; DC.go('WeldingDetection', 'current zero → EV opens contactors, then checks that the inlet voltage collapses'); } break;
+        case 'WeldingDetection': S.v = S.welded ? Vb : slew(S.v, 0, 600, dt); if (el > DUR.WeldingDetection) { if (S.welded) { DC.abort('WeldingDetection: inlet still at ' + Vb.toFixed(0) + ' V → an EV contactor is <b>welded</b>. Error stored; the vehicle must not treat the inlet as dead'); break; } DC.go('SessionStop', 'SessionStopReq, TCP closed'); } break;
+        case 'SessionStop': if (el > DUR.SessionStop) { S.S2 = false; S.pwm5 = false; S.plc = false; S.done = true; DC.go('B1', 'EV opens S2, EVSE stops PWM. Safe to unplug'); } break;
+        case 'ABORT': S.i = 0; S.v = S.welded && S.fault.startsWith('Welding') ? Vb : slew(S.v, 0, 600, dt); if (el > 1.2 && S.S2) { S.S2 = false; S.pwm5 = false; LOG('EV opens S2; session ended with error code'); } if (!S.plug) DC.go('A', 'unplugged after error'); break;
+      }
+      if (S.st !== 'CurrentDemand') S.temp += (35 - S.temp) * dt / 8;
+    },
+    lanes: [
+      { n: 'State', k: 'state' },
+      { n: 'CP pin', k: 'cp' },
+      { n: 'PLC link', k: 'dig', f: s => s.plc, c: '--ch-x' },
+      { n: 'S2 (EV)', k: 'dig', f: s => s.S2, c: '--ch-b' },
+      { n: 'EV contactors', k: 'dig', f: s => s.evK, c: '--ch-d' },
+      { n: 'EVSE V out', k: 'ana', f: s => s.v, min: 0, max: 900, u: 'V', c: '--ch-v', ref: [[500, 'cable check']] },
+      { n: 'Current', k: 'ana', f: s => s.i, min: 0, max: 320, u: 'A', c: '--ch-i' },
+      { n: 'Insulation', k: 'ana', f: s => Math.min(s.imd, 400), min: 0, max: 400, u: 'kΩ', c: '--ch-x', ref: [[80, '100 Ω/V']] },
+      { n: 'Connector T', k: 'ana', f: s => s.temp, min: 20, max: 100, u: '°C', c: '--bad', ref: [[80, 'derate']] }
+    ],
+    events: [
+      ['plug', 'Plug in', () => { if (!S.plug) { S.plug = true; LOG('CCS2 connector plugged, latched'); } }],
+      ['stop', 'Stop (EV request)', () => { if (S.st === 'CurrentDemand') { S.req = false; LOG('EV: ChargeProgress = Stop'); } }],
+      ['unplug', 'Unplug', () => { if (!S.plug) return; if (!['A', 'B1', 'ABORT'].includes(S.st)) { LOG('Connector is locked during the session: stop first', 'w'); return; } S.plug = false; S.S2 = false; S.pwm5 = false; S.done = false; LOG('Connector removed'); }]
+    ],
+    faults: [
+      ['iso', 'Insulation fault', s => s.isoBad, v => { S.isoBad = v; LOG(v ? 'Injected: DC+ to PE insulation 40 kΩ' : 'Insulation restored', v ? 'f' : 'i'); }, 'Inject before CableCheck → session never energises. Inject during charging → emergency shutdown.'],
+      ['plc', 'PLC comms lost', s => s.plcLost, v => { S.plcLost = v; if (!v && S.plug && ['B1'].includes(S.st)) LOG('PLC available again'); else if (v) LOG('Injected: PLC modem stops responding', 'w'); }, 'Without CurrentDemand messages the EVSE must stop output: no blind charging.'],
+      ['estop', 'Emergency stop', s => s.estop, v => { S.estop = v; if (v) LOG('Injected: mushroom button pressed', 'f'); }, 'Hardware path: output off immediately, no handshake.'],
+      ['pre', 'EVSE cannot match voltage', s => s.preFail, v => { S.preFail = v; LOG(v ? 'Injected: EVSE voltage regulation limited (60 V short)' : 'Regulation fixed', v ? 'w' : 'i'); }, 'ΔV never falls below 20 V → PreCharge timeout. Contactors never close on a big voltage step.'],
+      ['weld', 'Welded EV contactor', s => s.welded, v => { S.welded = v; LOG(v ? 'Injected: one EV contactor will stay closed' : 'Contactor replaced', v ? 'f' : 'i'); }, 'Only visible at the end: WeldingDetection sees battery voltage on the inlet.'],
+      ['hot', 'Hot connector pin', s => s.hot, v => { S.hot = v; LOG(v ? 'Injected: high contact resistance in a DC pin' : 'Pin cleaned', v ? 'w' : 'i'); }, 'Pin temperature sensors in the connector → current derating instead of a trip.']
+    ],
+    reset() { if (S.st === 'ABORT') { LOG('Unplug and plug again to start a new session', 'i'); } },
+    script: [[0, 'plug'], [21, 'stop'], [27.5, 'unplug']],
+    info: {
+      A: ['Unplugged. CP at +12 V.', '', 'Plug → B1.'],
+      B1: ['Plugged, CP +9 V. EVSE not yet signalling.', '', 'EVSE sets 5 % PWM → B2 / SLAC.'],
+      SLAC: ['<b>Data-link layer.</b> Signal Level Attenuation Characterization: the EV sounds all EVSEs on the shared cable bundle and joins the one with the lowest attenuation.', '3 START_ATTEN_CHAR, 10 M-SOUND, 58 groups.', '→ SDP.'],
+      'SDP + TLS': ['<b>Network/transport/application.</b> SLAAC gives the IPv6 address; SDP (UDP) finds the SECC; a TCP (optionally TLS) connection opens.', '', '→ session.'],
+      'Session & auth': ['<b>Application layer (EXI-encoded).</b> Protocol agreed, session ID, services, payment: external ID or Plug & Charge certificates.', '', '→ ChargeParameterDiscovery.'],
+      ChargeParam: ['Limits exchanged: EV max voltage/current, EVSE max/min voltage/current/power.', '', 'EV closes S2 → C2 → CableCheck.'],
+      CableCheck: ['EVSE raises its output (here 500 V) and measures insulation to PE with its IMD. Must be above the Ω/V threshold (IEC 61851-23).', 'Insulation, output voltage.', 'OK → PreCharge · fail → abort.'],
+      PreCharge: ['EVSE regulates its output to the battery voltage with the current limited to 2 A. EV closes its contactors only when the difference is below 20 V.', 'ΔV, timeout.', 'ΔV < 20 V → contactors close → CurrentDemand.'],
+      CurrentDemand: ['Charging. The EV (BMS) is the master: it sends target current/voltage ~10 times per second; the EVSE follows within its limits.', 'Insulation, communication, temperatures, emergency stop.', 'Stop → PowerDelivery stop · fault → ABORT.'],
+      'PowerDelivery stop': ['EVSE ramps current to zero; only then may the EV open its contactors.', '', '→ WeldingDetection.'],
+      WeldingDetection: ['With contactors open, the inlet voltage must collapse. If it stays at battery voltage a contactor is welded.', '', '→ SessionStop.'],
+      SessionStop: ['Session closed, TCP/TLS closed, EV opens S2, PWM off.', '', 'Unplug allowed.'],
+      ABORT: ['Error stop: output off, contactors opened at zero current, error code reported.', '', 'Unplug → A.']
+    }
+  };
+  /* ------------------------------------------------ UI */
+  const M = () => kind === 'ac' ? AC : DC;
+  const top = h('div', { class: 'card' }); body.append(top);
+  segmented(top, [['ac', 'AC on-board charger (Type-2, Mode 3)'], ['dc', 'DC fast charging (CCS2, Mode 4)']], kind, k => { kind = k; reset(); });
+  const btnRow = h('div', { class: 'evrow' }), faultRow = h('div', { class: 'evrow' }), ctlRow = h('div', { class: 'evrow' });
+  top.append(h('h4', { class: 'evh' }, 'Driver / vehicle actions'), btnRow, h('h4', { class: 'evh' }, 'Inject a fault (tap again to remove)'), faultRow, ctlRow);
+  const grid = h('div', { class: 'stgrid' }); body.append(grid);
+  const diag = h('div', { class: 'card stdiag' }), infoC = h('div', { class: 'card stinfo' }); grid.append(diag, infoC);
+  const la = lab(body, 'Logic analyser: last 20 s', 'Numbered markers match the event log. Analogue lanes show the live value on the right.');
+  const cvL = h('canvas', { class: 'lanes' }); la.add(cvL);
+  const grid2 = h('div', { class: 'grid2' }); body.append(grid2);
+  const cpLab = lab(grid2, 'CP pin right now (oscilloscope, 3 ms)', ''); const cpS = cpLab.scope({ xmin: 0, xmax: 3, ymin: -14, ymax: 14, xt: 6, yt: 4, xl: 'ms (1 kHz)', yl: 'CP (V)', h: 190 }); const cpTxt = cpLab.add(h('p', { class: 'cap' }));
+  const logLab = lab(grid2, 'Event log (newest first)', ''); const logBox = logLab.add(h('ol', { class: 'evlog' }));
+  function renderLog() { logBox.innerHTML = logL.slice(0, 60).map(e => `<li class="${e.lv}"><span class="n">${e.n}</span><span class="t">${e.t.toFixed(1)} s</span><span>${e.txt}</span></li>`).join(''); }
+  function buildButtons() {
+    btnRow.innerHTML = ''; faultRow.innerHTML = ''; ctlRow.innerHTML = '';
+    M().events.forEach(([id, l, fn]) => btnRow.append(h('button', { class: 'btn', onclick: () => { fn(); paint(); } }, l)));
+    M().faults.forEach(([id, l, get, set, tip]) => { const b = h('button', { class: 'btn fbtn', title: tip, 'aria-pressed': 'false', onclick: () => { const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', on); set(on); tipP.innerHTML = `<b>${l}:</b> ${tip}`; paint(); } }, '⚡ ' + l); faultRow.append(b); });
+    const tipP = h('p', { class: 'cap', style: 'flex-basis:100%;margin:2px 0 0' }, 'Hover or tap a fault to read what it simulates.'); faultRow.append(tipP);
+    ctlRow.append(h('button', { class: 'btn primary', onclick: () => runScript() }, '▶ Run a normal session'), h('button', { class: 'btn', onclick: () => { M().reset(); paint(); } }, kind === 'ac' ? 'Reset latched fault' : 'Acknowledge error'), h('button', { class: 'btn', onclick: () => reset() }, '⟲ Restart simulation'));
+    segmented(ctlRow, [['.5', '½×'], ['1', '1×'], ['2', '2×']], String(speed), k => speed = +k);
+  }
+  function runScript() { reset(); const sc = M().script; sc.forEach(([dt, id]) => after(dt, () => { const e = M().events.find(x => x[0] === id); if (e) e[2](); })); }
+  /* state diagram (SVG) */
+  function drawDiag() {
+    const m = M(), W = kind === 'ac' ? 660 : 750, Hh = kind === 'ac' ? 300 : 310, bw = kind === 'ac' ? 112 : 114, bh = 36;
+    const edges = m.edges.map(([a, b, l]) => { const [x1, y1] = m.states[a], [x2, y2] = m.states[b]; const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1; const cx = Math.min(bw / 2, Math.abs(dy) > 1 && Math.abs(dx) < bw ? 999 : bw / 2) ; const ox = dx / L, oy = dy / L; const kx = Math.abs(ox) * bw / 2 + Math.abs(oy) * bh / 2 + 4; const off = (a === 'STANDBY' && b === 'OFF') || (a === 'OFF' && b === 'STANDBY') ? (a === 'OFF' ? -14 : 14) : 0; const sx = x1 + ox * kx + off, sy = y1 + oy * kx, ex = x2 - ox * kx + off, ey = y2 - oy * kx; const hot = S.lastEdge && S.lastEdge[0] === a && S.lastEdge[1] === b; return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" class="se${hot ? ' hot' : ''}" marker-end="url(#ah${hot ? 'h' : ''})"/>${l ? `<text x="${(sx + ex) / 2 + (Math.abs(dy) > Math.abs(dx) ? (off < 0 ? -6 : 6) : 0)}" y="${Math.abs(dy) > Math.abs(dx) ? (sy + ey) / 2 - 5 : (sy + ey) / 2 - 24}" class="sl" text-anchor="${Math.abs(dy) > Math.abs(dx) ? (off < 0 ? 'end' : 'start') : 'middle'}">${l}</text>` : ''}`; }).join('');
+    const nodes = Object.entries(m.states).map(([n, [x, y]]) => `<g class="sn${S.st === n ? ' on' : ''}${n === 'FAULT' || n === 'ABORT' ? ' bad' : ''}"><rect x="${x - bw / 2}" y="${y - bh / 2}" width="${bw}" height="${bh}" rx="9"/><text x="${x}" y="${y + 4}" text-anchor="middle">${n}</text></g>`).join('');
+    const cp = m.cp();
+    diag.innerHTML = `<div class="sthead"><b>State: ${S.st}</b><span class="pill">CP ${cp.L} · ${cp.hi > 0 ? '+' : ''}${cp.hi} V${cp.d ? ' PWM ' + cp.d.toFixed(0) + ' %' : ''}</span><span class="pill">t = ${S.t.toFixed(1)} s</span><span class="pill">SOC ${(S.soc * 100).toFixed(0)} %</span></div><div class="svgwrap"><svg viewBox="0 0 ${W} ${Hh}" class="stsvg ${kind}" role="img" aria-label="state diagram"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahp"/></marker><marker id="ahh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ahh"/></marker></defs>${edges}${nodes}</svg></div>`;
+    const I = m.info[S.st] || ['', '', ''];
+    infoC.innerHTML = `<h3>${S.st}</h3><p>${I[0]}</p>${I[1] ? `<p><b>Checks:</b> ${I[1]}</p>` : ''}<p><b>Next:</b> ${I[2]}</p>${S.why ? `<p class="cap">Last transition: ${S.why}</p>` : ''}${S.fault ? `<p class="fl">Active fault: ${S.fault}</p>` : ''}`;
+  }
+  /* lanes */
+  const STC = st => (st === 'FAULT' || st === 'ABORT') ? css('--bad') : ['CHARGE', 'CurrentDemand'].includes(st) ? css('--good') : ['OFF', 'A'].includes(st) ? css('--line') : css('--ch-v');
+  function drawLanes() {
+    const lanes = M().lanes, dpr = Math.min(window.devicePixelRatio || 1, 2), Wc = cvL.clientWidth || 700, LH = { state: 26, cp: 46, dig: 20, ana: 40 };
+    const Hc = lanes.reduce((s, l) => s + LH[l.k] + 6, 0) + 18; if (cvL.width !== Math.round(Wc * dpr) || cvL.height !== Math.round(Hc * dpr)) { cvL.width = Math.round(Wc * dpr); cvL.height = Math.round(Hc * dpr); cvL.style.height = Hc + 'px'; }
+    const g = cvL.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, Wc, Hc);
+    const L0 = Wc < 520 ? 74 : 104, R0 = Wc < 520 ? 44 : 62, win = 20, t1 = Math.max(win, S.t), t0 = t1 - win, X = t => L0 + (t - t0) / win * (Wc - L0 - R0);
+    const mono = css('--f-mono'), mut = css('--muted'), ink = css('--ink'), grid = css('--grid'); g.font = `600 ${Wc < 520 ? 9.5 : 10.5}px ${mono}`;
+    const H2 = hist.filter(p => p.t >= t0 - .1);
+    let y = 4;
+    lanes.forEach((ln, li) => {
+      const hh = LH[ln.k]; g.fillStyle = li % 2 ? css('--surface2') : 'transparent'; if (li % 2) g.fillRect(0, y - 2, Wc, hh + 4);
+      g.fillStyle = mut; g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillText(ln.n, 4, y + hh / 2);
+      if (ln.k === 'state') { let i = 0; while (i < H2.length) { let j = i; while (j + 1 < H2.length && H2[j + 1].st === H2[i].st) j++; const xa = X(H2[i].t), xb = X(H2[j].t + .05); g.fillStyle = STC(H2[i].st); g.globalAlpha = .85; g.fillRect(xa, y, Math.max(1, xb - xa), hh); g.globalAlpha = 1; if (xb - xa > g.measureText(H2[i].st).width + 6) { g.fillStyle = ['OFF', 'A'].includes(H2[i].st) ? ink : '#fff'; g.textAlign = 'center'; g.fillText(H2[i].st, (xa + xb) / 2, y + hh / 2); } i = j + 1; } }
+      else if (ln.k === 'cp') { const Y = v => y + (1 - (v + 13) / 26) * hh; g.strokeStyle = grid; [12, 9, 6, 0, -12].forEach(v => { g.beginPath(); g.moveTo(L0, Y(v)); g.lineTo(Wc - R0, Y(v)); g.stroke(); }); g.fillStyle = mut; g.textAlign = 'right'; g.font = `600 8.5px ${mono}`; [12, 6, -12].forEach(v => g.fillText(v, L0 - 3, Y(v))); g.font = `600 ${Wc < 520 ? 9.5 : 10.5}px ${mono}`;
+        const col = css('--ch-v'); for (let i = 1; i < H2.length; i++) { const a = H2[i - 1], b = H2[i], xa = X(a.t), xb = X(b.t); if (a.cp.lo !== a.cp.hi) { g.fillStyle = col; g.globalAlpha = .28; g.fillRect(xa, Y(a.cp.hi), xb - xa + .5, Y(a.cp.lo) - Y(a.cp.hi)); g.globalAlpha = 1; } }
+        g.strokeStyle = col; g.lineWidth = 2; g.beginPath(); H2.forEach((p, i) => { const x = X(p.t); i ? (g.lineTo(x, Y(H2[i - 1].cp.hi)), g.lineTo(x, Y(p.cp.hi))) : g.moveTo(x, Y(p.cp.hi)); }); g.stroke(); g.beginPath(); H2.forEach((p, i) => { const x = X(p.t); i ? (g.lineTo(x, Y(H2[i - 1].cp.lo)), g.lineTo(x, Y(p.cp.lo))) : g.moveTo(x, Y(p.cp.lo)); }); g.stroke(); g.lineWidth = 1;
+        const last = H2[H2.length - 1]; if (last) { g.fillStyle = ink; g.textAlign = 'left'; g.fillText(last.cp.L, Wc - R0 + 4, y + hh / 2); } }
+      else if (ln.k === 'dig') { const col = css(ln.c); g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2; g.beginPath(); H2.forEach((p, i) => { const v = ln.f(p) ? y + 2 : y + hh - 2, x = X(p.t); if (i) g.lineTo(x, H2[i - 1]._y); else g.moveTo(x, v); g.lineTo(x, v); p._y = v; }); g.stroke(); g.globalAlpha = .18; for (let i = 1; i < H2.length; i++) if (ln.f(H2[i - 1])) g.fillRect(X(H2[i - 1].t), y + 2, X(H2[i].t) - X(H2[i - 1].t) + .5, hh - 4); g.globalAlpha = 1; g.lineWidth = 1; const last = H2[H2.length - 1]; if (last) { g.fillStyle = ink; g.textAlign = 'left'; g.fillText(ln.f(last) ? 'ON' : 'off', Wc - R0 + 4, y + hh / 2); } }
+      else { const Y = v => y + hh - 2 - (Math.max(ln.min, Math.min(ln.max, v)) - ln.min) / (ln.max - ln.min) * (hh - 4); (ln.ref || []).forEach(([v, t], ri) => { g.strokeStyle = mut; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(L0, Y(v)); g.lineTo(Wc - R0, Y(v)); g.stroke(); g.setLineDash([]); g.fillStyle = mut; g.textAlign = 'left'; g.font = `600 8.5px ${mono}`; g.fillText(t, L0 + 2 + ri * 62, Y(v) - 5); g.font = `600 ${Wc < 520 ? 9.5 : 10.5}px ${mono}`; });
+        g.strokeStyle = css(ln.c); g.lineWidth = 2; g.beginPath(); H2.forEach((p, i) => { const x = X(p.t), v = Y(ln.f(p)); i ? g.lineTo(x, v) : g.moveTo(x, v); }); g.stroke(); g.lineWidth = 1; const last = H2[H2.length - 1]; if (last) { g.fillStyle = ink; g.textAlign = 'left'; const v = ln.f(last); g.fillText((v >= 100 ? v.toFixed(0) : v.toFixed(1)) + ' ' + ln.u, Wc - R0 + 4, y + hh / 2); } }
+      y += hh + 6;
+    });
+    g.strokeStyle = grid; for (let s = Math.ceil(t0 / 5) * 5; s <= t1; s += 5) { const x = X(s); g.beginPath(); g.moveTo(x, 0); g.lineTo(x, y); g.stroke(); g.fillStyle = mut; g.textAlign = 'center'; g.textBaseline = 'top'; g.fillText(s + ' s', x, y + 2); }
+    S.marks.filter(m => m.t >= t0).forEach(m => { const x = X(m.t); g.strokeStyle = m.lv === 'f' ? css('--bad') : m.lv === 'w' ? css('--warn') : mut; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(x, 0); g.lineTo(x, y); g.stroke(); g.setLineDash([]); g.fillStyle = g.strokeStyle; g.textAlign = 'center'; g.textBaseline = 'top'; g.font = `700 9px ${mono}`; g.fillText(m.n, x, y + 2 + 11); g.font = `600 ${Wc < 520 ? 9.5 : 10.5}px ${mono}`; });
+  }
+  function drawCP() {
+    const cp = M().cp(), Xs = [], Ys = []; for (let k = 0; k < 3; k++) { const d = cp.lo !== cp.hi ? cp.d / 100 : 1; Xs.push(k, k + d, k + d, k + 1); Ys.push(cp.hi, cp.hi, cp.lo, cp.lo); }
+    cpS.draw([{ x: Xs, y: Ys, c: '--ch-v', w: 2.6 }], { h: [[12, 'A'], [9, 'B'], [6, 'C'], [0, 'E']].map(([y, t]) => ({ y, c: '--grid' })), t: [{ x: 2.95, y: cp.hi + 1.6, s: cp.L, a: 'right', c: '--ink' }] });
+    const st = { A: 'A: +12 V, no vehicle', B1: 'B1: +9 V DC, vehicle detected, EVSE not offering', B2: `B2: +9 V / −12 V PWM ${cp.d.toFixed(0)} %`, C1: 'C1: +6 V, vehicle ready, EVSE not offering', C2: `C2: +6 V / −12 V PWM ${cp.d.toFixed(0)} %, power allowed`, E: 'E: 0 V, CP shorted or EVSE unpowered' }[cp.L] || cp.L;
+    cpTxt.innerHTML = st + (cp.d && cp.d !== 5 ? ` → I<sub>max</sub> = 0.6 × ${cp.d.toFixed(1)} = <b>${(cp.d * .6).toFixed(0)} A</b>` : cp.d === 5 ? ' → <b>digital communication (PLC)</b>' : '');
+  }
+  function paint() { drawDiag(); drawLanes(); drawCP(); }
+  let prevSt = '';
+  function tick() {
+    const dt = .05 * speed; const sub = 4;
+    for (let k = 0; k < sub; k++) {
+      S.t += dt / sub; timers = timers.filter(tm => { if (tm.at <= S.t) { tm.fn(); return false; } return true; });
+      const before = S.st; M().step(dt / sub); if (S.st !== before) S.lastEdge = [before, S.st];
+    }
+    hist.push(Object.assign({ cp: M().cp() }, S, { marks: null })); if (hist.length > 1200) hist.splice(0, hist.length - 1200);
+    if (S.st !== prevSt || (S.t * 20 | 0) % 4 === 0) drawDiag(); prevSt = S.st;
+    drawLanes(); drawCP();
+  }
+  function reset() { S = M().init(); hist = []; logL = []; timers = []; evN = 0; buildButtons(); renderLog(); LOG(kind === 'ac' ? 'Simulation start: vehicle parked, cable not plugged' : 'Simulation start: DC station idle'); paint(); }
+  reset();
+  tmr = setInterval(tick, 50); onLeave(() => clearInterval(tmr));
+  const rs = () => drawLanes(); window.addEventListener('resize', rs); window.addEventListener('themechange', () => paint()); onLeave(() => window.removeEventListener('resize', rs));
+  H(body, `<h2>Try these experiments</h2><ol class="steps">
+  <li><div><b>Normal session.</b> Press <i>Run a normal session</i>. Follow CP: +12 V (A) → +9 V (B1) → PWM (B2) → +6 V PWM (C2). Note the order: S2 closes, then the EVSE contactor, then pre-charge, bypass, PFC, output relay, current. Stopping runs in reverse, and <b>current reaches zero before any relay opens</b>.</div></li>
+  <li><div><b>Hard fault vs soft stop.</b> During charging inject <i>HVIL open</i> (current drops instantly, FAULT is latched, Reset is refused until you remove the fault) and compare with <i>CAN timeout</i> (controlled ramp-down, back to STANDBY).</div></li>
+  <li><div><b>Who protects what.</b> <i>RCD trip</i> and <i>CP short</i> are detected by the <b>station</b>; the OBC just loses its AC input. <i>Insulation fault</i> and <i>HVIL</i> are detected by the <b>vehicle</b>.</div></li>
+  <li><div><b>Derating.</b> Inject <i>Coolant pump failure</i> while charging: current falls linearly from 75 °C and trips at 90 °C, then recovers by itself below 65 °C if you restore cooling.</div></li>
+  <li><div><b>DC: why CableCheck and PreCharge exist.</b> Inject <i>Insulation fault</i> before plugging in: the session stops at CableCheck and the battery is never connected. Inject <i>EVSE cannot match voltage</i>: the contactors never close on a large ΔV (W11Q10, W11Q13).</div></li>
+  <li><div><b>Welded contactor.</b> Inject it during a DC session and stop: only WeldingDetection finds it, which is why that step comes after every session.</div></li></ol>
+  <p class="cap">Sources: IEC 61851-1 (CP states and duty-to-current mapping), IEC 62196 (PP resistor coding), IEC 61851-23 (DC EVSE insulation monitoring, Ω/V thresholds), ISO 15118-2 / DIN SPEC 70121 (SLAC, SDP, message sequence: CableCheck, PreCharge, PowerDelivery, CurrentDemand, WeldingDetection, SessionStop), IEC 62955 (6 mA DC residual-current detection), course weeks 10-11 (pre-charge 2 A / 20 V). OBC states and all timings are illustrative.</p>`);
 } });
 
 ;
@@ -1458,7 +2006,7 @@ page({ id: 'psfb', mod: 'm4', wk: 8, stars: 3, topic: true, title: 'Phase-shifte
     const s2 = L.scope({ xmin: 0, xmax: 2, ymin: -1.3, ymax: 1.3, yt: 2, xt: 4, xl: 'periods', yl: 'vab / Vin', h: 120 }); L.legend([['vab', '--ch-b']]); const ro = L.readout();
     const v = controls(L.body, [{ k: 'ph', label: 'Phase shift φ', min: 0, max: 180, step: 1, v: 72, unit: '°', d: 0 }, { k: 'n', label: 'Turns ratio n', min: .5, max: 2, step: .1, v: 1, d: 1 }], u);
     function u() {
-      const N = 800, X = [], A = [], B = [], V = []; const sh = v.ph / 360;
+      const N = 800, X = [], A = [], B = [], V = []; const sh = (180 - v.ph) / 360; /* leg B pole lags leg A by 180°−φ, so diagonal pair S1/S4 overlaps for (1−φ/180) */
       for (let k = 0; k <= 2 * N; k++) { const t = k / N, a = sq(t), b = sq(t - sh); X.push(t); A.push(2.3 + (a > 0 ? 1 : 0) * .9); B.push(1.0 + (b > 0 ? 1 : 0) * .9 - 1); V.push((a - b) / 2); }
       s1.draw([{ x: X, y: A.map(y => y), c: '--ch-v', w: 2 }, { x: X, y: B.map(y => y + 0.1), c: '--ch-i', w: 2 }]); s2.draw([{ x: X, y: V, c: '--ch-b', w: 2.2, fill: true }]);
       ro([['Vo / Vin = n(1−φ/180)', (v.n * (1 - v.ph / 180)).toFixed(3)], ['Zero-voltage time', (v.ph / 180 * 100).toFixed(0) + ' % of half-period']]);

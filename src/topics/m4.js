@@ -71,7 +71,7 @@ page({ id: 'psfb', mod: 'm4', wk: 8, stars: 3, topic: true, title: 'Phase-shifte
     const s2 = L.scope({ xmin: 0, xmax: 2, ymin: -1.3, ymax: 1.3, yt: 2, xt: 4, xl: 'periods', yl: 'vab / Vin', h: 120 }); L.legend([['vab', '--ch-b']]); const ro = L.readout();
     const v = controls(L.body, [{ k: 'ph', label: 'Phase shift φ', min: 0, max: 180, step: 1, v: 72, unit: '°', d: 0 }, { k: 'n', label: 'Turns ratio n', min: .5, max: 2, step: .1, v: 1, d: 1 }], u);
     function u() {
-      const N = 800, X = [], A = [], B = [], V = []; const sh = v.ph / 360;
+      const N = 800, X = [], A = [], B = [], V = []; const sh = (180 - v.ph) / 360; /* leg B pole lags leg A by 180°−φ, so diagonal pair S1/S4 overlaps for (1−φ/180) */
       for (let k = 0; k <= 2 * N; k++) { const t = k / N, a = sq(t), b = sq(t - sh); X.push(t); A.push(2.3 + (a > 0 ? 1 : 0) * .9); B.push(1.0 + (b > 0 ? 1 : 0) * .9 - 1); V.push((a - b) / 2); }
       s1.draw([{ x: X, y: A.map(y => y), c: '--ch-v', w: 2 }, { x: X, y: B.map(y => y + 0.1), c: '--ch-i', w: 2 }]); s2.draw([{ x: X, y: V, c: '--ch-b', w: 2.2, fill: true }]);
       ro([['Vo / Vin = n(1−φ/180)', (v.n * (1 - v.ph / 180)).toFixed(3)], ['Zero-voltage time', (v.ph / 180 * 100).toFixed(0) + ' % of half-period']]);
