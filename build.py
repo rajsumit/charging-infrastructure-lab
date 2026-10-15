@@ -3,7 +3,7 @@
 import os, re
 root = os.path.dirname(os.path.abspath(__file__)); src = os.path.join(root, 'src')
 rd = lambda f: open(os.path.join(src, f), encoding='utf8').read()
-order = ['home', 'easy', 'extra', 'sim', 'chain', 'states', 'view3d', 'm1', 'm2', 'm3', 'm4', 'm5']
+order = ['home', 'schem', 'circ', 'easy', 'cppp', 'extra', 'sim', 'chain', 'states', 'view3d', 'm1', 'm2', 'm3', 'm4', 'm5']
 files = ['calc.js', 'imgs.js', 'qbank1.js', 'qbank2.js', 'qbank3.js', 'core.js', 'topics/00util.js'] + ['topics/%s.js' % o for o in order]
 code = '\n;\n'.join(rd(f) for f in files) + '\n;\ntry{boot();}catch(e){console.error(e);document.getElementById("page").textContent="Error: "+e.message}\n'
 frag = rd('shell.html').replace('/*CSS*/', rd('style.css')).replace('/*JS*/', code.replace('</script', '<\\/script'))

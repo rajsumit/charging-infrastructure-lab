@@ -199,3 +199,45 @@ canvas.lanes{width:100%;display:block;background:var(--scope);border-radius:8px}
 .evlog .n{font:700 .75rem var(--f-mono);color:var(--muted)}.evlog .t{font:600 .75rem var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .evlog li.w{background:color-mix(in srgb,var(--warn) 10%,transparent)}.evlog li.f{background:color-mix(in srgb,var(--bad) 12%,transparent)}
 .stsvg.dc .sn text{font-size:10.5px}
+/* schematic toolkit */
+.sch{width:100%;min-width:640px;height:auto;display:block}
+.sch .wr{stroke:var(--muted);stroke-width:2;fill:none;stroke-linejoin:round}
+.sch .pt line,.sch .pt rect,.sch .pt path,.sch .pt circle{stroke:var(--ink);stroke-width:2;fill:none}
+.sch .pt rect,.sch .pt circle{fill:var(--surface)}
+.sch .pt .dz{fill:var(--surface)}
+.sch .pt.on line,.sch .pt.on rect,.sch .pt.on path,.sch .pt.on circle{stroke:var(--ch-i);stroke-width:3}
+.sch .pt.on .dz{fill:color-mix(in srgb,var(--ch-i) 30%,var(--surface))}
+.sch .pt.closed .lev-o,.sch .pt:not(.closed) .lev-c{display:none}
+.sch .pt text,.sch .tx{fill:var(--ink);stroke:none;font:600 12px var(--f-mono)}
+.sch .tx.s{fill:var(--muted);font-size:10.5px}.sch .tx.b{font-size:13px;font-weight:800}
+.sch .jd{fill:var(--ink)}.sch .gd line{stroke:var(--ink);stroke-width:2}
+.sch .core{stroke:var(--ink);stroke-width:2}.sch .pdot{fill:var(--ink)}
+.sch .flow{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 13;animation:sflow .65s linear infinite;opacity:.95}
+.sch .flow.pw{stroke-width:7;stroke-dasharray:1 17}
+@keyframes sflow{to{stroke-dashoffset:-14}}
+.sch .zone{fill:var(--surface2);stroke:var(--line);stroke-dasharray:4 3;opacity:.7}.sch .zone.cab2{fill:none}
+.sch .zl{fill:var(--muted);font:700 10.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.sch .pin{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.sch .tag rect{fill:var(--hot);stroke:none}.sch .tag text{fill:var(--hot-ink);font:700 11.5px var(--f-mono)}
+.ivseg{display:flex;flex-wrap:wrap;margin-bottom:8px}.ivseg button{flex:1 1 auto}
+.ivtxt{background:var(--surface2);border-left:4px solid var(--ch-i);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:.97rem;min-height:3.2em}
+@media (prefers-reduced-motion:reduce){.sch .flow{animation:none;stroke-dasharray:none;opacity:.5}}
+/* CP/PP scene */
+.cpscene{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.scn{width:100%;height:auto;display:block}
+.scn .sky{fill:var(--scope)}.scn .gr{fill:var(--surface2)}.scn .bay{stroke:var(--hot);stroke-width:4}.scn .bayt{fill:var(--muted);font:700 12px var(--f-mono);letter-spacing:.2em}
+.scn .post{fill:var(--muted)}.scn .box{fill:var(--brand);}.scn .scr{fill:var(--bg)}.scn .scrA{fill:var(--ink);font:800 18px var(--f-mono)}.scn .scrB{fill:var(--muted);font:700 9.5px var(--f-mono)}
+.scn .hol{fill:var(--ink)}.scn .lbl{fill:var(--muted);font:700 11px var(--f-mono)}
+.scn .cab{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.scn .body{fill:var(--ch-x)}.scn .win{fill:var(--bg);opacity:.85}.scn .win2{stroke:var(--ch-x);stroke-width:4}
+.scn .socb{fill:var(--bg);opacity:.6}.scn .socf{fill:var(--ch-d)}.scn .soct{fill:#fff;font:800 11px var(--f-mono)}
+.scn .port{fill:var(--ink)}.scn .tyre{fill:#222}.scn .hub{fill:#bbb}.scn .spk line{stroke:#333;stroke-width:3}
+.scn .plg{fill:var(--ink);stroke:var(--surface);stroke-width:1.5}
+.scn .led{fill:var(--muted)}.scn .led.idle{fill:var(--good)}.scn .led.con{fill:var(--ch-v)}.scn .led.chg{fill:var(--good);animation:blink 1s steps(2) infinite}.scn .led.bad{fill:var(--bad)}.scn .led.off{fill:var(--muted)}
+@keyframes blink{50%{opacity:.35}}
+.scn .ep{fill:var(--hot);stroke:var(--hot-ink);stroke-width:1}
+.scn .bub{transition:opacity .3s}.scn .bub rect{fill:var(--surface);stroke:var(--brand);stroke-width:1.5}.scn .bub text{fill:var(--ink);font:700 11.5px var(--f-body)}.scn .bub.car rect{stroke:var(--ch-x)}
+.narr{margin:10px 0;padding:10px 14px;border-radius:8px;background:var(--surface2);border-left:5px solid var(--brand);min-height:3.4em;font-size:1rem}
+.narr .who{display:inline-block;font:800 .7rem var(--f-mono);letter-spacing:.08em;padding:2px 7px;border-radius:5px;margin-right:6px;background:var(--brand);color:var(--brand-ink)}
+.narr .who.car{background:var(--ch-x);color:#fff}.narr .who.fault{background:var(--bad);color:#fff}.narr .who.driver{background:var(--muted);color:var(--bg)}
+label.mini{display:inline-flex;align-items:center;gap:6px;font:600 .85rem var(--f-body)}label.mini .sel{width:auto}

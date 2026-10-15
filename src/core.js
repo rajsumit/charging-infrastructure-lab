@@ -210,6 +210,7 @@ function questionsFor(topicId) { return (window.QBANK || []).filter(q => q.topic
 
 /* ===== registry + router ===== */
 const PAGES = [];
+const EMBED = {}; const embed = (id, fn) => (EMBED[id] = EMBED[id] || []).push(fn);
 const MODULES = {
   home: 'Start here', m1: '1 · Charging basics', m2: '2 · Single-phase PFC', m3: '3 · Three-phase AC-DC', m4: '4 · Isolated DC-DC', m5: '5 · Protocols & stations'
 };
@@ -228,6 +229,7 @@ function renderPage(id) {
   if (p.topic) root.insertAdjacentHTML('beforeend', topicHeader(p));
   const body = h('div'); root.append(body);
   p.render(body, p);
+  (EMBED[p.id] || []).forEach(fn => { const box = h('div', { class: 'embed' }); const first = body.querySelector('.lab'); first ? body.insertBefore(box, first) : body.append(box); fn(box); });
   if (p.topic) {
     const qs = questionsFor(p.id);
     if (qs.length) {
