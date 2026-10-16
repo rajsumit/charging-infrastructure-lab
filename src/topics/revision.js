@@ -15,6 +15,7 @@ page({ id: 'revision-sheet', mod: 'home', title: 'Revision sheet (read before ex
   const pr = h('div', { class: 'readout', style: 'margin:12px 0' }); body.append(pr);
   const prog = () => { const n = $$('.rev', body).length, d = $$('.rev.done', body).length; pr.innerHTML = `<div><small>blocks read</small><b>${d} / ${n}</b></div><div><small>exam</small><b>Sat 17 Oct</b></div>`; };
   H(body, `<div class="card" style="border-left:5px solid var(--hot)"><h3>Exam-day checklist</h3><ul>
+    <li><b>Reported pattern (16 Oct sitting):</b> 50 questions, 80-90 % assignment-type with changed numbers/wording, typed numerical answers, no negative marking. Know the method, not the remembered answer.</li>
     <li>Hall ticket + original photo ID. Reach early; the centre shuts the gate at the reporting time.</li>
     <li>Calculator if permitted by the instructions; know √2 = 1.414, √3 = 1.732, 1/π = 0.318, 2π·50 = 314.</li>
     <li>Read the on-screen instructions: number of questions, marks, MSQ rule, answer-range rule.</li>
