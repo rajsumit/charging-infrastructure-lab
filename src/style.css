@@ -275,3 +275,5 @@ body.exam-on .rail,body.exam-on .topbar{display:none}body.exam-on .app{grid-temp
 .revt{width:100%;border-collapse:collapse;font-size:.88rem}.revt td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}.revt td.f{font-family:var(--f-mono);font-size:.84rem}.revt td.c{color:var(--muted);font-size:.82rem}
 .trap{margin-top:10px;padding:7px 10px;border-radius:7px;background:color-mix(in srgb,var(--bad) 9%,transparent);font-size:.92rem}
 .palsec{grid-column:1/-1;font:700 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.qscore{position:sticky;top:calc(env(safe-area-inset-top,0px) + 4px);z-index:4;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:10px 0;box-shadow:var(--shadow)}
+.qscore small{display:block;color:var(--muted);font:600 .7rem var(--f-mono);text-transform:uppercase;letter-spacing:.05em}.qscore b{font:800 1.1rem var(--f-mono);font-variant-numeric:tabular-nums}

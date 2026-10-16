@@ -14,7 +14,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   onLeave(() => { if (tick) clearInterval(tick); document.body.classList.remove('exam-on'); if (M && !M.done) { flushTime(); save(); } });
   /* ---------------------------------------------------------- paper */
   function makePaper(n, mix) {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const byWk = w => ({ a: QBANK.filter(q => q.wk === w), f: MOCKQ.filter(q => q.wk === w) });
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const fresh1st = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
@@ -42,7 +42,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   /* NPTEL pattern (as reported): 50 single-answer MCQs in 3 sections — 10 basics, 15 assignment-style, 25 in-depth / numerical */
   function makeNptel() {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const pref = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
     const used = new Set(), grp = new Set(), take = (pool, n) => { const out = []; for (const q of pref(pool)) { if (out.length >= n) break; if (used.has(q.id) || (q.grp && grp.has(q.grp))) continue; used.add(q.id); if (q.grp) grp.add(q.grp); out.push(q); } return out; };
@@ -58,17 +58,17 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   /* Reported by students who sat the exam on 16 Oct 2026: 50 questions, ~80-90 % assignment-type (same concepts, not identical), numericals typed, no negative marking */
   function makeReal() {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const pref = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
     const grp = new Set(), ai = []; for (const q of pref((window.AIQ || []).filter(q => q.diff !== 'Easy'))) { if (ai.length >= 7) break; if (grp.has(q.grp)) continue; grp.add(q.grp); ai.push(q); }
     const quota = {}; for (let w = 1; w <= 12; w++) quota[w] = 3; [11, 8, 10, 12, 7, 9, 2].forEach(w => quota[w]++);
     let out = [];
-    for (let w = 1; w <= 12; w++) { const nNew = Math.round(quota[w] * .5); let pick = pref(MOCKQ.filter(q => q.wk === w)).slice(0, nNew); pick = pick.concat(pref(QBANK.filter(q => q.wk === w)).slice(0, quota[w] - pick.length)); out = out.concat(pick); }
+    for (let w = 1; w <= 12; w++) { const nNew = Math.round(quota[w] * .5), nw = pref(MOCKQ.filter(q => q.wk === w)), as = pref(QBANK.filter(q => q.wk === w)); let pick = nw.filter(q => !seen.has(q.id)).slice(0, nNew); pick = pick.concat(as.filter(q => !seen.has(q.id)).slice(0, quota[w] - pick.length)); if (pick.length < quota[w]) pick = pick.concat(nw.concat(as).filter(q => !pick.includes(q)).sort((x, y) => seen.has(x.id) - seen.has(y.id)).slice(0, quota[w] - pick.length)); out = out.concat(pick); }
     const perm = {}; ai.forEach(q => perm[q.id] = shuffle([0, 1, 2, 3]));
     return { qs: shuffle(out.concat(ai)).map(q => q.id), perm };
   }
-  function startExam(n, mins, mix) { const P = mix === 'real' ? makeReal() : mix === 'nptel' ? makeNptel() : makePaper(n, mix); M = Object.assign({ v: 2, start: Date.now(), dur: mins * 60, ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }, P); save(); render(); }
+  function startExam(n, mins, mix) { if (n >= 126) { mix = 'assign'; } const P = n >= 126 ? { qs: QBANK.map(q => q.id) } : mix === 'real' ? makeReal() : mix === 'nptel' ? makeNptel() : makePaper(n, mix); M = Object.assign({ v: 2, start: Date.now(), dur: mins * 60, ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }, P); save(); render(); }
   /* ---------------------------------------------------------- grading */
   const norm = (q, a) => a == null || a === '' || (Array.isArray(a) && !a.length) ? null : a;
   function isRight(q, a) { if (norm(q, a) == null) return false; if (q.type === 'nat') { const v = parseFloat(String(a).replace(',', '.')); return !isNaN(v) && v >= q.lo - 1e-9 && v <= q.hi + 1e-9; } if (q.type === 'mcq') return q.ans[0] === a; const A = new Set(q.ans); return a.length === A.size && a.every(x => A.has(x)); }
@@ -84,10 +84,11 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
     const card = h('div', { class: 'card' }); body.append(card);
     card.innerHTML = `<h3>Exam settings</h3>`;
     const inputs = h('div', { class: 'calc' }), row = h('div', { class: 'inputs' }); inputs.append(row); card.append(inputs);
-    const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
-    const tSel = h('select', { class: 'sel' }, [[180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
+    const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [126, 'All 126 assignment questions (practice test, scored out of 126)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
+    const tSel = h('select', { class: 'sel' }, [[360, '6 hours (for all 126)'], [180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
     const mSel = h('select', { class: 'sel' }, [['real', 'Real exam pattern (reported 16 Oct): 50 Q, ~85 % assignment-type, typed numericals (recommended)'], ['nptel', 'MCQ-only, 3 sections (unconfirmed Gemini claim)'], ['mixed', 'Mixed MCQ/MSQ/numerical: half assignment, half new'], ['fresh', 'New questions only (first choice)'], ['assign', 'Assignment questions only']].map(([v, t]) => h('option', { value: v }, t)));
-    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45 }[nSel.value]; if ((mSel.value === 'nptel' || mSel.value === 'real') && nSel.value !== '50') mSel.value = 'mixed'; }); mSel.addEventListener('change', () => { if (mSel.value === 'nptel' || mSel.value === 'real') { nSel.value = '50'; tSel.value = '180'; } });
+    tSel.value = '180';
+    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45, 126: 360 }[nSel.value]; if (nSel.value === '126') mSel.value = 'assign'; if ((mSel.value === 'nptel' || mSel.value === 'real') && nSel.value !== '50') mSel.value = 'mixed'; }); mSel.addEventListener('change', () => { if (mSel.value === 'nptel' || mSel.value === 'real') { nSel.value = '50'; tSel.value = '180'; } });
     row.append(h('label', {}, 'Length', nSel), h('label', {}, 'Time', tSel), h('label', {}, 'Questions', mSel));
     card.append(h('button', { class: 'btn primary', style: 'margin-top:12px', onclick: () => startExam(+nSel.value, +tSel.value, mSel.value) }, '▶ Start the exam'));
     H(body, `<h2>Rules of this mock</h2><ul>

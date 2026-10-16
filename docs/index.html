@@ -279,6 +279,8 @@ body.exam-on .rail,body.exam-on .topbar{display:none}body.exam-on .app{grid-temp
 .revt{width:100%;border-collapse:collapse;font-size:.88rem}.revt td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}.revt td.f{font-family:var(--f-mono);font-size:.84rem}.revt td.c{color:var(--muted);font-size:.82rem}
 .trap{margin-top:10px;padding:7px 10px;border-radius:7px;background:color-mix(in srgb,var(--bad) 9%,transparent);font-size:.92rem}
 .palsec{grid-column:1/-1;font:700 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.qscore{position:sticky;top:calc(env(safe-area-inset-top,0px) + 4px);z-index:4;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:10px 0;box-shadow:var(--shadow)}
+.qscore small{display:block;color:var(--muted);font:600 .7rem var(--f-mono);text-transform:uppercase;letter-spacing:.05em}.qscore b{font:800 1.1rem var(--f-mono);font-variant-numeric:tabular-nums}
 </style>
 <div class="app">
   <aside class="rail" id="rail">
@@ -1204,7 +1206,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   onLeave(() => { if (tick) clearInterval(tick); document.body.classList.remove('exam-on'); if (M && !M.done) { flushTime(); save(); } });
   /* ---------------------------------------------------------- paper */
   function makePaper(n, mix) {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const byWk = w => ({ a: QBANK.filter(q => q.wk === w), f: MOCKQ.filter(q => q.wk === w) });
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const fresh1st = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
@@ -1232,7 +1234,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   /* NPTEL pattern (as reported): 50 single-answer MCQs in 3 sections — 10 basics, 15 assignment-style, 25 in-depth / numerical */
   function makeNptel() {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const pref = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
     const used = new Set(), grp = new Set(), take = (pool, n) => { const out = []; for (const q of pref(pool)) { if (out.length >= n) break; if (used.has(q.id) || (q.grp && grp.has(q.grp))) continue; used.add(q.id); if (q.grp) grp.add(q.grp); out.push(q); } return out; };
@@ -1248,17 +1250,17 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   /* Reported by students who sat the exam on 16 Oct 2026: 50 questions, ~80-90 % assignment-type (same concepts, not identical), numericals typed, no negative marking */
   function makeReal() {
-    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const hist = store.get(HKEY, []), seenN = {}; hist.forEach(x => (x.qs || []).forEach(id => seenN[id] = (seenN[id] || 0) + 1)); const seen = { has: id => seenN[id] || 0 };
     const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
     const pref = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
     const grp = new Set(), ai = []; for (const q of pref((window.AIQ || []).filter(q => q.diff !== 'Easy'))) { if (ai.length >= 7) break; if (grp.has(q.grp)) continue; grp.add(q.grp); ai.push(q); }
     const quota = {}; for (let w = 1; w <= 12; w++) quota[w] = 3; [11, 8, 10, 12, 7, 9, 2].forEach(w => quota[w]++);
     let out = [];
-    for (let w = 1; w <= 12; w++) { const nNew = Math.round(quota[w] * .5); let pick = pref(MOCKQ.filter(q => q.wk === w)).slice(0, nNew); pick = pick.concat(pref(QBANK.filter(q => q.wk === w)).slice(0, quota[w] - pick.length)); out = out.concat(pick); }
+    for (let w = 1; w <= 12; w++) { const nNew = Math.round(quota[w] * .5), nw = pref(MOCKQ.filter(q => q.wk === w)), as = pref(QBANK.filter(q => q.wk === w)); let pick = nw.filter(q => !seen.has(q.id)).slice(0, nNew); pick = pick.concat(as.filter(q => !seen.has(q.id)).slice(0, quota[w] - pick.length)); if (pick.length < quota[w]) pick = pick.concat(nw.concat(as).filter(q => !pick.includes(q)).sort((x, y) => seen.has(x.id) - seen.has(y.id)).slice(0, quota[w] - pick.length)); out = out.concat(pick); }
     const perm = {}; ai.forEach(q => perm[q.id] = shuffle([0, 1, 2, 3]));
     return { qs: shuffle(out.concat(ai)).map(q => q.id), perm };
   }
-  function startExam(n, mins, mix) { const P = mix === 'real' ? makeReal() : mix === 'nptel' ? makeNptel() : makePaper(n, mix); M = Object.assign({ v: 2, start: Date.now(), dur: mins * 60, ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }, P); save(); render(); }
+  function startExam(n, mins, mix) { if (n >= 126) { mix = 'assign'; } const P = n >= 126 ? { qs: QBANK.map(q => q.id) } : mix === 'real' ? makeReal() : mix === 'nptel' ? makeNptel() : makePaper(n, mix); M = Object.assign({ v: 2, start: Date.now(), dur: mins * 60, ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }, P); save(); render(); }
   /* ---------------------------------------------------------- grading */
   const norm = (q, a) => a == null || a === '' || (Array.isArray(a) && !a.length) ? null : a;
   function isRight(q, a) { if (norm(q, a) == null) return false; if (q.type === 'nat') { const v = parseFloat(String(a).replace(',', '.')); return !isNaN(v) && v >= q.lo - 1e-9 && v <= q.hi + 1e-9; } if (q.type === 'mcq') return q.ans[0] === a; const A = new Set(q.ans); return a.length === A.size && a.every(x => A.has(x)); }
@@ -1274,10 +1276,11 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
     const card = h('div', { class: 'card' }); body.append(card);
     card.innerHTML = `<h3>Exam settings</h3>`;
     const inputs = h('div', { class: 'calc' }), row = h('div', { class: 'inputs' }); inputs.append(row); card.append(inputs);
-    const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
-    const tSel = h('select', { class: 'sel' }, [[180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
+    const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [126, 'All 126 assignment questions (practice test, scored out of 126)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
+    const tSel = h('select', { class: 'sel' }, [[360, '6 hours (for all 126)'], [180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
     const mSel = h('select', { class: 'sel' }, [['real', 'Real exam pattern (reported 16 Oct): 50 Q, ~85 % assignment-type, typed numericals (recommended)'], ['nptel', 'MCQ-only, 3 sections (unconfirmed Gemini claim)'], ['mixed', 'Mixed MCQ/MSQ/numerical: half assignment, half new'], ['fresh', 'New questions only (first choice)'], ['assign', 'Assignment questions only']].map(([v, t]) => h('option', { value: v }, t)));
-    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45 }[nSel.value]; if ((mSel.value === 'nptel' || mSel.value === 'real') && nSel.value !== '50') mSel.value = 'mixed'; }); mSel.addEventListener('change', () => { if (mSel.value === 'nptel' || mSel.value === 'real') { nSel.value = '50'; tSel.value = '180'; } });
+    tSel.value = '180';
+    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45, 126: 360 }[nSel.value]; if (nSel.value === '126') mSel.value = 'assign'; if ((mSel.value === 'nptel' || mSel.value === 'real') && nSel.value !== '50') mSel.value = 'mixed'; }); mSel.addEventListener('change', () => { if (mSel.value === 'nptel' || mSel.value === 'real') { nSel.value = '50'; tSel.value = '180'; } });
     row.append(h('label', {}, 'Length', nSel), h('label', {}, 'Time', tSel), h('label', {}, 'Questions', mSel));
     card.append(h('button', { class: 'btn primary', style: 'margin-top:12px', onclick: () => startExam(+nSel.value, +tSel.value, mSel.value) }, '▶ Start the exam'));
     H(body, `<h2>Rules of this mock</h2><ul>
@@ -1747,11 +1750,13 @@ page({ id: 'qbank', mod: 'home', title: 'Question bank (all 126)', kw: 'assignme
   const src = h('select', { class: 'sel', 'aria-label': 'source' }, h('option', { value: 'a' }, 'Assignments (126)'), h('option', { value: 'ai' }, 'NPTEL AI mock papers (150)'), h('option', { value: 'n' }, 'New exam-style (61)'));
   const stt = h('select', { class: 'sel', 'aria-label': 'status' }, h('option', { value: '' }, 'Any status'), h('option', { value: 'new' }, 'Not tried yet'), h('option', { value: 'wrong' }, 'Wrong so far (redo)'), h('option', { value: 'right' }, 'Correct'));
   [['Source', src], ['Week', wk], ['Topic', tp], ['Type', ty], ['Status', stt]].forEach(([l, e]) => inputs.append(h('label', {}, l, e)));
-  body.append(bar); const info = h('p', { class: 'cap' }), list = h('div'), more = h('button', { class: 'btn', onclick: () => { shown += 12; draw(); } }, 'Show 12 more'); body.append(info, list, more);
+  body.append(bar); const info = h('p', { class: 'cap' }), list = h('div'), more = h('button', { class: 'btn', onclick: () => { shown += 12; draw(); } }, 'Show 12 more'), all = h('button', { class: 'btn primary', onclick: () => { shown = cur.length; draw(); } }, 'Show all'), score = h('div', { class: 'qscore' }); body.append(score); body.append(info, list, h('div', { class: 'nextprev', style: 'justify-content:flex-start' }, more, all));
   let shown = 12, cur = [];
   const pool = () => src.value === 'ai' ? (window.AIQ || []) : src.value === 'n' ? (window.MOCKQ || []) : QBANK;
   const filt = () => pool().filter(q => (!wk.value || q.wk == wk.value) && (!tp.value || q.topic === tp.value) && (!ty.value || q.type === ty.value) && (!stt.value || (stt.value === 'new' ? QPROG[q.id] === undefined : stt.value === 'wrong' ? QPROG[q.id] === 0 : QPROG[q.id] === 1)));
-  function draw() { list.innerHTML = ''; cur = cur.length ? cur : filt(); cur.slice(0, shown).forEach(q => list.append(renderQuestion(q, { showTopic: true }))); more.hidden = shown >= cur.length; const a = Object.keys(QPROG).length, ok = Object.values(QPROG).filter(x => x === 1).length; info.textContent = `${cur.length} questions match. Overall: ${a}/${QBANK.length} tried, ${ok} correct.`; }
+  function upScore() { const ids = cur.map(q => q.id), tried = ids.filter(id => QPROG[id] !== undefined).length, ok = ids.filter(id => QPROG[id] === 1).length, allA = QBANK.filter(q => QPROG[q.id] !== undefined).length, allOk = QBANK.filter(q => QPROG[q.id] === 1).length; score.innerHTML = `<div><small>score on this list</small><b>${ok} / ${ids.length}</b></div><div><small>attempted</small><b>${tried} / ${ids.length}</b></div><div><small>accuracy</small><b>${tried ? Math.round(ok / tried * 100) : 0} %</b></div><div><small>all assignments</small><b>${allOk} / ${QBANK.length}</b></div>`; }
+  window.addEventListener('qprog', upScore); onLeave(() => window.removeEventListener('qprog', upScore));
+  function draw() { upScore(); list.innerHTML = ''; cur = cur.length ? cur : filt(); cur.slice(0, shown).forEach(q => list.append(renderQuestion(q, { showTopic: true }))); more.hidden = all.hidden = shown >= cur.length; const a = Object.keys(QPROG).length, ok = Object.values(QPROG).filter(x => x === 1).length; info.textContent = `${cur.length} questions match. Overall: ${a}/${QBANK.length} tried, ${ok} correct.`; }
   const reset = () => { shown = 12; cur = filt(); draw(); }; [src, wk, tp, ty, stt].forEach(e => e.addEventListener('change', reset));
   const row = h('div', { class: 'nextprev', style: 'margin:10px 0' }, h('button', { class: 'btn primary', onclick: () => { cur = QBANK.slice().sort(() => Math.random() - .5).slice(0, 10); shown = 10; draw(); info.textContent = 'Random 10-question mock. ' + info.textContent; } }, 'Random 10-question mock'), h('button', { class: 'btn', onclick: () => { stt.value = 'wrong'; reset(); } }, 'Redo my wrong answers'), h('button', { class: 'btn', onclick: () => { try { localStorage.removeItem('ci:q'); } catch (e) {} Object.keys(QPROG).forEach(k => delete QPROG[k]); reset(); } }, 'Reset my progress'));
   body.insertBefore(row, bar); reset();
