@@ -162,7 +162,7 @@ function recordQ(id, ok) { QPROG[id] = ok ? 1 : 0; store.set('q', QPROG); window
 function renderQuestion(q, opts = {}) {
   const box = h('div', { class: 'q', id: 'q-' + q.id });
   const kind = q.type === 'nat' ? 'Numerical' : q.type === 'msq' ? 'Select all that apply' : 'Single answer';
-  box.append(h('div', { class: 'qh' }, h('span', { class: 'pill hot' }, 'WEEK ' + q.wk + ' · Q' + q.n), h('span', { class: 'pill' }, kind), opts.showTopic && q.topicTitle ? h('span', { class: 'pill' }, q.topicTitle) : null));
+  box.append(h('div', { class: 'qh' }, h('span', { class: 'pill hot' }, q.ai ? `NPTEL AI MOCK ${q.ai} · Q${q.n} · ${q.diff}` : (q.fresh ? 'NEW · W' + q.wk : 'WEEK ' + q.wk + ' · Q' + q.n)), h('span', { class: 'pill' }, kind), opts.showTopic && q.topicTitle ? h('span', { class: 'pill' }, q.topicTitle) : null));
   box.append(h('div', { class: 'qt', html: q.text }));
   if (q.img) box.append(h('img', { src: q.img, alt: 'Figure for question ' + q.n, loading: 'lazy' }));
   let chosen = new Set(), answered = false, natIn;

@@ -1,7 +1,10 @@
 /* ===== Full timed mock exam + results analysis ===== */
 page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock test exam timed full paper practice result analysis score', render(body) {
   const KEY = 'mock', HKEY = 'mockhist';
-  const ALL = {}; (window.QBANK || []).concat(window.MOCKQ || []).forEach(q => ALL[q.id] = q);
+  const ALL = {}; (window.QBANK || []).concat(window.MOCKQ || [], window.AIQ || []).forEach(q => ALL[q.id] = q);
+  /* runtime view of a question inside a paper: numerical→MCQ conversion and option shuffles are stored in the paper */
+  const QM = (m, id) => { const q = ALL[id], g = m && m.gen && m.gen[id], p = m && m.perm && m.perm[id]; if (g) return Object.assign({}, q, { type: 'mcq', opts: g.opts, ans: [g.ans], why: g.why, conv: true }); if (p) return Object.assign({}, q, { opts: p.map(i => q.opts[i]), ans: q.ans.map(a => p.indexOf(a)) }); return q; };
+  const Q = id => QM(M, id);
   const TT = {}; PAGES.forEach(p => { if (p.topic) TT[p.id] = p.title.replace(/:.*$/, ''); });
   const ASSIGN_W = {}; (window.QBANK || []).forEach(q => ASSIGN_W[q.topic] = (ASSIGN_W[q.topic] || 0) + 1);
   let M = store.get(KEY, null), tick = null, tShow = 0;
@@ -24,9 +27,36 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
       else { const nf = Math.ceil(quota[w] / 2); pick = fresh1st(f).slice(0, nf); pick = pick.concat(fresh1st(a).slice(0, quota[w] - pick.length)); }
       out = out.concat(pick);
     }
-    return shuffle(out).map(q => q.id);
+    return { qs: shuffle(out).map(q => q.id) };
   }
-  function startExam(n, mins, mix) { M = { v: 1, start: Date.now(), dur: mins * 60, qs: makePaper(n, mix), ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }; save(); render(); }
+  /* numerical → 4-option MCQ: correct value, the known slips, then rms/peak, ×2 and ×10 variants */
+  function natToMcq(q) {
+    const m = (q.lo + q.hi) / 2, unit = (q.show || '').replace(/^[≈~\s]*[-+]?[\d.,]+\s*/, '').trim(), sig = Math.max(2, Math.min(4, (((q.show || '').match(/[\d.]+/) || [''])[0].replace('.', '').replace(/^0+/, '')).length || 3));
+    const f = v => { const a = Math.abs(v); const t = a >= 100 ? v.toFixed(Math.max(0, sig - 3)) : a >= 10 ? v.toFixed(Math.max(0, sig - 2)) : a >= 1 ? v.toFixed(Math.max(1, sig - 1)) : v.toPrecision(Math.max(2, sig)); return String(+t) + (unit ? ' ' + unit : ''); };
+    const right = q.show ? q.show.replace(/^≈\s*/, '') : f(m);
+    const cands = (q.trap || []).map(([v, why]) => [v, 'Typical slip: ' + why + '.']).concat([[m * Math.SQRT2, 'Off by √2: rms vs peak mix-up.'], [m / Math.SQRT2, 'Off by √2: rms vs peak mix-up.'], [m * 2, 'Off by a factor of 2: peak vs peak-to-peak, half vs full period.'], [m / 2, 'Off by a factor of 2: peak vs peak-to-peak, half vs full period.'], [m * 10, 'Off by a power of ten: unit slip.'], [m / 10, 'Off by a power of ten: unit slip.'], [m * 1.25, 'Close but wrong: rounding or a wrong constant.'], [m * .8, 'Close but wrong: rounding or a wrong constant.']]);
+    const nt = (q.trap || []).length, sh = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }; const ordered = cands.slice(0, nt).concat(sh(cands.slice(nt))).filter(([v]) => !(q.hi <= 1 && v > 1));
+    const picked = []; ordered.forEach(([v, why]) => { if (picked.length < 3 && v > 0 && Math.abs(v / m - 1) > .12 && picked.every(p => Math.abs(v / p[0] - 1) > .1) && (v < q.lo * .97 || v > q.hi * 1.03)) picked.push([v, why]); });
+    const all = [[m, null, right]].concat(picked.map(([v, w]) => [v, w, f(v)])).sort((a, b) => a[0] - b[0]);
+    return { opts: all.map(x => x[2]), ans: all.findIndex(x => x[1] === null), why: all.map(x => x[1]) };
+  }
+  /* NPTEL pattern (as reported): 50 single-answer MCQs in 3 sections — 10 basics, 15 assignment-style, 25 in-depth / numerical */
+  function makeNptel() {
+    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const pref = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
+    const used = new Set(), grp = new Set(), take = (pool, n) => { const out = []; for (const q of pref(pool)) { if (out.length >= n) break; if (used.has(q.id) || (q.grp && grp.has(q.grp))) continue; used.add(q.id); if (q.grp) grp.add(q.grp); out.push(q); } return out; };
+    const AI = window.AIQ || [], A = QBANK, F = MOCKQ;
+    const s1 = take(AI.filter(q => q.diff === 'Easy'), 7).concat(take(F.filter(q => q.type === 'mcq'), 3));
+    const s2 = take(A.filter(q => q.type === 'mcq'), 9).concat(take(AI.filter(q => q.diff === 'Medium'), 6));
+    const nat = A.filter(q => q.type === 'nat').concat(F.filter(q => q.type === 'nat'));
+    const s3 = take(AI.filter(q => q.diff === 'Hard'), 10).concat(take(nat, 15));
+    const gen = {}, perm = {};
+    s3.concat(s1, s2).forEach(q => { if (q.type === 'nat') gen[q.id] = natToMcq(q); else if (q.ai) perm[q.id] = shuffle([0, 1, 2, 3]); });
+    const S1 = shuffle(s1), S2 = shuffle(s2), S3 = shuffle(s3);
+    return { qs: S1.concat(S2, S3).map(q => q.id), gen, perm, sec: [['Section 1 · Basics', 0, 10], ['Section 2 · Assignment-style', 10, 25], ['Section 3 · In-depth & numerical', 25, 50]] };
+  }
+  function startExam(n, mins, mix) { const P = mix === 'nptel' ? makeNptel() : makePaper(n, mix); M = Object.assign({ v: 2, start: Date.now(), dur: mins * 60, ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }, P); save(); render(); }
   /* ---------------------------------------------------------- grading */
   const norm = (q, a) => a == null || a === '' || (Array.isArray(a) && !a.length) ? null : a;
   function isRight(q, a) { if (norm(q, a) == null) return false; if (q.type === 'nat') { const v = parseFloat(String(a).replace(',', '.')); return !isNaN(v) && v >= q.lo - 1e-9 && v <= q.hi + 1e-9; } if (q.type === 'mcq') return q.ans[0] === a; const A = new Set(q.ans); return a.length === A.size && a.every(x => A.has(x)); }
@@ -44,12 +74,13 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
     const inputs = h('div', { class: 'calc' }), row = h('div', { class: 'inputs' }); inputs.append(row); card.append(inputs);
     const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
     const tSel = h('select', { class: 'sel' }, [[180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
-    const mSel = h('select', { class: 'sel' }, [['mixed', 'Mixed: half assignment, half new (recommended)'], ['fresh', 'New questions only (first choice)'], ['assign', 'Assignment questions only']].map(([v, t]) => h('option', { value: v }, t)));
-    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45 }[nSel.value]; });
+    const mSel = h('select', { class: 'sel' }, [['nptel', 'NPTEL pattern: 50 MCQ in 3 sections (recommended)'], ['mixed', 'Mixed MCQ/MSQ/numerical: half assignment, half new'], ['fresh', 'New questions only (first choice)'], ['assign', 'Assignment questions only']].map(([v, t]) => h('option', { value: v }, t)));
+    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45 }[nSel.value]; if (mSel.value === 'nptel' && nSel.value !== '50') mSel.value = 'mixed'; }); mSel.addEventListener('change', () => { if (mSel.value === 'nptel') { nSel.value = '50'; tSel.value = '180'; } });
     row.append(h('label', {}, 'Length', nSel), h('label', {}, 'Time', tSel), h('label', {}, 'Questions', mSel));
     card.append(h('button', { class: 'btn primary', style: 'margin-top:12px', onclick: () => startExam(+nSel.value, +tSel.value, mSel.value) }, '▶ Start the exam'));
     H(body, `<h2>Rules of this mock</h2><ul>
-      <li><b>Format</b>: single-answer MCQ, multiple-select MSQ and numerical-answer questions, every week covered (≈ 4 per week in a 50-question paper, a few extra from the heaviest weeks). 61 new questions written in the assignment style + the 126 assignment questions.</li>
+      <li><b>NPTEL pattern</b> (default): 50 single-answer MCQs, Section 1 = 10 basics, Section 2 = 15 assignment-style, Section 3 = 25 in-depth / numerical, no negative marking. Numericals appear as 4-option MCQs whose wrong options are the typical slips (rms vs peak, ×2, ×10, the trap values). Questions come from the 150 NPTEL AI-mock questions (options re-shuffled; in those papers the key was almost always B or C), the 126 assignment questions and 61 new ones.</li>
+      <li><b>Mixed format</b>: single-answer MCQ, multiple-select MSQ and numerical-answer questions, every week covered (≈ 4 per week in a 50-question paper, a few extra from the heaviest weeks). 61 new questions written in the assignment style + the 126 assignment questions.</li>
       <li><b>Marking here</b>: every question carries equal marks, MSQ is all-or-nothing, numerical answers are accepted inside a range, no negative marking. Your score is also shown out of 75 (the exam's weight in the final grade).</li>
       <li><b>Timer</b>: keeps running if you close the page (like the real exam). It auto-submits at zero. Use <i>Mark for review</i> to come back later; marked + answered questions are graded.</li>
       <li><b>Allowed</b>: pen, paper and a calculator. Close the other tabs.</li></ul>
@@ -69,22 +100,22 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
     if (tick) clearInterval(tick); tick = setInterval(() => { const l = left(); timerEl.textContent = fmtT(l); timerEl.classList.toggle('low', l < 600); if (l <= 0) { clearInterval(tick); flushTime(); M.done = true; save(); finish(true); } else if (Math.round(l) % 5 === 0) { flushTime(); save(); } }, 500);
     timerEl.textContent = fmtT(left());
   }
-  function status(id) { const a = norm(ALL[id], M.ans[id]) != null, m = M.mark[id]; return m ? (a ? 'am' : 'm') : a ? 'a' : M.vis[id] ? 'na' : 'nv'; }
+  function status(id) { const a = norm(Q(id), M.ans[id]) != null, m = M.mark[id]; return m ? (a ? 'am' : 'm') : a ? 'a' : M.vis[id] ? 'na' : 'nv'; }
   function drawPal() {
     pal.innerHTML = '';
     const counts = { a: 0, na: 0, nv: 0, m: 0, am: 0 }; M.qs.forEach(id => counts[status(id)]++);
     pal.append(h('div', { class: 'pallegend', html: `<span class="pq a">${counts.a}</span>Answered <span class="pq na">${counts.na}</span>Not answered <span class="pq nv">${counts.nv}</span>Not visited <span class="pq m">${counts.m}</span>Marked <span class="pq am">${counts.am}</span>Answered &amp; marked` }));
-    const g = h('div', { class: 'palgrid' }); M.qs.forEach((id, i) => g.append(h('button', { class: 'pq ' + status(id) + (i === M.cur ? ' cur' : ''), 'aria-label': 'question ' + (i + 1), onclick: () => go2(i) }, String(i + 1)))); pal.append(g);
+    const g = h('div', { class: 'palgrid' }); M.qs.forEach((id, i) => { const sc = (M.sec || []).find(x => x[1] === i); if (sc) g.append(h('div', { class: 'palsec' }, sc[0])); g.append(h('button', { class: 'pq ' + status(id) + (i === M.cur ? ' cur' : ''), 'aria-label': 'question ' + (i + 1), onclick: () => go2(i) }, String(i + 1))); }); pal.append(g);
     pal.append(h('button', { class: 'btn primary', style: 'width:100%;margin-top:12px', onclick: () => confirmSubmit() }, 'Submit exam'));
     cnt.textContent = `Q ${M.cur + 1} / ${M.qs.length} · answered ${counts.a + counts.am}`;
   }
   function go2(i) { flushTime(); M.cur = i; save(); show(i); }
-  function setAns(id, v) { const q = ALL[id]; if (!(id in M.first) && norm(q, v) != null) M.first[id] = v; const prev = M.ans[id]; if (prev != null && JSON.stringify(prev) !== JSON.stringify(v)) M.chg[id] = (M.chg[id] || 0) + 1; M.ans[id] = v; save(); drawPal(); }
+  function setAns(id, v) { const q = Q(id); if (!(id in M.first) && norm(q, v) != null) M.first[id] = v; const prev = M.ans[id]; if (prev != null && JSON.stringify(prev) !== JSON.stringify(v)) M.chg[id] = (M.chg[id] || 0) + 1; M.ans[id] = v; save(); drawPal(); }
   function show(i) {
-    const id = M.qs[i], q = ALL[id]; M.vis[id] = 1; tShow = Date.now(); save();
+    const id = M.qs[i], q = Q(id); M.vis[id] = 1; tShow = Date.now(); save();
     qBox.innerHTML = '';
     const kind = q.type === 'nat' ? 'Numerical answer' : q.type === 'msq' ? 'Multiple select: one or more correct' : 'Single correct answer';
-    qBox.append(h('div', { class: 'qh' }, h('span', { class: 'pill hot' }, 'Question ' + (i + 1)), h('span', { class: 'pill' }, kind)));
+    const secN = (M.sec || []).find(x => i >= x[1] && i < x[2]); qBox.append(h('div', { class: 'qh' }, secN ? h('span', { class: 'pill' }, secN[0]) : null, h('span', { class: 'pill hot' }, 'Question ' + (i + 1)), h('span', { class: 'pill' }, kind)));
     qBox.append(h('div', { class: 'qt', html: q.text })); if (q.img) qBox.append(h('img', { src: q.img, alt: 'figure', class: 'exfig' }));
     const a = M.ans[id];
     if (q.type === 'nat') { const inp = h('input', { type: 'text', inputmode: 'decimal', class: 'sel', style: 'max-width:240px', placeholder: 'type your answer', value: a == null ? '' : a, 'aria-label': 'numerical answer' }); inp.addEventListener('input', () => setAns(id, inp.value.trim())); qBox.append(h('div', { class: 'nat' }, inp)); setTimeout(() => inp.focus(), 30); }
@@ -109,7 +140,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   /* ---------------------------------------------------------- analysis */
   function grade(m) {
-    const rows = m.qs.map(id => { const q = ALL[id], a = m.ans[id]; return { id, q, a, ok: isRight(q, a), blank: norm(q, a) == null, t: m.t[id] || 0, first: m.first[id], chg: m.chg[id] || 0 }; });
+    const rows = m.qs.map(id => { const q = QM(m, id), a = m.ans[id]; return { id, q, a, ok: isRight(q, a), blank: norm(q, a) == null, t: m.t[id] || 0, first: m.first[id], chg: m.chg[id] || 0 }; });
     const ok = rows.filter(r => r.ok).length; return { rows, ok, n: rows.length, pct: ok / rows.length * 100 };
   }
   function diagnose(r, topicAcc, medT) {
@@ -133,6 +164,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
         }
       }
     }
+    if (q.conv && q.why && q.why[r.a]) out.push(['silly', q.why[r.a]]);
     if (q.type === 'msq' && Array.isArray(r.a)) { const A = new Set(q.ans), S = new Set(r.a), miss = q.ans.filter(x => !S.has(x)), extra = r.a.filter(x => !A.has(x)); if (miss.length + extra.length === 1) out.push(['silly', miss.length ? `Missed one correct option (${String.fromCharCode(65 + miss[0])}). In MSQ judge every option on its own.` : `Ticked one extra option (${String.fromCharCode(65 + extra[0])}). Only tick what you can justify.`]); }
     if (r.t > 0 && r.t < Math.min(25, medT * .35)) out.push(['silly', `Answered in ${Math.round(r.t)} s: rushed. Re-read the question stem (axis, unit, "true/false").`]);
     if (!out.length && (topicAcc[q.topic] || 0) >= .75) out.push(['silly', 'A slip in a topic you otherwise know well: re-read this one.']);
@@ -167,6 +199,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
     H(body, `<h2>4 · Time management</h2><p>Average ${fmtT(used / R.n)} per question, ${R.n - blanks.length} answered${M.auto ? ', paper auto-submitted at zero' : `, ${fmtT(Math.max(0, M.dur - used))} left at submit`}.${slow.length ? ' These took much longer than your median; in the exam, mark them and come back:' : ''}</p>${slow.length ? '<ul>' + slow.map(r => `<li>Q${M.qs.indexOf(r.id) + 1} (${TT[r.q.topic] || r.q.topic}): ${fmtT(r.t)} – ${r.ok ? 'right' : 'wrong'}</li>`).join('') + '</ul>' : ''}`);
     // week table
     const W = {}; R.rows.forEach(r => { const o = W[r.q.wk] = W[r.q.wk] || { n: 0, ok: 0 }; o.n++; o.ok += r.ok; });
+    if (M.sec) { H(body, '<h2>Score by section</h2>'); const hs = h('div', { class: 'heat' }); body.append(hs); M.sec.forEach(([nm, a, b]) => { const rr = R.rows.slice(a, b), ok = rr.filter(r => r.ok).length, p = ok / rr.length * 100; hs.append(h('div', { class: 'heatrow' }, h('span', {}, nm), h('div', { class: 'bar' }, h('i', { style: `width:${p}%;background:${p >= 80 ? 'var(--good)' : p >= 60 ? 'var(--warn)' : 'var(--bad)'}` })), h('b', {}, `${ok}/${rr.length}`))); }); }
     H(body, '<h2>5 · Score by week</h2>'); const heat = h('div', { class: 'heat' }); body.append(heat);
     Object.keys(W).sort((a, b) => a - b).forEach(w => { const o = W[w], p = o.ok / o.n * 100; heat.append(h('div', { class: 'heatrow' }, h('span', {}, 'Week ' + w), h('div', { class: 'bar' }, h('i', { style: `width:${p}%;background:${p >= 80 ? 'var(--good)' : p >= 60 ? 'var(--warn)' : 'var(--bad)'}` })), h('b', {}, `${o.ok}/${o.n}`))); });
     // review
@@ -180,7 +213,7 @@ page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock t
   }
   function reviewCard(r, compact) {
     const q = r.q, i = M.qs.indexOf(r.id), c = h('div', { class: 'q rv ' + (r.ok ? 'ok' : r.blank ? 'bl' : 'no') });
-    c.append(h('div', { class: 'qh' }, h('span', { class: 'pill ' + (r.ok ? '' : 'hot') }, `Q${i + 1} · ${r.ok ? '✔ right' : r.blank ? '— blank' : '✘ wrong'}`), h('span', { class: 'pill' }, (q.fresh ? 'New · ' : 'Assignment ' + q.id + ' · ') + 'W' + q.wk), h('span', { class: 'pill' }, TT[q.topic] || q.topic), h('span', { class: 'pill' }, fmtT(r.t))));
+    c.append(h('div', { class: 'qh' }, h('span', { class: 'pill ' + (r.ok ? '' : 'hot') }, `Q${i + 1} · ${r.ok ? '✔ right' : r.blank ? '— blank' : '✘ wrong'}`), h('span', { class: 'pill' }, (q.ai ? 'NPTEL AI mock ' + q.ai + ' · ' : q.fresh ? 'New · ' : 'Assignment ' + q.id + ' · ') + 'W' + q.wk), h('span', { class: 'pill' }, TT[q.topic] || q.topic), h('span', { class: 'pill' }, fmtT(r.t))));
     c.append(h('div', { class: 'qt', html: q.text }));
     if (q.img && !compact) c.append(h('img', { src: q.img, alt: 'figure', loading: 'lazy' }));
     if (q.type !== 'nat' && !compact) c.append(h('ol', { class: 'rvopts', type: 'A', html: q.opts.map((t, k) => `<li class="${q.ans.includes(k) ? 'k' : ''}${(q.type === 'msq' ? (r.a || []).includes(k) : r.a === k) ? ' y' : ''}">${t}</li>`).join('') }));

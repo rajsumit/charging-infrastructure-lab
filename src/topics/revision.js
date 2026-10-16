@@ -30,6 +30,24 @@ page({ id: 'revision-sheet', mod: 'home', title: 'Revision sheet (read before ex
     <li><b>"Which axis is on the voltage?"</b> decides whether i<sub>d</sub> or i<sub>q</sub> is the active current.</li>
     <li>Keep 4 significant figures until the final step.</li></ul></div>`);
   prog();
+  S('lec', 'Lecture details the NPTEL mock papers ask (not in the assignments)', 'all weeks', [
+    'EVSE = Electric Vehicle <b>Supply</b> Equipment · OCPP = <b>Open Charge Point</b> Protocol · SPS = <b>Single Phase Shift</b>.',
+    'High f<sub>sw</sub> → smaller L, C and transformer. HF transformer = small + isolation (safety).',
+    'Rectifier with R load: source current sinusoidal, in phase. With C: peaky pulses. V<sub>RRM</sub> = max repetitive reverse voltage.',
+    'Boost PFC control variable = <b>duty d</b>. Voltage-loop <b>saturation block</b> caps the current reference (protects devices). Current loop: high gain at 2f<sub>line</sub>, BW ≪ f<sub>sw</sub>, good margins.',
+    'Double-line ripple: input power P(1 − cos2ωt) vs constant load power. Energy equivalence: C<sub>min</sub> = ΔP<sub>max</sub>·T<sub>d</sub>/(2V<sub>o</sub>ΔV<sub>o</sub>).',
+    '3-φ: cos2ωt terms cancel → constant power → small C. Size C by ripple current from switching harmonics: I<sub>C,rms</sub> = √(I<sub>rms</sub>² − I<sub>avg</sub>²) = I<sub>s,pk</sub>√((3/π)·M·(5/4) − (9/16)M²) (as in the mock key).',
+    'dq: AC → DC quantities; d-axis on voltage ⇒ V<sub>sq</sub> = 0. ωL cross-coupling terms must be compensated. PI zero = plant pole (R<sub>s</sub>/L); K<sub>PC</sub> from a 2nd-order damping target; K factor from power balance.',
+    'Totem pole: slow leg at line frequency → no reverse-recovery loss. <b>Zero-crossing distortion</b>: switch timing near v<sub>s</sub> = 0; if S1 turns on while S4 is on, v<sub>L</sub> ≈ −V<sub>o</sub> → negative current spike.',
+    'DCM: current hits zero each cycle; no multiplier; higher THD (triangular pulses). DCM flyback PFC looks resistive. L<sub>crit,min</sub> at min R<sub>L</sub> and min V<sub>s,pk</sub> (mock key).',
+    'Forward: one quadrant of B-H + lossy reset → poor core use. Full bridge applies V<sub>in</sub> (half bridge V<sub>in</sub>/2); full-bridge switch stress V<sub>in</sub> (push-pull 2V<sub>in</sub>). Output ripple at 2f<sub>sw</sub>: pattern repeats every T<sub>s</sub>/2.',
+    'ZVS: voltage driven to zero before current rises. Dead time: no shoot-through + time to swing C<sub>oss</sub>. Load-current direction picks the ZVS switch. Leading leg energy from the output inductor; lagging leg only from leakage (light load: no ZVS).',
+    'PSFB output set by phase shift. <b>D-loss</b> reduces effective duty, depends on i<sub>L</sub> and V<sub>in</sub>; small-signal model adds controlled sources for d̃<sub>i</sub>, d̃<sub>v</sub>.',
+    'DAB: bidirectional; keep the current symmetrical (no DC offset) to avoid flux walking/saturation.',
+    'Magnetics: B-H = B vs H. Air gap ↑ saturation current. Steinmetz: eddy ∝ f²ΔB². Core loss ↑ and copper loss ↓ with ΔB → optimum. Two-level optimisation: window split γ<sub>j</sub>, then ΔB. Loss too high → next bigger core. Filter inductor: small ripple → negligible core loss. Inductor core selection: A<sub>c</sub>²W<sub>A</sub>/MLT ≥ ρL²I<sub>max</sub>²/(B<sub>max</sub>²·R·k<sub>u</sub>).',
+    'CCS2: SLAC binds the EV to the EVSE it is plugged into; <b>BCB toggle</b> resolves ambiguous attenuation; <b>EVSEProcessing</b> = Ongoing/Finished; SLAAC = network layer.',
+    'OCPP-J (JSON over one WebSocket) is lighter and more scalable than OCPP-S (SOAP/XML); BootNotification = [2, "id", "BootNotification", {chargePointVendor, chargePointModel}]. BEVC-DC001 uses CAN; the PGN identifies the parameter group.'], [], [
+    'in the NPTEL AI mocks the key was B or C in 143 of 150 questions; do not rely on that in the real exam']);
   S('m1', 'Module 1 · EV charging basics, standards, rectifier', 'W1', [
     'BMS (in the vehicle) is the master; the charger only supplies.', 'CC then CV: in CV the current tapers.',
     '<b>Mode 1</b> plain socket · <b>Mode 2</b> socket + in-cable box (ICCPD) · <b>Mode 3</b> AC wall box with CP · <b>Mode 4</b> DC charger.',

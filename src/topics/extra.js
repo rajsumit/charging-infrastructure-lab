@@ -1,18 +1,20 @@
 page({ id: 'qbank', mod: 'home', title: 'Question bank (all 126)', kw: 'assignment practice quiz questions wrong redo', render(body) {
   H(body, `<h1>Assignment question bank</h1><p class="lede">All weekly assignment questions (W1-W12) with reasons. Answers are marked wrong/right and remembered in this browser.</p>`);
   const tt = {}; PAGES.forEach(p => { if (p.topic) tt[p.id] = p.title; });
-  QBANK.forEach(q => q.topicTitle = tt[q.topic] || q.topic);
+  QBANK.concat(window.AIQ || [], window.MOCKQ || []).forEach(q => q.topicTitle = tt[q.topic] || q.topic);
   const bar = h('div', { class: 'calc' }), inputs = h('div', { class: 'inputs' }); bar.append(inputs);
   const wk = h('select', { class: 'sel', 'aria-label': 'week' }, h('option', { value: '' }, 'All weeks'), ...Array.from({ length: 12 }, (_, i) => h('option', { value: i + 1 }, 'Week ' + (i + 1))));
   const tp = h('select', { class: 'sel', 'aria-label': 'topic' }, h('option', { value: '' }, 'All topics'), ...Object.keys(tt).map(k => h('option', { value: k }, tt[k].slice(0, 46))));
   const ty = h('select', { class: 'sel', 'aria-label': 'type' }, h('option', { value: '' }, 'All types'), h('option', { value: 'mcq' }, 'Single answer'), h('option', { value: 'msq' }, 'Multiple select'), h('option', { value: 'nat' }, 'Numerical'));
+  const src = h('select', { class: 'sel', 'aria-label': 'source' }, h('option', { value: 'a' }, 'Assignments (126)'), h('option', { value: 'ai' }, 'NPTEL AI mock papers (150)'), h('option', { value: 'n' }, 'New exam-style (61)'));
   const stt = h('select', { class: 'sel', 'aria-label': 'status' }, h('option', { value: '' }, 'Any status'), h('option', { value: 'new' }, 'Not tried yet'), h('option', { value: 'wrong' }, 'Wrong so far (redo)'), h('option', { value: 'right' }, 'Correct'));
-  [['Week', wk], ['Topic', tp], ['Type', ty], ['Status', stt]].forEach(([l, e]) => inputs.append(h('label', {}, l, e)));
+  [['Source', src], ['Week', wk], ['Topic', tp], ['Type', ty], ['Status', stt]].forEach(([l, e]) => inputs.append(h('label', {}, l, e)));
   body.append(bar); const info = h('p', { class: 'cap' }), list = h('div'), more = h('button', { class: 'btn', onclick: () => { shown += 12; draw(); } }, 'Show 12 more'); body.append(info, list, more);
   let shown = 12, cur = [];
-  const filt = () => QBANK.filter(q => (!wk.value || q.wk == wk.value) && (!tp.value || q.topic === tp.value) && (!ty.value || q.type === ty.value) && (!stt.value || (stt.value === 'new' ? QPROG[q.id] === undefined : stt.value === 'wrong' ? QPROG[q.id] === 0 : QPROG[q.id] === 1)));
+  const pool = () => src.value === 'ai' ? (window.AIQ || []) : src.value === 'n' ? (window.MOCKQ || []) : QBANK;
+  const filt = () => pool().filter(q => (!wk.value || q.wk == wk.value) && (!tp.value || q.topic === tp.value) && (!ty.value || q.type === ty.value) && (!stt.value || (stt.value === 'new' ? QPROG[q.id] === undefined : stt.value === 'wrong' ? QPROG[q.id] === 0 : QPROG[q.id] === 1)));
   function draw() { list.innerHTML = ''; cur = cur.length ? cur : filt(); cur.slice(0, shown).forEach(q => list.append(renderQuestion(q, { showTopic: true }))); more.hidden = shown >= cur.length; const a = Object.keys(QPROG).length, ok = Object.values(QPROG).filter(x => x === 1).length; info.textContent = `${cur.length} questions match. Overall: ${a}/${QBANK.length} tried, ${ok} correct.`; }
-  const reset = () => { shown = 12; cur = filt(); draw(); }; [wk, tp, ty, stt].forEach(e => e.addEventListener('change', reset));
+  const reset = () => { shown = 12; cur = filt(); draw(); }; [src, wk, tp, ty, stt].forEach(e => e.addEventListener('change', reset));
   const row = h('div', { class: 'nextprev', style: 'margin:10px 0' }, h('button', { class: 'btn primary', onclick: () => { cur = QBANK.slice().sort(() => Math.random() - .5).slice(0, 10); shown = 10; draw(); info.textContent = 'Random 10-question mock. ' + info.textContent; } }, 'Random 10-question mock'), h('button', { class: 'btn', onclick: () => { stt.value = 'wrong'; reset(); } }, 'Redo my wrong answers'), h('button', { class: 'btn', onclick: () => { try { localStorage.removeItem('ci:q'); } catch (e) {} Object.keys(QPROG).forEach(k => delete QPROG[k]); reset(); } }, 'Reset my progress'));
   body.insertBefore(row, bar); reset();
 } });

@@ -274,3 +274,4 @@ body.exam-on .rail,body.exam-on .topbar{display:none}body.exam-on .app{grid-temp
 .rev ul{margin:0;padding-left:1.1rem}.rev li{margin:.25rem 0;font-size:.96rem}
 .revt{width:100%;border-collapse:collapse;font-size:.88rem}.revt td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}.revt td.f{font-family:var(--f-mono);font-size:.84rem}.revt td.c{color:var(--muted);font-size:.82rem}
 .trap{margin-top:10px;padding:7px 10px;border-radius:7px;background:color-mix(in srgb,var(--bad) 9%,transparent);font-size:.92rem}
+.palsec{grid-column:1/-1;font:700 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
