@@ -34,7 +34,7 @@ page({ id: 'formulas', mod: 'home', title: 'Formula sheet & cheat sheet', kw: 'f
   G('DAB', 'dab', [['Power', 'Vin·Vo′·δ(π−δ)/(2π²·fs·L)', '60°, 200 V, 400 V′, 10 µH, 100 kHz → 8.89 kW'], ['Pmax', 'Vin·Vo′/(8·fs·L)', '500 W'], ['δ for P = x·Pmax', '(1 − √(1−x))/2 × 180°', '0.2 → 9.5°']]);
   G('Magnetics', 'magnetics', [['Core area', 'Ac = V·t/(N·ΔBpp)', '200'], ['Optimum ΔB (β = 2)', '(a/b)^¼', ''], ['Gapped inductor', 'L ≈ μ0N²Ac/lg', '']]);
   G('AC Type-2', 'ac-type2', [['Duty → current', '0.6 × D(%) for 10-85 %', '36 A → 60 % ; 48 A → 800 µs'], ['PP voltage', '5·(R5∥R6)/(R4 + R5∥R6)', '300 Ω → 2.30 V'], ['CP state C', '12·Rv/(1k + Rv)', '881 Ω → 5.6 V'], ['States', 'A12 B9 C6 D3 E0 F−12', '']]);
-  G('CCS2', 'ccs2', [['SLAC', '3 × start atten, 10 sounds, 58 groups', 'lowest attenuation wins'], ['Pre-charge', 'I &lt; 2 A, ΔV &lt; 20 V', 'contactors in C2']]);
+  G('CCS2', 'ccs2', [['SLAC', '3 × start atten, 10 sounds, 58 groups', 'lowest attenuation wins'], ['Pre-charge', 'I limit 2 A, ΔV &lt; 20 V', 'contactors in C2']]);
   G('CAN / OCPP', 'dc001-can', [['IDs', '2.0A 2¹¹, 2.0B 2²⁹', ''], ['Addresses', 'charger 0x56 (86), BMS 0xF4 (244)', ''], ['Priority', 'top 3 bits of 29-bit ID', '0x18 → 6'], ['OCPP-J types', 'CALL 2, CALLRESULT 3, CALLERROR 4', '']]);
   $$('[data-go]', body).forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
 } });

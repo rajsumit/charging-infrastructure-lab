@@ -245,6 +245,39 @@ canvas.lanes{width:100%;display:block;background:var(--scope);border-radius:8px}
 .narr .who{display:inline-block;font:800 .7rem var(--f-mono);letter-spacing:.08em;padding:2px 7px;border-radius:5px;margin-right:6px;background:var(--brand);color:var(--brand-ink)}
 .narr .who.car{background:var(--ch-x);color:#fff}.narr .who.fault{background:var(--bad);color:#fff}.narr .who.driver{background:var(--muted);color:var(--bg)}
 label.mini{display:inline-flex;align-items:center;gap:6px;font:600 .85rem var(--f-body)}label.mini .sel{width:auto}
+/* mock exam */
+body.exam-on .rail,body.exam-on .topbar{display:none}body.exam-on .app{grid-template-columns:minmax(0,1fr)}body.exam-on .page{max-width:1200px}
+.exbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--brand);color:var(--brand-ink);padding:10px 14px;border-radius:10px;margin-bottom:12px}
+.exname{font:800 .95rem var(--f-display)}.excnt{font:600 .85rem var(--f-mono);opacity:.85}.extl{margin-left:auto;font:600 .85rem var(--f-mono)}
+.extimer{font:800 1.25rem var(--f-mono);font-variant-numeric:tabular-nums;padding:2px 8px;border-radius:6px;background:var(--bg);color:var(--ink)}.extimer.low{background:var(--bad);color:#fff}
+.exwrap{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;align-items:start}
+@media (max-width:900px){.exwrap{grid-template-columns:minmax(0,1fr)}}
+.exq{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.exq .qt{font-size:1.06rem;margin:10px 0}.exq .opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:7px 0;cursor:pointer}
+.exq .opt.sel{border-color:var(--ch-v);box-shadow:inset 0 0 0 1px var(--ch-v);background:color-mix(in srgb,var(--ch-v) 8%,transparent)}
+.exfig{max-width:100%;border-radius:8px;background:#fff}
+.exnav{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.exnav .mk{border-color:var(--ch-b);color:var(--ch-b)}
+.expal{position:sticky;top:70px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.pallegend{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center;font-size:.78rem;margin-bottom:10px}
+.palgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.pq{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:7px;border:1px solid var(--line);font:700 .8rem var(--f-mono);background:var(--surface2);color:var(--ink);cursor:pointer;position:relative}
+.palgrid .pq{height:36px}
+.pq.a{background:var(--good);color:#fff;border-color:var(--good)}.pq.na{background:var(--bad);color:#fff;border-color:var(--bad)}.pq.m{background:var(--ch-b);color:#fff;border-color:var(--ch-b)}
+.pq.am{background:var(--ch-b);color:#fff;border-color:var(--ch-b)}.pq.am::after{content:'';position:absolute;right:3px;bottom:3px;width:7px;height:7px;border-radius:50%;background:var(--good);border:1px solid #fff}
+.pq.cur{outline:3px solid var(--hot);outline-offset:1px}
+.tchips{display:flex;flex-wrap:wrap;gap:8px}.tchip{display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;max-width:100%}
+.tchip small{color:var(--muted);font:600 .74rem var(--f-mono)}.tchip:hover{border-color:var(--brand)}
+.q.rv.ok{border-left:5px solid var(--good)}.q.rv.no{border-left:5px solid var(--bad)}.q.rv.bl{border-left:5px solid var(--muted)}
+.rvopts{margin:.3rem 0 .4rem;padding-left:1.6rem}.rvopts li{padding:2px 4px;border-radius:5px}.rvopts li.k{background:color-mix(in srgb,var(--good) 16%,transparent);font-weight:600}.rvopts li.y:not(.k){background:color-mix(in srgb,var(--bad) 14%,transparent);text-decoration:line-through}
+.rvans{font-size:.95rem;margin:.3rem 0}.dx{font-size:.92rem;padding:5px 10px;border-radius:6px;margin:4px 0}.dx.silly{background:color-mix(in srgb,var(--warn) 14%,transparent)}.dx.gap{background:color-mix(in srgb,var(--bad) 10%,transparent)}.dx.blank{background:var(--surface2)}
+/* revision sheet */
+.rev{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.rev.done{opacity:.72}.rev header{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.rev header h2{margin:0;font-size:1.2rem;flex:1 1 260px}
+.revgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:8px}@media (max-width:900px){.revgrid{grid-template-columns:minmax(0,1fr)}}
+.rev h4{font:700 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:.4rem 0}
+.rev ul{margin:0;padding-left:1.1rem}.rev li{margin:.25rem 0;font-size:.96rem}
+.revt{width:100%;border-collapse:collapse;font-size:.88rem}.revt td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}.revt td.f{font-family:var(--f-mono);font-size:.84rem}.revt td.c{color:var(--muted);font-size:.82rem}
+.trap{margin-top:10px;padding:7px 10px;border-radius:7px;background:color-mix(in srgb,var(--bad) 9%,transparent);font-size:.92rem}
 </style>
 <div class="app">
   <aside class="rail" id="rail">
@@ -474,6 +507,84 @@ Q(12,8,'dc001-can','mcq','GB/T 27930-2015 data 0x56012C019A053200 with byte layo
 Q(12,9,'stations-ocpp','msq','True for messages in <b>OCPP-J</b>:',{opts:['Message ID of a CALL is a unique ID','Message ID of a CALL is the same as the previous message','Message ID of a CALLRESULT is the same as that of the CALL','Message ID of a CALLRESULT is a unique ID'],ans:[0,2],exp:'A CALL carries a fresh unique ID; the CALLRESULT/CALLERROR echoes that ID so the sender can match request and response.'});
 Q(12,10,'stations-ocpp','mcq','Which component does <b>not</b> belong to OCPP?',{opts:['Use case','Test case','Configuration keys','Class'],ans:[3],exp:'OCPP specification components: profiles, messages, data types, configuration keys, use cases, test cases. “Class” is not one of them.'});
 })();
+
+;
+/* Fresh exam-style questions (not from the assignments), same style and topics. Numbers verified with calc.js. */
+window.MOCKQ = [];
+const MQ = (n, wk, topic, type, text, o) => MOCKQ.push(Object.assign({ id: 'N' + n, wk, n, topic, type, text, fresh: true }, o));
+/* ---- Week 1 ---- */
+MQ(1, 1, 'standards', 'mcq', 'Charging through a <b>dedicated AC wall box</b> that talks to the vehicle over the control pilot is which IEC 61851 mode?', { opts: ['Mode 1', 'Mode 2', 'Mode 3', 'Mode 4'], ans: [2], exp: 'Mode 1 = plain socket; Mode 2 = socket + in-cable control box (ICCPD); <b>Mode 3 = dedicated AC EVSE with CP</b>; Mode 4 = DC charger.' });
+MQ(2, 1, 'standards', 'mcq', 'Which DC charging system was developed in Japan and communicates with the vehicle over <b>CAN</b>?', { opts: ['CCS1', 'CCS2', 'CHAdeMO', 'Tesla NACS'], ans: [2], exp: '<b>CHAdeMO</b> uses CAN (as does GB/T). CCS1/CCS2 use PLC on CP-PE.' });
+MQ(3, 1, 'rectifier', 'nat', 'Single-phase <b>half-wave</b> rectifier, resistive load, fed from 230 V (rms), 50 Hz. Average output voltage (V)?', { lo: 102, hi: 105, show: '103.5 V', exp: 'V<sub>m</sub> = √2·230 = 325.3 V. V<sub>avg</sub> = V<sub>m</sub>/π = <b>103.5 V</b>.', trap: [[73.2, 'used V<sub>rms</sub>/π instead of V<sub>m</sub>/π'], [207.1, 'used the full-wave formula 2V<sub>m</sub>/π']] });
+MQ(4, 1, 'rectifier', 'nat', 'Single-phase <b>full-bridge</b> diode rectifier, resistive load, 120 V (rms), 60 Hz. Average output voltage (V)?', { lo: 107, hi: 109, show: '108.0 V', exp: 'V<sub>avg</sub> = 2V<sub>m</sub>/π = 2·169.7/π = <b>108.0 V</b>. Frequency does not matter.', trap: [[54, 'used the half-wave formula'], [76.4, 'used V<sub>rms</sub> instead of V<sub>m</sub>']] });
+MQ(5, 1, 'charger-arch', 'msq', 'Which statements are true for <b>Mode 3 AC charging</b>?', { opts: ['AC-DC conversion happens in the vehicle\'s on-board charger', 'The EVSE contains the high-power rectifier', 'Charging power is limited by the OBC rating', 'PLC communication is mandatory'], ans: [0, 2], exp: 'AC EVSE = smart switch. Conversion and power limit are in the OBC. AC charging uses the CP PWM (PLC is optional, for ISO 15118 features).' });
+MQ(6, 1, 'ev-system', 'mcq', 'During the <b>CV</b> phase of CC-CV charging, the charging current:', { opts: ['stays constant', 'increases', 'decreases gradually', 'reverses'], ans: [2], exp: 'Voltage is held at the limit, so the current tapers off until the cut-off current is reached.' });
+MQ(7, 1, 'rectifier', 'nat', 'Full-bridge diode rectifier with capacitor filter, 230 V, 50 Hz, load 300 W. Output ripple ≤ 10 % of the peak input voltage. Smallest C (µF)? (Use the same method as W2Q9.)', { lo: 248, hi: 263, show: '256 µF', exp: 'V<sub>pk</sub> = 325.3 V, ΔV = 32.5 V, V<sub>min</sub> = 292.7 V. t<sub>dis</sub> = (π/2 + asin 0.9)/(2π·50) = 8.56 ms. I = 300/309.0 = 0.971 A. C = I·t/ΔV = <b>256 µF</b>.', trap: [[298, 'used t<sub>dis</sub> = 10 ms (a full half-cycle)']] });
+/* ---- Week 2 ---- */
+MQ(8, 2, 'boost-pfc', 'nat', 'Boost PFC from 230 V (rms), V<sub>o</sub> = 400 V. Duty ratio of the switch <b>at the peak</b> of the input voltage?', { lo: .18, hi: .195, show: '0.187', exp: 'd = 1 − V<sub>m</sub>/V<sub>o</sub> = 1 − 325.3/400 = <b>0.187</b>.', trap: [[.425, 'used V<sub>rms</sub> instead of the peak'], [.813, 'gave |v<sub>s</sub>|/V<sub>o</sub> instead of 1 − |v<sub>s</sub>|/V<sub>o</sub>']] });
+MQ(9, 2, 'boost-pfc', 'nat', 'Boost PFC: 3 kW, 230 V, 50 Hz, V<sub>o</sub> = 400 V, f<sub>sw</sub> = 50 kHz, CCM. Peak-to-peak ripple = 20 % of the peak input current. L (mH)?', { lo: .52, hi: .56, show: '0.542 mH', exp: 'I<sub>pk</sub> = √2·3000/230 = 18.45 A; ΔI = 3.69 A. L = V<sub>o</sub>/(4·ΔI·f<sub>sw</sub>) = 400/(4·3.69·50 000) = <b>0.542 mH</b>.', trap: [[.767, 'used rms current 13.04 A instead of the peak']] });
+MQ(10, 2, 'boost-pfc', 'nat', 'Boost PFC with V<sub>o</sub> = 400 V. Duty ratio at the instant |v<sub>s</sub>| = 100 V?', { lo: .74, hi: .76, show: '0.75', exp: 'd = 1 − 100/400 = <b>0.75</b>.', trap: [[.25, 'used |v<sub>s</sub>|/V<sub>o</sub>']] });
+MQ(11, 2, 'boost-pfc', 'mcq', 'In a CCM boost PFC with fixed f<sub>sw</sub>, the inductor ripple current over a line cycle is <b>largest</b> when:', { opts: ['|v<sub>s</sub>| = 0', '|v<sub>s</sub>| = V<sub>o</sub>/2', '|v<sub>s</sub>| = V<sub>s,pk</sub>', '|v<sub>s</sub>| = V<sub>o</sub>'], ans: [1], exp: 'ΔI = V<sub>o</sub>·d(1−d)/(L·f) is maximum at d = 0.5, i.e. |v<sub>s</sub>| = V<sub>o</sub>/2 (if the peak reaches it).' });
+MQ(12, 2, 'boost-pfc', 'nat', 'Full-bridge (4-switch) PFC: S1 & S4 on for d·T<sub>s</sub>, S2 & S3 for (1−d)·T<sub>s</sub>. V<sub>o</sub> = 400 V. Duty of S1 & S4 when |v<sub>s</sub>| = 200 V (same convention as W2Q2)?', { lo: .74, hi: .76, show: '0.75', exp: 'd = (1 + |v<sub>s</sub>|/V<sub>o</sub>)/2 = (1 + 0.5)/2 = <b>0.75</b>.', trap: [[.5, 'used the boost formula 1 − |v<sub>s</sub>|/V<sub>o</sub>'], [.25, 'used (1 − |v<sub>s</sub>|/V<sub>o</sub>)/2']] });
+/* ---- Week 3 ---- */
+MQ(13, 3, 'pfc-stress', 'nat', 'Single-phase PFC, 2 kW, 50 Hz, V<sub>o</sub> = 400 V, C = 1 mF. Peak-to-peak DC-link ripple (V)?', { lo: 15.5, hi: 16.3, show: '15.9 V', exp: 'ΔV<sub>pp</sub> = P/(2π·f·V<sub>o</sub>·C) = 2000/(2π·50·400·0.001) = <b>15.9 V</b>.', trap: [[7.96, 'gave the peak (half of peak-to-peak) or used 2f'], [31.8, 'doubled it: used πf instead of 2πf']] });
+MQ(14, 3, 'pfc-stress', 'nat', 'Buck-type leg: S1 on 25 µs every 50 µs, load current I<sub>o</sub> = 15 A (constant). RMS current of S1 (A)?', { lo: 10.5, hi: 10.7, show: '10.61 A', exp: 'I<sub>rms</sub> = I<sub>o</sub>√D = 15·√0.5 = <b>10.61 A</b>.', trap: [[7.5, 'gave the average I<sub>o</sub>·D']] });
+MQ(15, 3, 'pfc-stress', 'mcq', 'A single-phase PFC at 100 kHz with unity PF runs from a <b>60 Hz</b> grid. Dominant output-voltage ripple frequency?', { opts: ['60 Hz', '120 Hz', '100 kHz', '200 kHz'], ans: [1], exp: 'Single-phase power pulsates at twice the line frequency: <b>120 Hz</b>.' });
+MQ(16, 3, 'pfc-control', 'msq', 'Dual-loop average current control of a boost PFC: which are true?', { opts: ['The outer loop regulates the output voltage', 'The inner loop forces i<sub>L</sub> to follow a reference proportional to |v<sub>s</sub>|', 'The voltage-loop bandwidth is kept well below 100 Hz', 'The current-loop bandwidth must be below the line frequency'], ans: [0, 1, 2], exp: 'The voltage loop is slow (≈ 10-20 Hz) so it does not distort the current with 100 Hz ripple; the current loop is fast (kHz) so it can track a 100 Hz rectified sine.' });
+MQ(17, 3, 'pfc-control', 'mcq', 'State-space model of the boost PFC with x = [i<sub>L</sub>, v<sub>C</sub>]ᵀ. Size of the A matrix?', { opts: ['1 × 1', '2 × 1', '2 × 2', '2 × 3'], ans: [2], exp: 'Two states → A is <b>2 × 2</b>; with two inputs [d, v<sub>s</sub>], B is 2 × 2 as well.' });
+/* ---- Week 4 ---- */
+MQ(18, 4, 'bridgeless', 'mcq', 'In a totem-pole PFC at 65 kHz from a 50 Hz grid, the "slow" leg switches at:', { opts: ['50 Hz', '100 Hz', '65 kHz', '130 kHz'], ans: [0], exp: 'The slow leg only selects the half-cycle: <b>line frequency</b>. The fast leg does the boost switching.' });
+MQ(19, 4, 'bridgeless', 'mcq', 'Conventional boost PFC (diode bridge + boost switch): how many semiconductors conduct while the switch is ON?', { opts: ['1', '2', '3', '4'], ans: [2], exp: 'Two bridge diodes + the switch = <b>3</b>. The totem-pole cuts this to 2.' });
+MQ(20, 4, 'dcm-flyback', 'msq', 'For a boost PFC in DCM, which are true?', { opts: ['Inductor current returns to zero every switching period', 'No multiplier / current-reference loop is needed', 'Peak current stress is higher than in CCM for the same power', 'It needs a larger inductance than CCM'], ans: [0, 1, 2], exp: 'DCM uses a <i>smaller</i> L; the peak current naturally follows v<sub>s</sub>, at the price of high peak current.' });
+MQ(21, 4, 'pfc-control', 'mcq', 'PFC switching at 100 kHz from 50 Hz with dual loop control. Best current-loop bandwidth?', { opts: ['10 Hz < BW < 50 Hz', '100 Hz < BW < 500 Hz', '500 Hz < BW < 10 kHz', '50 kHz < BW < 100 kHz'], ans: [2], exp: 'Well above 100 Hz (to track the rectified sine) and below ≈ f<sub>sw</sub>/10.' });
+MQ(22, 4, 'bridgeless', 'nat', 'Bridgeless PFC from 230 V, V<sub>o</sub> = 400 V. Duty ratio of the active switch at the peak of the input?', { lo: .18, hi: .195, show: '0.187', exp: 'Same boost relation in each half-cycle: d = 1 − 325.3/400 = <b>0.187</b>.', trap: [[.813, 'gave 1 − d']] });
+/* ---- Week 5 ---- */
+MQ(23, 5, 'pwm', 'nat', 'Half-bridge VSC, V<sub>dc</sub> = 600 V, sine PWM with m = 0.8. RMS of the fundamental pole voltage (V)?', { lo: 168, hi: 171.5, show: '169.7 V', exp: 'V<sub>1,rms</sub> = m·V<sub>dc</sub>/(2√2) = 0.8·600/2.828 = <b>169.7 V</b>.', trap: [[240, 'gave the peak m·V<sub>dc</sub>/2'], [339.4, 'used m·V<sub>dc</sub>/√2']] });
+MQ(24, 5, 'pwm', 'mcq', 'SPWM with a 5 kHz carrier and 50 Hz fundamental. Frequency modulation ratio m<sub>f</sub>?', { opts: ['10', '50', '100', '250'], ans: [2], exp: 'm<sub>f</sub> = f<sub>c</sub>/f<sub>1</sub> = 5000/50 = <b>100</b>.' });
+MQ(25, 5, 'dcm-flyback', 'nat', 'Flyback PFC from 230 V (rms). At the positive peak the duty is 0.2 and n = 0.5 (same convention as W5Q7). Output voltage (V)?', { lo: 160, hi: 165, show: '162.6 V', exp: 'V<sub>o</sub> = (V<sub>pk</sub>/n)·d/(1−d) = (325.3/0.5)·0.25 = <b>162.6 V</b>.', trap: [[40.7, 'multiplied by n instead of dividing'], [115, 'used V<sub>rms</sub>']] });
+MQ(26, 5, 'vsc3', 'mcq', 'A 3-phase VSC runs at unity PF with power flowing <b>DC → AC</b> (V2G). The converter voltage phasor must:', { opts: ['lag the grid voltage', 'lead the grid voltage', 'be in phase and smaller', 'be in phase and larger'], ans: [1], exp: 'Power flows from the leading source to the lagging one. AC→DC: converter lags (W5Q1); DC→AC: converter <b>leads</b>.' });
+MQ(27, 5, 'vsc3', 'nat', '3-phase VSC with V<sub>dc</sub> = 700 V and sine PWM, m = 0.9. Peak of the fundamental converter phase voltage (V)?', { lo: 312, hi: 318, show: '315 V', exp: 'V<sub>c,pk</sub> = m·V<sub>dc</sub>/2 = <b>315 V</b>.', trap: [[630, 'forgot the /2'], [222.7, 'gave the rms value']] });
+/* ---- Week 6 ---- */
+MQ(28, 6, 'dq-control', 'nat', 'dq control, d-axis aligned with the supply voltage: i<sub>d</sub> = 12 A, i<sub>q</sub> = 5 A. Power factor?', { lo: .92, hi: .926, show: '0.923', exp: 'PF = i<sub>d</sub>/√(i<sub>d</sub>² + i<sub>q</sub>²) = 12/13 = <b>0.923</b>.', trap: [[.385, 'used i<sub>q</sub> in the numerator (q-axis formula)']] });
+MQ(29, 6, 'dq-control', 'mcq', 'd-axis aligned with the supply voltage. The controller sets i<sub>d</sub> = 0 and i<sub>q</sub> ≠ 0. The converter exchanges:', { opts: ['only active power', 'only reactive power', 'active and reactive power', 'no power'], ans: [1], exp: 'Current 90° from the voltage → <b>purely reactive</b> (zero power factor).' });
+MQ(30, 6, 'forward', 'nat', 'Forward converter, V<sub>in</sub> = 300 V, N<sub>p</sub>:N<sub>s</sub> = 3:1, D = 0.3. Output voltage (V)?', { lo: 29.5, hi: 30.5, show: '30 V', exp: 'V<sub>o</sub> = (N<sub>s</sub>/N<sub>p</sub>)·D·V<sub>in</sub> = (1/3)·0.3·300 = <b>30 V</b>.', trap: [[270, 'used N<sub>p</sub>/N<sub>s</sub>'], [100, 'forgot D']] });
+MQ(31, 6, 'forward', 'nat', 'Forward converter with demagnetising winding N<sub>d</sub> = N<sub>p</sub>, f<sub>sw</sub> = 50 kHz. Maximum switch on-time (µs)?', { lo: 9.9, hi: 10.1, show: '10 µs', exp: 'D<sub>max</sub> = 1/(1 + N<sub>d</sub>/N<sub>p</sub>) = 0.5 → 0.5 × 20 µs = <b>10 µs</b>.', trap: [[20, 'gave the full period']] });
+MQ(32, 6, 'dq-control', 'nat', 'Grid-side current loop, L = 5 mH, R = 50 mΩ. PI chosen to cancel the plant pole. K<sub>p</sub>/K<sub>i</sub> (s)?', { lo: .099, hi: .101, show: '0.1 s', exp: 'Zero at K<sub>i</sub>/K<sub>p</sub> = R/L → K<sub>p</sub>/K<sub>i</sub> = L/R = 0.005/0.05 = <b>0.1</b>.', trap: [[10, 'inverted the ratio (R/L)']] });
+/* ---- Week 7 ---- */
+MQ(33, 7, 'softsw', 'nat', 'Hard turn-off with linear overlap: current 20 A → 0 and voltage 0 → 400 V simultaneously in 100 ns. Energy lost (µJ)?', { lo: 130, hi: 137, show: '133.3 µJ', exp: 'Same method as W7Q7: E = V·I·t/6 = 400·20·100 ns/6 = <b>133 µJ</b>.', trap: [[400, 'used V·I·t/2'], [800, 'used V·I·t']] });
+MQ(34, 7, 'softsw', 'msq', 'Which statements about soft switching are true?', { opts: ['ZVS turn-on avoids dumping the ½C<sub>oss</sub>V² energy in the channel', 'ZVS in a bridge leg needs a dead time between complementary switches', 'ZCS turn-off suits IGBTs because it avoids tail-current loss', 'Hard-switching loss falls as switching frequency rises'], ans: [0, 1, 2], exp: 'Switching loss is energy per transition × f<sub>sw</sub>, so it <i>rises</i> with frequency.' });
+MQ(35, 7, 'softsw', 'nat', 'Half-bridge leg during the dead time: load current 8 A charges/discharges the two switch capacitances, each 0.5 nF. dv/dt of the midpoint (V/ns)?', { lo: 7.9, hi: 8.1, show: '8 V/ns', exp: 'Both capacitors share the current: dv/dt = I<sub>o</sub>/(2C) = 8/(1 nF) = <b>8 V/ns</b>.', trap: [[16, 'used only one capacitor']] });
+MQ(36, 7, 'bridges', 'mcq', 'Main purpose of the dead time between the two switches of a bridge leg:', { opts: ['raise the output voltage', 'prevent shoot-through and allow the soft transition', 'reduce the transformer size', 'set the duty ratio'], ans: [1], exp: 'Both switches must never be on together; the dead time is also when the capacitances swing for ZVS.' });
+/* ---- Week 8 ---- */
+MQ(37, 8, 'psfb', 'nat', 'Ideal PSFB, 1:1 transformer, phase shift 45° between the diagonal switches (convention of W8Q10). V<sub>o</sub>/V<sub>in</sub>?', { lo: .745, hi: .755, show: '0.75', exp: 'V<sub>o</sub>/V<sub>in</sub> = n(1 − φ/180°) = 1 − 0.25 = <b>0.75</b>.', trap: [[.25, 'used φ/180 instead of 1 − φ/180']] });
+MQ(38, 8, 'psfb', 'nat', 'PSFB, V<sub>in</sub> = 400 V, n = N<sub>s</sub>/N<sub>p</sub> = 0.5, φ = 90°. Output voltage (V)?', { lo: 99, hi: 101, show: '100 V', exp: 'V<sub>o</sub> = n·V<sub>in</sub>(1 − φ/180°) = 0.5·400·0.5 = <b>100 V</b>.', trap: [[400, 'used N<sub>p</sub>/N<sub>s</sub>']] });
+MQ(39, 8, 'psfb', 'nat', 'PSFB duty loss: L<sub>lkg</sub> = 5 µH, I<sub>o</sub> = 10 A (n = 1), f<sub>s</sub> = 100 kHz, V<sub>in</sub> = 400 V. Duty loss (%)?', { lo: 4.9, hi: 5.1, show: '5 %', exp: 'ΔD = 4·L·I<sub>o</sub>·f<sub>s</sub>/(n·V<sub>in</sub>) = 4·5 µ·10·100 k/400 = 0.05 = <b>5 %</b>.', trap: [[2.5, 'used 2 instead of 4 in the formula'], [.05, 'answered as a fraction instead of %']] });
+MQ(40, 8, 'psfb', 'nat', 'PSFB leading leg: V<sub>in</sub> = 400 V, C<sub>oss</sub> = 200 pF per switch, reflected current 10 A. Minimum dead time (ns)?', { lo: 15.5, hi: 16.5, show: '16 ns', exp: 't<sub>d</sub> = 2·C<sub>oss</sub>·V<sub>in</sub>/I = 2·200 p·400/10 = <b>16 ns</b>.', trap: [[8, 'used one capacitance only']] });
+MQ(41, 8, 'psfb', 'msq', 'Phase-shifted full bridge: which are true?', { opts: ['The leading leg reaches ZVS more easily than the lagging leg', 'Adding series inductance extends the ZVS range of the lagging leg', 'More series inductance increases the duty loss', 'Each switch operates with a variable duty cycle'], ans: [0, 1, 2], exp: 'Every switch runs at ≈ 50 % duty; only the phase between legs changes.' });
+/* ---- Week 9 ---- */
+MQ(42, 9, 'dab', 'nat', 'DAB with SPS: V<sub>in</sub> = 400 V, V<sub>o</sub>′ = 400 V (referred), f<sub>s</sub> = 50 kHz, L = 50 µH. Maximum power (kW)?', { lo: 7.9, hi: 8.1, show: '8 kW', exp: 'P<sub>max</sub> = V<sub>in</sub>V<sub>o</sub>′/(8·f<sub>s</sub>·L) = 160 000/(8·50 k·50 µ) = <b>8 kW</b>.', trap: [[16, 'used 4 instead of 8']] });
+MQ(43, 9, 'dab', 'nat', 'DAB with SPS: V<sub>in</sub> = V<sub>o</sub>′ = 400 V, f<sub>s</sub> = 100 kHz, L = 20 µH, δ = 30°. Power (kW)?', { lo: 5.4, hi: 5.7, show: '5.56 kW', exp: 'P = V<sub>in</sub>V<sub>o</sub>′·δ(π−δ)/(2π²·f<sub>s</sub>·L), δ = π/6: P = 160 000·0.5236·2.618/(2π²·100 k·20 µ) = <b>5.56 kW</b>.' });
+MQ(44, 9, 'dab', 'mcq', 'A DAB is transferring power from the primary to the secondary. To <b>reverse</b> the power flow:', { opts: ['increase the switching frequency', 'make the secondary bridge lead the primary bridge', 'reduce the series inductance', 'change the turns ratio'], ans: [1], exp: 'Power flows from the leading bridge to the lagging one: change the sign of δ.' });
+MQ(45, 9, 'magnetics', 'mcq', 'For the same voltage and turns, raising the switching frequency of a transformer:', { opts: ['raises the flux swing', 'reduces the core cross-section needed for the same flux density', 'removes core loss', 'has no effect on size'], ans: [1], exp: 'ΔB = V·t/(N·A<sub>c</sub>); shorter t (higher f) → smaller A<sub>c</sub> for the same ΔB. That is why HF transformers are small.' });
+/* ---- Week 10 ---- */
+MQ(46, 10, 'ac-type2', 'nat', 'AC Type-2 (IEC 61851-1): the EVSE allows a maximum of 24 A. CP duty cycle (%)?', { lo: 39.5, hi: 40.5, show: '40 %', exp: 'D = I/0.6 = 24/0.6 = <b>40 %</b>.', trap: [[14.4, 'multiplied by 0.6 instead of dividing']] });
+MQ(47, 10, 'ac-type2', 'nat', 'CP duty cycle = 90 %. Maximum current the EV may draw (A)?', { lo: 64.5, hi: 65.5, show: '65 A', exp: '85-96 % range: I = (D − 64)·2.5 = 26·2.5 = <b>65 A</b>.', trap: [[54, 'used 0.6·D outside its 10-85 % range']] });
+MQ(48, 10, 'ac-type2', 'nat', 'Proximity pilot (course circuit: +5 V, R4 = 330 Ω, R5 = 4.7 kΩ). Plug resistor R6 = 680 Ω. V<sub>PP</sub> (V)?', { lo: 3.15, hi: 3.28, show: '3.21 V', exp: 'R5∥R6 = 594 Ω; V<sub>PP</sub> = 5·594/(594 + 330) = <b>3.21 V</b> → 20 A cable.', trap: [[3.37, 'ignored R5 (used R6 alone)']] });
+MQ(49, 10, 'ac-type2', 'nat', 'CP circuit (course method, ideal diode): EVSE 12 V through 1 kΩ; vehicle 2.74 kΩ with <b>270 Ω</b> switched in parallel (ventilation). CP high level (V)?', { lo: 2.3, hi: 2.45, show: '2.37 V', exp: '2.74 k ∥ 270 = 246 Ω; V = 12·246/1246 = <b>2.37 V</b> (≈ 3 V nominal state D once the 0.7 V diode drop is included).' });
+MQ(50, 10, 'ac-type2', 'mcq', 'CP high level is +9 V and a 1 kHz PWM is present. State?', { opts: ['A', 'B1', 'B2', 'C2'], ans: [2], exp: '+9 V = vehicle connected, not ready; PWM present = EVSE ready → <b>B2</b>.' });
+/* ---- Week 11 ---- */
+MQ(51, 11, 'ccs2', 'mcq', 'SLAC stands for:', { opts: ['Signal Level Attenuation Characterization', 'Secure Link Access Control', 'Stateless Link Address Configuration', 'Serial Line Access Channel'], ans: [0], exp: 'SLAC = Signal Level Attenuation Characterization (data-link layer). SLAAC is the IPv6 address step.' });
+MQ(52, 11, 'ccs2', 'mcq', 'In a CCS2 DC session, which step checks the <b>insulation</b> of the DC output before any energy is transferred?', { opts: ['SessionSetup', 'CableCheck', 'PreCharge', 'WeldingDetection'], ans: [1], exp: 'CableCheck: the EVSE raises its output and measures insulation with its IMD.' });
+MQ(53, 11, 'ccs2', 'mcq', 'After charging ends and the EV opens its contactors, which step verifies that they actually opened?', { opts: ['CableCheck', 'PreCharge', 'WeldingDetection', 'ServiceDiscovery'], ans: [2], exp: 'WeldingDetection: the inlet voltage must collapse once the contactors are open.' });
+MQ(54, 11, 'dc001-can', 'mcq', 'A CAN bus is terminated with 120 Ω at each end. Resistance measured between CANH and CANL (bus unpowered)?', { opts: ['240 Ω', '120 Ω', '60 Ω', '0 Ω'], ans: [2], exp: 'Two 120 Ω in parallel = <b>60 Ω</b>.' });
+MQ(55, 11, 'ccs2', 'mcq', 'An EV measures average attenuation 72 dB, 65 dB, 81 dB and 69 dB from EVSE1…EVSE4. It connects to:', { opts: ['EVSE1', 'EVSE2', 'EVSE3', 'EVSE4'], ans: [1], exp: 'Lowest attenuation = strongest signal = the charger it is physically plugged into: <b>EVSE2</b>.' });
+/* ---- Week 12 ---- */
+MQ(56, 12, 'dc001-can', 'msq', 'GB/T 27930 CAN ID 0x1826F456. Which are true?', { opts: ['Priority = 6', 'Source = charger (0x56)', 'Destination = BMS (0xF4)', 'PGN = 0x0026F4'], ans: [0, 1, 2], exp: '0x18 → bits 28..26 = 110 = 6. Byte 2 = PF 0x26 → PGN 0x002600. DA = 0xF4 (BMS), SA = 0x56 (charger).' });
+MQ(57, 12, 'dc001-can', 'mcq', 'Four nodes start transmitting at once with IDs 0x120, 0x0F0, 0x200, 0x101. Which wins arbitration?', { opts: ['0x120', '0x0F0', '0x200', '0x101'], ans: [1], exp: 'Dominant 0 wins bit by bit, so the <b>lowest ID</b> wins: 0x0F0.' });
+MQ(58, 12, 'stations-ocpp', 'mcq', 'OCPP-J frame <code>[2, "a1b2", "Heartbeat", {}]</code> is a:', { opts: ['CALL', 'CALLRESULT', 'CALLERROR', 'invalid frame'], ans: [0], exp: 'Message type 2 = CALL (3 = CALLRESULT, 4 = CALLERROR).' });
+MQ(59, 12, 'stations-ocpp', 'mcq', 'After power-up, the first message a charge point sends to the central system (OCPP 1.6) is:', { opts: ['Authorize', 'BootNotification', 'StartTransaction', 'MeterValues'], ans: [1], exp: '<b>BootNotification</b>; the CSMS replies with status and heartbeat interval.' });
+MQ(60, 12, 'dc001-can', 'nat', 'GB/T data 0x4B0154019F0A3C00 with the W12Q8 layout (byte 1 SOC 1 %/bit; bytes 2-3 min cell 0.01 V/bit; bytes 4-5 max cell). <b>Minimum cell voltage</b> (V)?', { lo: 3.39, hi: 3.41, show: '3.40 V', exp: 'Bytes: 4B | 01 54 | 01 9F | 0A | 3C | 00. Min cell = 0x0154 = 340 × 0.01 = <b>3.40 V</b> (max 4.15 V, SOC 75 %).', trap: [[4.15, 'read the max-cell bytes'], [.84, 'read only one byte (0x54)']] });
+MQ(61, 12, 'stations-ocpp', 'msq', 'True about OCPP-J messages:', { opts: ['A CALL carries a unique message ID', 'A CALLRESULT repeats the ID of the CALL it answers', 'A CALLRESULT contains the action name', 'Messages are JSON arrays over WebSocket'], ans: [0, 1, 3], exp: 'CALLRESULT = [3, id, payload]: no action name.' });
 
 ;
 /* ===== core helpers ===== */
@@ -775,6 +886,7 @@ page({ id: 'home', mod: 'home', title: 'Exam Hub', kw: 'start plan strategy exam
   ));
   H(body, `<h2>How to use this site</h2><ol class="steps"><li><div><b>Read a topic page</b> (15-25 min). Yellow <mark class="hot">highlights</mark> and the <b>★ Must remember</b> boxes are exam material. A tag like <mark class="hot" data-q="W2Q8">fact</mark> means a real assignment question asked it.</div></li><li><div><b>Play with the widgets.</b> Move sliders until the waveform change is obvious. The picture is what you will recall in the exam.</div></li><li><div><b>Answer the assignment questions</b> at the bottom of the page, then read the reason, including for ones you got right.</div></li><li><div><b>Last two days:</b> Formula sheet, then Question Bank → "Redo my wrong answers".</div></li></ol>`);
   H(body, `<div class="card" style="border-left:5px solid var(--ch-i)"><h3>New: end-to-end charger simulator</h3><p>See how every stage connects in an AC and a DC charger, click each block, and watch the waveforms change as the battery charges.</p><button class="btn primary" onclick="go('simulator')">Open the simulator</button> <button class="btn" onclick="go('charger3d')">3D charger: explode &amp; inspect</button></div>`);
+  H(body, `<div class="card" style="border-left:5px solid var(--bad)"><h3>Today and tomorrow</h3><p>1) Read the <b>revision sheet</b> (≈ 45 min). 2) Take the <b>3-hour timed mock</b> and read its analysis. 3) Fix the focus topics. Tomorrow morning: revision sheet again.</p><button class="btn primary" onclick="go('revision-sheet')">Revision sheet</button> <button class="btn primary" onclick="go('mock-exam')">Timed mock exam</button></div>`);
   H(body, `<div class="grid2"><div class="card" style="border-left:5px solid var(--hot)"><h3>Easy marks: do not skip</h3><p>15 short cards covering 71 assignment questions that need no derivation. About 2 hours in total, best value first.</p><button class="btn primary" onclick="go('easy-marks')">Open easy marks</button></div><div class="card" style="border-left:5px solid var(--ch-v)"><h3>See the whole charger work</h3><p>Grid → battery waveforms stage by stage, and a live state machine with fault injection.</p><button class="btn" onclick="go('waveform-chain')">Waveform chain</button> <button class="btn" onclick="go('charger-states')">States &amp; faults</button> <button class="btn" onclick="go('cp-pp-movie')">Car meets charger (CP/PP)</button></div></div>`);
   H(body, '<h2>Where the marks are (heat map)</h2><p class="cap">Bar length = number of assignment questions on that topic. Click a name to open it.</p>');
   const heat = h('div', { class: 'heat' }); body.append(heat);
@@ -949,6 +1061,303 @@ embed('boost-pfc', box => circuitAnimator(box, CIRC.boost));
 embed('forward', box => circuitAnimator(box, CIRC.fwd));
 embed('psfb', box => circuitAnimator(box, CIRC.psfb));
 embed('dcm-flyback', box => circuitAnimator(box, CIRC.fly));
+
+;
+/* ===== Complete revision sheet ===== */
+page({ id: 'revision-sheet', mod: 'home', title: 'Revision sheet (read before exam)', kw: 'revision summary cheat sheet last day formulas facts traps checklist', render(body) {
+  const read = store.get('revread', {});
+  H(body, `<div class="crumb"><span>Last-day revision</span><span class="pill hot">≈ 45 min read</span></div><h1>Complete revision sheet</h1><p class="lede">Everything the 12 weeks test, condensed: the fact, the formula with a worked check number, and the trap. Read it once before today's mock and once on exam morning. Tick each block as you finish it.</p>`);
+  const S = (id, title, wk, facts, forms, traps) => {
+    const done = !!read[id];
+    const sec = h('section', { class: 'rev' + (done ? ' done' : ''), id: 'rv-' + id });
+    sec.innerHTML = `<header><h2>${title}</h2><span class="pill">${wk}</span></header>
+      <div class="revgrid"><div><h4>Know</h4><ul>${facts.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      ${forms.length ? `<div><h4>Formulas · check value</h4><table class="revt">${forms.map(([a, b, c]) => `<tr><td>${a}</td><td class="f">${b}</td><td class="c">${c || ''}</td></tr>`).join('')}</table></div>` : ''}</div>
+      ${traps.length ? `<div class="trap"><b>Traps:</b> ${traps.join(' · ')}</div>` : ''}`;
+    const b = h('button', { class: 'btn' + (done ? '' : ' primary'), onclick: () => { read[id] = !read[id]; store.set('revread', read); sec.classList.toggle('done', !!read[id]); b.textContent = read[id] ? '✔ Read' : 'Mark as read'; b.classList.toggle('primary', !read[id]); prog(); } }, done ? '✔ Read' : 'Mark as read');
+    sec.querySelector('header').append(b); body.append(sec);
+  };
+  const pr = h('div', { class: 'readout', style: 'margin:12px 0' }); body.append(pr);
+  const prog = () => { const n = $$('.rev', body).length, d = $$('.rev.done', body).length; pr.innerHTML = `<div><small>blocks read</small><b>${d} / ${n}</b></div><div><small>exam</small><b>Sat 17 Oct</b></div>`; };
+  H(body, `<div class="card" style="border-left:5px solid var(--hot)"><h3>Exam-day checklist</h3><ul>
+    <li>Hall ticket + original photo ID. Reach early; the centre shuts the gate at the reporting time.</li>
+    <li>Calculator if permitted by the instructions; know √2 = 1.414, √3 = 1.732, 1/π = 0.318, 2π·50 = 314.</li>
+    <li>Read the on-screen instructions: number of questions, marks, MSQ rule, answer-range rule.</li>
+    <li>Pass 1: all recall questions (CP/PP, OSI layers, CAN, OCPP, modes, ripple frequency). Pass 2: one-line numericals. Pass 3: long numericals. Mark and move if stuck > 3 min.</li>
+    <li>No blanks at the end (unless the instructions announce negative marking).</li></ul></div>
+    <div class="card" style="border-left:5px solid var(--bad)"><h3>Silly-mistake checklist (read twice)</h3><ul>
+    <li><b>rms vs peak</b>: V<sub>pk</sub> = √2 × 230 = 325.3 V; I<sub>pk</sub> = √2·P/V<sub>rms</sub>.</li>
+    <li><b>Units asked</b>: mH vs µH, µs vs ms, kW vs W, % vs fraction, degrees vs radians (DAB formula needs δ in radians).</li>
+    <li><b>Formula direction</b>: boost d = 1 − |v<sub>s</sub>|/V<sub>o</sub> (not |v<sub>s</sub>|/V<sub>o</sub>); PSFB V<sub>o</sub>/V<sub>in</sub> = n(<b>1 − φ/180</b>); duty from current = I/0.6 (divide).</li>
+    <li><b>Peak-to-peak vs peak</b>: ΔV<sub>pp</sub> = P/(2πfV<sub>o</sub>C) is already peak-to-peak.</li>
+    <li><b>Turns ratio</b>: n = N<sub>s</sub>/N<sub>p</sub> unless the question says otherwise.</li>
+    <li><b>MSQ</b>: judge each option independently; one wrong tick loses the whole question.</li>
+    <li><b>"Which axis is on the voltage?"</b> decides whether i<sub>d</sub> or i<sub>q</sub> is the active current.</li>
+    <li>Keep 4 significant figures until the final step.</li></ul></div>`);
+  prog();
+  S('m1', 'Module 1 · EV charging basics, standards, rectifier', 'W1', [
+    'BMS (in the vehicle) is the master; the charger only supplies.', 'CC then CV: in CV the current tapers.',
+    '<b>Mode 1</b> plain socket · <b>Mode 2</b> socket + in-cable box (ICCPD) · <b>Mode 3</b> AC wall box with CP · <b>Mode 4</b> DC charger.',
+    '<b>AC EVSE</b> = contactor, RCD, meter, CP/PP controller, interlocks: no converter. <b>DC EVSE</b> = rectifier + isolated DC-DC + interlocks.',
+    'CCS1 = Type-1 + 2 DC pins; CCS2 = Type-2 + 2 DC pins (3-φ AC capable). GB/T AC is also 3-φ.',
+    '<b>CAN</b>: CHAdeMO, GB/T DC, BEVC-DC001, Type-6/7. <b>PLC</b>: CCS. <b>PWM only</b>: AC Type-1/2 (SAE J1772 signalling).',
+    'Capacitor-input rectifier → narrow current pulses → poor PF → the reason for PFC.'], [
+    ['Half-wave avg', 'V<sub>m</sub>/π', '310 V pk → 98.7 V'], ['Full-wave avg', '2V<sub>m</sub>/π', '120 V rms → 108 V'], ['Diode PIV', 'V<sub>m</sub>', '310 V'], ['Rect. + C (W2Q9)', 'C = I·t<sub>dis</sub>/ΔV, t<sub>dis</sub> = (π/2 + asin(V<sub>min</sub>/V<sub>m</sub>))/ω', '220 V, 200 W, 10 % → 186 µF']], [
+    'The BMS is never inside the EVSE', 'diode PIV is V<sub>m</sub>, not 2V<sub>m</sub>, for the bridge']);
+  S('m2a', 'Module 2a · Boost PFC (the base of everything)', 'W2', [
+    'Switch on: v<sub>L</sub> = |v<sub>s</sub>|, i<sub>L</sub> rises. Off: v<sub>L</sub> = |v<sub>s</sub>| − V<sub>o</sub>, i<sub>L</sub> falls.',
+    'V<sub>o</sub> must exceed the grid peak (boost).', 'Duty is largest at the zero crossing (→ 1) and smallest at the peak.',
+    'Ripple is largest where |v<sub>s</sub>| = V<sub>o</sub>/2 (d = 0.5), not at the peak.', 'Bipolar 4-switch PFC: d = (1 + |v<sub>s</sub>|/V<sub>o</sub>)/2 (W2Q2).'], [
+    ['Duty', 'd = 1 − |v<sub>s</sub>|/V<sub>o</sub>', '230 V → 400 V: d<sub>pk</sub> = 0.187'], ['d<sub>min</sub>', '1 − √2·V<sub>max,rms</sub>/V<sub>o</sub>', '265 V, 500 V → 0.25'], ['Peak current', 'I<sub>pk</sub> = √2·P/V<sub>rms</sub>', '1.1 kW, 230 V → 6.76 A'], ['Inductor', 'L = V<sub>o</sub>/(4·ΔI·f<sub>sw</sub>)', '1.1 kW, 450 V, 60 kHz, 10 % → 2.77 mH']], [
+    'ΔI is a % of the <b>peak</b> input current', 'd formula is 1 − ratio']);
+  S('m2b', 'Module 2b · PFC stresses, control, bridgeless, DCM/flyback', 'W3-W5', [
+    'Single-phase PFC output ripple = <b>2 × line</b> (100/120 Hz) whatever f<sub>sw</sub>. 3-phase: no 100 Hz, ripple at f<sub>sw</sub>.',
+    'State variables: i<sub>L</sub>, v<sub>C</sub>; inputs: d, v<sub>s</sub>. A is 2 × 2. Small-signal: perturb the averaged large-signal model, drop products of small terms.',
+    'Voltage loop slow (≈ 10-20 Hz, ≪ 100 Hz); current loop 500 Hz … f<sub>sw</sub>/10.',
+    'Totem-pole: 2 devices conduct (boost PFC: 3); slow leg at line frequency; needs ≥ 2 fast switches; same inductor sizing.',
+    'Bridgeless (D1/D2 top, S1/S2 bottom): D1 conducts for v<sub>s</sub> &gt; 0, D2 for v<sub>s</sub> &lt; 0.',
+    'DCM: i<sub>L</sub> hits zero each period, peak follows v<sub>s</sub> automatically, single loop, smaller L, higher peak stress.'], [
+    ['Switch RMS', 'I<sub>o</sub>√D', '20 A, D 0.3 → 10.95 A'], ['DC-link ripple', 'ΔV<sub>pp</sub> = P/(2π f V<sub>o</sub> C)', '3.3 kW, 400 V, 2.2 mF → 11.9 V'], ['G<sub>v</sub>(s)', '(V<sub>s,pk</sub>/2V<sub>o</sub>)·R/(RCs + 1)', ''], ['Flyback PFC', 'V<sub>o</sub> = (V<sub>pk</sub>/n)·d/(1−d)', '230 V, d 0.12, n 0.6 → 73.9 V']], [
+    'ripple frequency is 2f<sub>line</sub>, not f<sub>sw</sub> (1-φ)', 'current-loop BW is above the line frequency']);
+  S('m3', 'Module 3 · SPWM, 3-phase VSC, dq control', 'W5-W6', [
+    'Average pole voltage ∝ modulating signal (W5Q8: 4/5 × 200 = 160 V).', 'm<sub>f</sub> = f<sub>carrier</sub>/f<sub>1</sub>; harmonics cluster around m<sub>f</sub> and its multiples.',
+    'AC→DC power: converter phasor <b>lags</b> the grid; DC→AC: <b>leads</b> (power flows leading → lagging).', 'DC link must exceed the line-line peak (750 V for 400 V mains).',
+    'abc (balanced) → αβ: sinusoids at line frequency; → dq: constants. d and q are independent.', 'The axis aligned with the voltage carries the active current. i<sub>q</sub>* = 0 (d on voltage) → unity PF.', 'Current on the axis 90° from the voltage → zero-PF (reactive) current.'], [
+    ['Fundamental (half-bridge)', 'peak m·V<sub>dc</sub>/2 · rms m·V<sub>dc</sub>/(2√2)', '600 V, m 0.8 → 169.7 V rms'], ['VSC inductor', 'L = √(V<sub>c</sub>² − V<sub>s</sub>²)/(ω I<sub>pk</sub>)', '22 kW, 400 V, 750 V, m 0.9 → 6.03 mH'], ['I<sub>pk</sub>', '2P/(3V<sub>s,pk</sub>)', '44.9 A'], ['PF (d on V)', 'i<sub>d</sub>/√(i<sub>d</sub>² + i<sub>q</sub>²)', 'i<sub>d</sub> 8, i<sub>q</sub> 10 → 0.625'], ['PI cancel', 'K<sub>p</sub>/K<sub>i</sub> = L/R', '12 mH/10 mΩ → 1.2'], ['Time constants', 'T<sub>s</sub> = L/R &gt; T<sub>d</sub>', '']], [
+    'check which axis is aligned (W6Q2 vs W6Q3)', 'use phase (not line) voltage peak in the VSC formula']);
+  S('m4a', 'Module 4a · Forward, push-pull, bridges, switching loss', 'W6-W7', [
+    'Forward: flux 0 → B<sub>max</sub> (one quadrant); bridges/push-pull: −B<sub>max</sub> → +B<sub>max</sub>.', 'Reset winding N<sub>d</sub>: core reset energy returns to V<sub>in</sub> through D3.',
+    'Switch stress: forward with N<sub>d</sub> = N<sub>p</sub> → 2V<sub>in</sub>; dual-switch forward → V<sub>in</sub>; push-pull → 2V<sub>in</sub>; half/full bridge → V<sub>in</sub>. General: V<sub>in</sub>(1 + N<sub>p</sub>/N<sub>d</sub>). W7Q3 (1:2:3): key = option “⅔ V<sub>in</sub>” (physics gives 4/3 V<sub>in</sub>; pick the key option).',
+    'ZVS ↔ turn-on loss removed; ZCS ↔ turn-off loss removed. Load-current direction decides which switch gets ZVS. Dead time prevents shoot-through.'], [
+    ['Forward V<sub>o</sub>', 'n·D·V<sub>in</sub>', '400 V, 5:2, 10/50 µs → 32 V'], ['D<sub>max</sub>', '1/(1 + N<sub>d</sub>/N<sub>p</sub>)', 'N<sub>d</sub> = 3N<sub>p</sub>, 10 kHz → 25 µs'], ['Push-pull V<sub>o</sub> (key)', 'n·D·V<sub>in</sub>', '50 V, 5/2, 0.4 → 50 V'], ['Full-bridge L', 'V<sub>o</sub>(1−D)/(2 f ΔI)', '5 mH'], ['Overlap loss', 'E = V·I·t/6', '200 V, 60 A, 200 ns → 400 µJ'], ['Dead-time dv/dt', 'I<sub>o</sub>/(2C<sub>oss</sub>)', '10 A, 1 nF each → 5 V/ns']], [
+    'two capacitances share the current (2C)', 'stress with demag winding is V<sub>in</sub>(1 + N<sub>p</sub>/N<sub>d</sub>)']);
+  S('m4b', 'Module 4b · PSFB, DAB, magnetics', 'W8-W10', [
+    'PSFB: each switch ≈ 50 % duty; output set by the phase between legs. 180° → 0 output.',
+    'Leading leg: energy ½(L<sub>lkg</sub> + L/n²)I² → easy ZVS. Lagging leg: ½L<sub>lkg</sub>I² only → loses ZVS first. Extra L<sub>r</sub> widens ZVS but increases duty loss.',
+    'DAB: two active bridges, bidirectional; power flows from the leading bridge; flat-top current when the reflected voltages are equal (3:1 transformer → V<sub>o</sub> = V<sub>in</sub>/3, W9Q9).',
+    'Air gap: more ampere-turns before saturation, L set by the gap (independent of µ<sub>r</sub>).', 'Core loss ∝ f<sup>α</sup>ΔB<sup>β</sup>: lowest-frequency curve has the lowest loss (f1).'], [
+    ['PSFB', 'V<sub>o</sub>/V<sub>in</sub> = n(1 − φ/180°)', '72° → 0.6'], ['Leading dead time', '2C<sub>oss</sub>V<sub>in</sub>/(nI<sub>o</sub>)', '200 V, 100 pF, 5 A → 8 ns'], ['Duty loss', '4L<sub>lkg</sub>I<sub>o</sub>f<sub>s</sub>/(nV<sub>in</sub>)', '5 % → 10 µH'], ['Lagging-leg resonance', 'L<sub>tot</sub> = 1/(ω<sub>r</sub>²C)', 'W8Q8: 25.4 µH − 5 µH → 20.4 µH extra'], ['DAB power', 'V<sub>in</sub>V<sub>o</sub>′δ(π−δ)/(2π² f<sub>s</sub>L)', '60°, 200/400 V′, 10 µH → 8.89 kW'], ['DAB P<sub>max</sub>', 'V<sub>in</sub>V<sub>o</sub>′/(8 f<sub>s</sub> L)', '400·100/(8·100k·100µ) = 0.5 kW'], ['δ for x·P<sub>max</sub>', 'δ/π = (1 − √(1−x))/2', '0.2 → 9.5°'], ['Core area', 'A<sub>c</sub> = λ/(N·ΔB<sub>pp</sub>)', 'W9Q3 → 200'], ['Optimum ΔB (β = 2)', '(a/b)<sup>1/4</sup>', '']], [
+    'refer V<sub>o</sub> to the primary (V<sub>o</sub>′ = V<sub>o</sub>/n) before the DAB formula', 'δ in radians inside δ(π − δ)']);
+  S('m5a', 'Module 5a · AC Type-2: CP and PP', 'W10', [
+    'CP: ±12 V, 1 kHz, from EVSE through 1 kΩ. <b>A +12</b> · <b>B +9</b> · <b>C +6</b> · <b>D +3</b> · <b>E 0</b> · <b>F −12</b>.',
+    'Vehicle: diode + 2.74 kΩ; S2 adds 1.3 kΩ (C) or 270 Ω (D). EVSE → EV: duty (max current). EV → EVSE: voltage level.',
+    'PP: R6 in the plug tells the car "plug inserted" and the cable rating; blocks drive-away.', 'Type-2 plug in a CCS2 inlet: duty 10-85 % values are valid (30 %, 60 %); 5 % means digital comms.'], [
+    ['Duty → current', 'I = 0.6·D (10-85 %) · I = 2.5(D − 64) (85-96 %)', '36 A → 60 %; 48 A → 80 % → 800 µs'], ['PP voltage', '5·(R5∥R6)/(R4 + R5∥R6), R4 330, R5 4.7k', '300 Ω → 2.30 V; 220 → 1.94; 680 → 3.21'], ['CP level', '12·R<sub>v</sub>/(1 k + R<sub>v</sub>)', '2.74k∥1.3k → 5.62 V'], ['R6 table', '1.5 kΩ 13 A · 680 Ω 20 A · 220 Ω 32 A · 100 Ω 63 A', '']], [
+    'duty = I/0.6 (divide)', 'on-time = D × 1000 µs at 1 kHz']);
+  S('m5b', 'Module 5b · CCS2 / PLC / SLAC', 'W10-W11', [
+    'PLC (HomePlug Green PHY) on <b>CP-PE</b>, 5 % PWM. SLAC in <b>B2</b>; contactors close in <b>C2</b>.',
+    'Layers: SLAC = <b>data link</b> · SLAAC = <b>network</b> · SDP = <b>application</b> (UDP) · EXI = <b>presentation</b> · "fast, reliable, safer" = <b>transport</b>.',
+    'SLAC: 3 × CM_START_ATTEN_CHAR, 10 M-SOUND, <b>58</b> groups; <b>lowest attenuation</b> wins.',
+    'Sequence: SLAC → SLAAC → SDP → TCP/TLS → session/auth → ChargeParameter → (C2) CableCheck → PreCharge → PowerDelivery → CurrentDemand → stop → WeldingDetection → SessionStop.',
+    'Pre-charge: current limit <b>2 A</b>; EV closes contactors when ΔV &lt; <b>20 V</b>.'], [], [
+    'SLAC ≠ SLAAC', 'attenuation: lowest wins (not highest)']);
+  S('m5c', 'Module 5c · CAN, BEVC-DC001 / GB/T, OCPP', 'W11-W12', [
+    'CAN 2.0A 11-bit (2¹¹) · 2.0B 29-bit (2²⁹). Dominant 0, <b>lowest ID wins</b>. 120 Ω at each end (60 Ω measured).',
+    'BEVC-DC001 fixed addresses: charger <b>0x56</b>, BMS <b>0xF4</b>.',
+    '29-bit ID = priority(3) | R | DP | PF(8) | PS = DA(8) | SA(8). 0x<b>18</b>1056F4: priority 6, PGN 0x001000, DA 0x56, SA 0xF4.',
+    'Data: physical = raw × resolution + offset; multi-byte as in W12Q8 (0x019A × 0.01 = 4.10 V).',
+    'OCPP-J: [2, id, action, payload] CALL · [3, id, payload] CALLRESULT · [4, id, code, text, details] CALLERROR. ID echoed. JSON over WebSocket. BootNotification first.',
+    'ISO 15118: EV ↔ EVSE · OCPP: EVSE ↔ back-end · OCPI: roaming.'], [], [
+    'priority = top 3 bits of the 29-bit ID (0x18 → 110 → 6)', 'PGN uses PF (byte 2) with PS = 00 when PF &lt; 0xF0']);
+  H(body, `<div class="nextprev"><button class="btn primary" onclick="go('mock-exam')">Take the timed mock →</button><button class="btn" onclick="go('easy-marks')">Easy marks</button><button class="btn" onclick="go('formulas')">Formula sheet</button></div>`);
+  prog();
+} });
+
+;
+/* ===== Full timed mock exam + results analysis ===== */
+page({ id: 'mock-exam', mod: 'home', title: 'Timed mock exam (3 h)', kw: 'mock test exam timed full paper practice result analysis score', render(body) {
+  const KEY = 'mock', HKEY = 'mockhist';
+  const ALL = {}; (window.QBANK || []).concat(window.MOCKQ || []).forEach(q => ALL[q.id] = q);
+  const TT = {}; PAGES.forEach(p => { if (p.topic) TT[p.id] = p.title.replace(/:.*$/, ''); });
+  const ASSIGN_W = {}; (window.QBANK || []).forEach(q => ASSIGN_W[q.topic] = (ASSIGN_W[q.topic] || 0) + 1);
+  let M = store.get(KEY, null), tick = null, tShow = 0;
+  const save = () => store.set(KEY, M);
+  const fmtT = s => { s = Math.max(0, Math.round(s)); const hh = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60), ss = s % 60; return (hh ? hh + ':' : '') + String(mm).padStart(2, '0') + ':' + String(ss).padStart(2, '0'); };
+  const left = () => M.dur - (Date.now() - M.start) / 1000;
+  onLeave(() => { if (tick) clearInterval(tick); document.body.classList.remove('exam-on'); if (M && !M.done) { flushTime(); save(); } });
+  /* ---------------------------------------------------------- paper */
+  function makePaper(n, mix) {
+    const hist = store.get(HKEY, []), seen = new Set(hist.flatMap(x => x.qs || []));
+    const byWk = w => ({ a: QBANK.filter(q => q.wk === w), f: MOCKQ.filter(q => q.wk === w) });
+    const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const fresh1st = a => shuffle(a).sort((x, y) => seen.has(x.id) - seen.has(y.id));
+    const base = Math.floor(n / 12), extra = n - base * 12, heavy = [11, 8, 10, 12, 7, 9, 2, 3, 4, 5, 6, 1]; const quota = {}; for (let w = 1; w <= 12; w++) quota[w] = base; for (let i = 0; i < extra; i++) quota[heavy[i % 12]]++;
+    let out = [];
+    for (let w = 1; w <= 12; w++) {
+      const { a, f } = byWk(w); let pick = [];
+      if (mix === 'assign') pick = fresh1st(a).slice(0, quota[w]);
+      else if (mix === 'fresh') { pick = fresh1st(f).slice(0, quota[w]); if (pick.length < quota[w]) pick = pick.concat(fresh1st(a).slice(0, quota[w] - pick.length)); }
+      else { const nf = Math.ceil(quota[w] / 2); pick = fresh1st(f).slice(0, nf); pick = pick.concat(fresh1st(a).slice(0, quota[w] - pick.length)); }
+      out = out.concat(pick);
+    }
+    return shuffle(out).map(q => q.id);
+  }
+  function startExam(n, mins, mix) { M = { v: 1, start: Date.now(), dur: mins * 60, qs: makePaper(n, mix), ans: {}, mark: {}, vis: {}, t: {}, chg: {}, first: {}, cur: 0, done: false, mix }; save(); render(); }
+  /* ---------------------------------------------------------- grading */
+  const norm = (q, a) => a == null || a === '' || (Array.isArray(a) && !a.length) ? null : a;
+  function isRight(q, a) { if (norm(q, a) == null) return false; if (q.type === 'nat') { const v = parseFloat(String(a).replace(',', '.')); return !isNaN(v) && v >= q.lo - 1e-9 && v <= q.hi + 1e-9; } if (q.type === 'mcq') return q.ans[0] === a; const A = new Set(q.ans); return a.length === A.size && a.every(x => A.has(x)); }
+  const ansTxt = (q, a) => norm(q, a) == null ? '—' : q.type === 'nat' ? String(a) : q.type === 'mcq' ? String.fromCharCode(65 + a) : a.map(i => String.fromCharCode(65 + i)).join(', ');
+  const keyTxt = q => q.type === 'nat' ? `${q.lo} to ${q.hi}${q.show ? ' (≈ ' + q.show + ')' : ''}` : q.ans.map(i => String.fromCharCode(65 + i)).join(', ');
+  /* ---------------------------------------------------------- start screen */
+  function startScreen() {
+    body.innerHTML = '';
+    H(body, `<div class="crumb"><span>Exam simulation</span><span class="pill hot">Same format as the proctored exam</span></div><h1>Timed mock exam</h1><p class="lede">A full paper with a countdown, question palette, mark-for-review and auto-submit, like the NPTEL exam screen. When you submit you get a results analysis: where to focus, which mistakes were avoidable, and which areas only need revision.</p>`);
+    const hist = store.get(HKEY, []);
+    if (M && !M.done && left() > 0) { const c = h('div', { class: 'card', style: 'border-left:5px solid var(--hot)' }); c.innerHTML = `<h3>Exam in progress</h3><p>${Object.keys(M.ans).length} of ${M.qs.length} answered · ${fmtT(left())} left. The clock kept running while you were away, as in the real exam.</p>`; c.append(h('button', { class: 'btn primary', onclick: () => render() }, 'Resume exam'), ' ', h('button', { class: 'btn', onclick: () => { M.done = true; finish(); } }, 'Submit it now')); body.append(c); }
+    else if (M && !M.done) { M.done = true; finish(true); return; }
+    const card = h('div', { class: 'card' }); body.append(card);
+    card.innerHTML = `<h3>Exam settings</h3>`;
+    const inputs = h('div', { class: 'calc' }), row = h('div', { class: 'inputs' }); inputs.append(row); card.append(inputs);
+    const nSel = h('select', { class: 'sel' }, [[50, '50 questions (full paper)'], [25, '25 questions (half paper)'], [12, '12 questions (one per week, quick check)']].map(([v, t]) => h('option', { value: v }, t)));
+    const tSel = h('select', { class: 'sel' }, [[180, '180 minutes (real)'], [90, '90 minutes'], [45, '45 minutes'], [20, '20 minutes']].map(([v, t]) => h('option', { value: v }, t)));
+    const mSel = h('select', { class: 'sel' }, [['mixed', 'Mixed: half assignment, half new (recommended)'], ['fresh', 'New questions only (first choice)'], ['assign', 'Assignment questions only']].map(([v, t]) => h('option', { value: v }, t)));
+    nSel.addEventListener('change', () => { tSel.value = { 50: 180, 25: 90, 12: 45 }[nSel.value]; });
+    row.append(h('label', {}, 'Length', nSel), h('label', {}, 'Time', tSel), h('label', {}, 'Questions', mSel));
+    card.append(h('button', { class: 'btn primary', style: 'margin-top:12px', onclick: () => startExam(+nSel.value, +tSel.value, mSel.value) }, '▶ Start the exam'));
+    H(body, `<h2>Rules of this mock</h2><ul>
+      <li><b>Format</b>: single-answer MCQ, multiple-select MSQ and numerical-answer questions, every week covered (≈ 4 per week in a 50-question paper, a few extra from the heaviest weeks). 61 new questions written in the assignment style + the 126 assignment questions.</li>
+      <li><b>Marking here</b>: every question carries equal marks, MSQ is all-or-nothing, numerical answers are accepted inside a range, no negative marking. Your score is also shown out of 75 (the exam's weight in the final grade).</li>
+      <li><b>Timer</b>: keeps running if you close the page (like the real exam). It auto-submits at zero. Use <i>Mark for review</i> to come back later; marked + answered questions are graded.</li>
+      <li><b>Allowed</b>: pen, paper and a calculator. Close the other tabs.</li></ul>
+      <p class="cap">The real paper's exact number of questions and marking is set per course and shown in the exam instructions; NPTEL papers are 3 hours. Read the instructions on the day and follow them. Format summary: <a href="https://www.careers360.com/courses-certifications/articles/nptel-exam-pattern" target="_blank" rel="noopener">Careers360 NPTEL exam pattern</a>; pass rule: NPTEL FAQ.</p>`);
+    if (hist.length) { H(body, '<h2>Your previous attempts</h2>'); const t = h('div', { class: 'heat' }); body.append(t); hist.slice().reverse().forEach((x, i) => { const r = h('div', { class: 'heatrow' }, h('button', { onclick: () => { M = x.full; analysis(); } }, `${new Date(x.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })} · ${x.n} Q`), h('div', { class: 'bar' }, h('i', { style: `width:${x.pct}%;background:${x.pct >= 60 ? 'var(--good)' : x.pct >= 40 ? 'var(--warn)' : 'var(--bad)'}` })), h('b', {}, x.pct.toFixed(0) + ' %')); t.append(r); }); body.append(h('button', { class: 'btn', style: 'margin-top:8px', onclick: () => { store.set(HKEY, []); startScreen(); } }, 'Clear attempt history')); }
+  }
+  /* ---------------------------------------------------------- exam screen */
+  let qBox, pal, timerEl, cnt;
+  function flushTime() { if (!M || M.done || !tShow) return; const id = M.qs[M.cur]; M.t[id] = (M.t[id] || 0) + (Date.now() - tShow) / 1000; tShow = Date.now(); }
+  function render() {
+    if (M.done) return analysis();
+    body.innerHTML = ''; document.body.classList.add('exam-on');
+    const bar = h('div', { class: 'exbar' }); timerEl = h('b', { class: 'extimer' }); cnt = h('span', { class: 'excnt' });
+    bar.append(h('span', { class: 'exname' }, 'Charging Infrastructure · Mock'), cnt, h('span', { class: 'extl' }, 'Time left ', timerEl));
+    const wrap = h('div', { class: 'exwrap' }); qBox = h('div', { class: 'exq' }); pal = h('div', { class: 'expal' }); wrap.append(qBox, pal); body.append(bar, wrap);
+    show(M.cur);
+    if (tick) clearInterval(tick); tick = setInterval(() => { const l = left(); timerEl.textContent = fmtT(l); timerEl.classList.toggle('low', l < 600); if (l <= 0) { clearInterval(tick); flushTime(); M.done = true; save(); finish(true); } else if (Math.round(l) % 5 === 0) { flushTime(); save(); } }, 500);
+    timerEl.textContent = fmtT(left());
+  }
+  function status(id) { const a = norm(ALL[id], M.ans[id]) != null, m = M.mark[id]; return m ? (a ? 'am' : 'm') : a ? 'a' : M.vis[id] ? 'na' : 'nv'; }
+  function drawPal() {
+    pal.innerHTML = '';
+    const counts = { a: 0, na: 0, nv: 0, m: 0, am: 0 }; M.qs.forEach(id => counts[status(id)]++);
+    pal.append(h('div', { class: 'pallegend', html: `<span class="pq a">${counts.a}</span>Answered <span class="pq na">${counts.na}</span>Not answered <span class="pq nv">${counts.nv}</span>Not visited <span class="pq m">${counts.m}</span>Marked <span class="pq am">${counts.am}</span>Answered &amp; marked` }));
+    const g = h('div', { class: 'palgrid' }); M.qs.forEach((id, i) => g.append(h('button', { class: 'pq ' + status(id) + (i === M.cur ? ' cur' : ''), 'aria-label': 'question ' + (i + 1), onclick: () => go2(i) }, String(i + 1)))); pal.append(g);
+    pal.append(h('button', { class: 'btn primary', style: 'width:100%;margin-top:12px', onclick: () => confirmSubmit() }, 'Submit exam'));
+    cnt.textContent = `Q ${M.cur + 1} / ${M.qs.length} · answered ${counts.a + counts.am}`;
+  }
+  function go2(i) { flushTime(); M.cur = i; save(); show(i); }
+  function setAns(id, v) { const q = ALL[id]; if (!(id in M.first) && norm(q, v) != null) M.first[id] = v; const prev = M.ans[id]; if (prev != null && JSON.stringify(prev) !== JSON.stringify(v)) M.chg[id] = (M.chg[id] || 0) + 1; M.ans[id] = v; save(); drawPal(); }
+  function show(i) {
+    const id = M.qs[i], q = ALL[id]; M.vis[id] = 1; tShow = Date.now(); save();
+    qBox.innerHTML = '';
+    const kind = q.type === 'nat' ? 'Numerical answer' : q.type === 'msq' ? 'Multiple select: one or more correct' : 'Single correct answer';
+    qBox.append(h('div', { class: 'qh' }, h('span', { class: 'pill hot' }, 'Question ' + (i + 1)), h('span', { class: 'pill' }, kind)));
+    qBox.append(h('div', { class: 'qt', html: q.text })); if (q.img) qBox.append(h('img', { src: q.img, alt: 'figure', class: 'exfig' }));
+    const a = M.ans[id];
+    if (q.type === 'nat') { const inp = h('input', { type: 'text', inputmode: 'decimal', class: 'sel', style: 'max-width:240px', placeholder: 'type your answer', value: a == null ? '' : a, 'aria-label': 'numerical answer' }); inp.addEventListener('input', () => setAns(id, inp.value.trim())); qBox.append(h('div', { class: 'nat' }, inp)); setTimeout(() => inp.focus(), 30); }
+    else { const box = h('div'); q.opts.forEach((t, k) => { const checked = q.type === 'msq' ? (a || []).includes(k) : a === k; const inp = h('input', { type: q.type === 'msq' ? 'checkbox' : 'radio', name: 'mq', id: 'mo' + k, checked }); inp.addEventListener('change', () => { if (q.type === 'msq') { const s = $$('input', box).map((x, j) => x.checked ? j : -1).filter(j => j >= 0); setAns(id, s); } else setAns(id, k); $$('.opt', box).forEach((o, j) => o.classList.toggle('sel', $$('input', box)[j].checked)); }); box.append(h('label', { class: 'opt q' + (checked ? ' sel' : ''), for: 'mo' + k }, inp, h('span', { html: `<b>${String.fromCharCode(65 + k)}.</b> ${t}` }))); }); qBox.append(box); }
+    const nav = h('div', { class: 'exnav' });
+    nav.append(h('button', { class: 'btn', disabled: i === 0, onclick: () => go2(i - 1) }, '← Previous'), h('button', { class: 'btn', onclick: () => { setAns(id, q.type === 'msq' ? [] : null); show(i); } }, 'Clear response'), h('button', { class: 'btn mk', onclick: () => { M.mark[id] = !M.mark[id]; save(); if (i < M.qs.length - 1) go2(i + 1); else drawPal(); } }, M.mark[id] ? 'Unmark & next' : 'Mark for review & next'), h('button', { class: 'btn primary', onclick: () => { if (i < M.qs.length - 1) go2(i + 1); else confirmSubmit(); } }, i < M.qs.length - 1 ? 'Save & next →' : 'Save & finish'));
+    qBox.append(nav);
+    drawPal();
+  }
+  function confirmSubmit() {
+    flushTime(); save();
+    const c = { a: 0, na: 0, nv: 0, m: 0, am: 0 }; M.qs.forEach(id => c[status(id)]++);
+    qBox.innerHTML = ''; const d = h('div', { class: 'card', style: 'border-left:5px solid var(--hot)' });
+    d.innerHTML = `<h3>Submit the exam?</h3><p>Answered: <b>${c.a + c.am}</b> · Not answered: <b>${c.na + c.nv}</b> · Marked for review: <b>${c.m + c.am}</b> · Time left: <b>${fmtT(left())}</b></p>${c.na + c.nv ? '<p class="cap">There is no negative marking in this mock: a guess on every blank question can only help.</p>' : ''}`;
+    d.append(h('button', { class: 'btn primary', onclick: () => { M.done = true; M.end = Date.now(); clearInterval(tick); save(); finish(); } }, 'Yes, submit'), ' ', h('button', { class: 'btn', onclick: () => show(M.cur) }, 'Back to the paper'));
+    qBox.append(d);
+  }
+  function finish(auto) {
+    document.body.classList.remove('exam-on'); if (!M.end) M.end = Math.min(Date.now(), M.start + M.dur * 1000); M.auto = !!auto; save();
+    const R = grade(M), hist = store.get(HKEY, []); if (!hist.some(x => x.start === M.start)) { hist.push({ date: M.end, start: M.start, n: M.qs.length, pct: R.pct, qs: M.qs, full: M }); store.set(HKEY, hist.slice(-12)); }
+    analysis();
+  }
+  /* ---------------------------------------------------------- analysis */
+  function grade(m) {
+    const rows = m.qs.map(id => { const q = ALL[id], a = m.ans[id]; return { id, q, a, ok: isRight(q, a), blank: norm(q, a) == null, t: m.t[id] || 0, first: m.first[id], chg: m.chg[id] || 0 }; });
+    const ok = rows.filter(r => r.ok).length; return { rows, ok, n: rows.length, pct: ok / rows.length * 100 };
+  }
+  function diagnose(r, topicAcc, medT) {
+    const q = r.q, out = [];
+    if (r.blank) return [['blank', 'Left blank. With no negative marking, always enter your best guess.']];
+    if (r.ok) return [];
+    if (r.first != null && isRight(q, r.first)) out.push(['silly', `You first answered <b>${ansTxt(q, r.first)}</b> (correct) and then changed it. Trust your first worked answer unless you find a concrete error.`]);
+    if (q.type === 'nat') {
+      const v = parseFloat(String(r.a).replace(',', '.')), m = (q.lo + q.hi) / 2;
+      if (isNaN(v)) out.push(['silly', 'The answer is not a number. Type digits only (no units).']);
+      else {
+        const rr = v / m, near = (x, tol = .03) => Math.abs(rr / x - 1) < tol;
+        (q.trap || []).forEach(([tv, why]) => { if (Math.abs(v / tv - 1) < .03) out.push(['silly', 'Typical slip: ' + why + '.']); });
+        if (!out.some(o => o[1].startsWith('Typical')) ) {
+          if (Math.abs(rr - 1) < .1) out.push(['silly', `Very close (${v} vs ${q.show || m}): rounding or precision. Keep 3-4 significant figures until the last step and use exact constants (√2, π).`]);
+          else if ([10, 100, 1000, 1e6, .1, .01, .001, 1e-6].some(x => near(x))) out.push(['silly', 'Off by a power of ten: a unit slip (ms ↔ µs, mH ↔ H, kW ↔ W, % ↔ fraction). Check the unit asked for.']);
+          else if (near(Math.SQRT2) || near(1 / Math.SQRT2)) out.push(['silly', 'Off by √2: rms vs peak mix-up.']);
+          else if (near(2) || near(.5)) out.push(['silly', 'Off by a factor of 2: peak vs peak-to-peak, half vs full period, or one vs two capacitors.']);
+          else if (near(180 / Math.PI) || near(Math.PI / 180)) out.push(['silly', 'Degrees vs radians mix-up.']);
+          else if (near(-1)) out.push(['silly', 'Sign error.']);
+        }
+      }
+    }
+    if (q.type === 'msq' && Array.isArray(r.a)) { const A = new Set(q.ans), S = new Set(r.a), miss = q.ans.filter(x => !S.has(x)), extra = r.a.filter(x => !A.has(x)); if (miss.length + extra.length === 1) out.push(['silly', miss.length ? `Missed one correct option (${String.fromCharCode(65 + miss[0])}). In MSQ judge every option on its own.` : `Ticked one extra option (${String.fromCharCode(65 + extra[0])}). Only tick what you can justify.`]); }
+    if (r.t > 0 && r.t < Math.min(25, medT * .35)) out.push(['silly', `Answered in ${Math.round(r.t)} s: rushed. Re-read the question stem (axis, unit, "true/false").`]);
+    if (!out.length && (topicAcc[q.topic] || 0) >= .75) out.push(['silly', 'A slip in a topic you otherwise know well: re-read this one.']);
+    if (!out.length) out.push(['gap', 'Concept gap: re-learn from the topic page.']);
+    return out;
+  }
+  function analysis() {
+    if (tick) clearInterval(tick); document.body.classList.remove('exam-on');
+    const R = grade(M), med = (() => { const t = R.rows.map(r => r.t).filter(x => x > 0).sort((a, b) => a - b); return t.length ? t[Math.floor(t.length / 2)] : 60; })();
+    const byT = {}; R.rows.forEach(r => { const k = r.q.topic, o = byT[k] = byT[k] || { n: 0, ok: 0, t: 0, blank: 0, wk: r.q.wk }; o.n++; o.ok += r.ok; o.t += r.t; o.blank += r.blank; });
+    const acc = {}; Object.keys(byT).forEach(k => acc[k] = byT[k].ok / byT[k].n);
+    R.rows.forEach(r => r.dx = diagnose(r, acc, med));
+    const silly = R.rows.filter(r => r.dx.some(d => d[0] === 'silly')), blanks = R.rows.filter(r => r.blank), gaps = R.rows.filter(r => !r.ok && !r.blank && !r.dx.some(d => d[0] === 'silly'));
+    const used = ((M.end || Date.now()) - M.start) / 1000, of75 = R.pct * .75;
+    body.innerHTML = '';
+    H(body, `<div class="crumb"><span>Mock exam result</span><span class="pill">${new Date(M.end || Date.now()).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>${M.auto ? '<span class="pill hot">auto-submitted at time-out</span>' : ''}</div><h1>Your result: ${R.ok} / ${R.n}</h1>`);
+    const verdict = R.pct >= 60 ? ['good', 'Comfortably above the pass line. Use the analysis to push higher.'] : R.pct >= 40 ? ['warn', 'Above the 40 % exam threshold, but with little margin. Fix the silly mistakes first; they are the cheapest marks.'] : ['bad', 'Below the 40 % exam threshold. Concentrate on the "Easy marks" topics and the focus list below before anything else.'];
+    H(body, `<div class="readout"><div><small>score</small><b>${R.pct.toFixed(1)} %</b></div><div><small>as exam marks</small><b>${of75.toFixed(1)} / 75</b></div><div><small>pass line (exam)</small><b>30 / 75</b></div><div><small>avoidable mistakes</small><b>${silly.length + blanks.length}</b></div><div><small>time used</small><b>${fmtT(used)} / ${fmtT(M.dur)}</b></div><div><small>median per question</small><b>${Math.round(med)} s</b></div></div><p class="ivtxt" style="border-left-color:var(--${verdict[0] === 'good' ? 'good' : verdict[0] === 'warn' ? 'warn' : 'bad'})">${verdict[1]}${silly.length + blanks.length ? ` Fixing only the avoidable ones would give <b>${((R.ok + silly.length + blanks.length) / R.n * 100).toFixed(0)} %</b>.` : ''}</p>`);
+    // focus / middle / strong
+    const T = Object.entries(byT).map(([k, o]) => Object.assign({ k, acc: o.ok / o.n, lost: o.n - o.ok, w: ASSIGN_W[k] || 1 }, o));
+    const focus = T.filter(o => o.acc < .6).sort((a, b) => b.lost * b.w - a.lost * a.w), mid = T.filter(o => o.acc >= .6 && o.acc < .8), strong = T.filter(o => o.acc >= .8 && o.n >= 1).sort((a, b) => b.n - a.n);
+    const chip = o => `<button class="tchip" data-go="${o.k}"><b>${TT[o.k] || o.k}</b><small>W${o.wk} · ${o.ok}/${o.n} right${o.blank ? ` · ${o.blank} blank` : ''} · ${ASSIGN_W[o.k] || 0} assignment Qs in this topic</small></button>`;
+    H(body, `<h2>1 · Focus here first (biggest gains)</h2><p class="cap">Topics under 60 % in this paper, ordered by marks lost × how often the topic appears in the assignments. Open the topic, do its assignment questions, then retake.</p><div class="tchips">${focus.length ? focus.map(chip).join('') : '<p>No weak topics in this paper. 🎯</p>'}</div>`);
+    if (mid.length) H(body, `<h3>Nearly there (60-79 %): do a few more questions</h3><div class="tchips">${mid.map(chip).join('')}</div>`);
+    H(body, `<h2>2 · Silly mistakes you could have avoided</h2><p class="cap">Detected automatically: close-but-off numbers, unit and factor slips, rms/peak mix-ups, MSQs with exactly one wrong tick, changed correct answers, rushed answers, and blanks.</p>`);
+    const sl = h('div'); body.append(sl);
+    if (!silly.length && !blanks.length) sl.innerHTML = '<p>None. Clean paper.</p>';
+    silly.concat(blanks).forEach(r => sl.append(reviewCard(r, true)));
+    H(body, `<h2>3 · Strong areas: revision only</h2><p class="cap">80 % or better. Skim the Revision sheet for these; do not spend new study time here.</p><div class="tchips">${strong.length ? strong.map(chip).join('') : '<p>None yet. Take another paper after revising.</p>'}</div>`);
+    // time
+    const slow = R.rows.filter(r => r.t > Math.max(2.2 * med, 150)).sort((a, b) => b.t - a.t).slice(0, 6);
+    H(body, `<h2>4 · Time management</h2><p>Average ${fmtT(used / R.n)} per question, ${R.n - blanks.length} answered${M.auto ? ', paper auto-submitted at zero' : `, ${fmtT(Math.max(0, M.dur - used))} left at submit`}.${slow.length ? ' These took much longer than your median; in the exam, mark them and come back:' : ''}</p>${slow.length ? '<ul>' + slow.map(r => `<li>Q${M.qs.indexOf(r.id) + 1} (${TT[r.q.topic] || r.q.topic}): ${fmtT(r.t)} – ${r.ok ? 'right' : 'wrong'}</li>`).join('') + '</ul>' : ''}`);
+    // week table
+    const W = {}; R.rows.forEach(r => { const o = W[r.q.wk] = W[r.q.wk] || { n: 0, ok: 0 }; o.n++; o.ok += r.ok; });
+    H(body, '<h2>5 · Score by week</h2>'); const heat = h('div', { class: 'heat' }); body.append(heat);
+    Object.keys(W).sort((a, b) => a - b).forEach(w => { const o = W[w], p = o.ok / o.n * 100; heat.append(h('div', { class: 'heatrow' }, h('span', {}, 'Week ' + w), h('div', { class: 'bar' }, h('i', { style: `width:${p}%;background:${p >= 80 ? 'var(--good)' : p >= 60 ? 'var(--warn)' : 'var(--bad)'}` })), h('b', {}, `${o.ok}/${o.n}`))); });
+    // review
+    H(body, '<h2>6 · Review every question</h2>');
+    const fl = h('div', { class: 'seg', style: 'margin-bottom:10px' }); body.append(fl); const list = h('div'); body.append(list);
+    const drawList = f => { list.innerHTML = ''; R.rows.filter(r => f === 'all' || (f === 'wrong' ? !r.ok : r.ok)).forEach(r => list.append(reviewCard(r))); };
+    segmented(fl, [['wrong', 'Wrong / blank'], ['all', 'All'], ['right', 'Right']], 'wrong', drawList); drawList('wrong');
+    body.append(h('div', { class: 'nextprev' }, h('button', { class: 'btn primary', onclick: () => { M = null; store.set(KEY, null); startScreen(); } }, 'New paper'), h('button', { class: 'btn', onclick: () => go('revision-sheet') }, 'Revision sheet'), h('button', { class: 'btn', onclick: () => go('easy-marks') }, 'Easy marks')));
+    $$('[data-go]', body).forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+    $('#main').scrollTop = 0;
+  }
+  function reviewCard(r, compact) {
+    const q = r.q, i = M.qs.indexOf(r.id), c = h('div', { class: 'q rv ' + (r.ok ? 'ok' : r.blank ? 'bl' : 'no') });
+    c.append(h('div', { class: 'qh' }, h('span', { class: 'pill ' + (r.ok ? '' : 'hot') }, `Q${i + 1} · ${r.ok ? '✔ right' : r.blank ? '— blank' : '✘ wrong'}`), h('span', { class: 'pill' }, (q.fresh ? 'New · ' : 'Assignment ' + q.id + ' · ') + 'W' + q.wk), h('span', { class: 'pill' }, TT[q.topic] || q.topic), h('span', { class: 'pill' }, fmtT(r.t))));
+    c.append(h('div', { class: 'qt', html: q.text }));
+    if (q.img && !compact) c.append(h('img', { src: q.img, alt: 'figure', loading: 'lazy' }));
+    if (q.type !== 'nat' && !compact) c.append(h('ol', { class: 'rvopts', type: 'A', html: q.opts.map((t, k) => `<li class="${q.ans.includes(k) ? 'k' : ''}${(q.type === 'msq' ? (r.a || []).includes(k) : r.a === k) ? ' y' : ''}">${t}</li>`).join('') }));
+    c.append(h('div', { class: 'rvans', html: `Your answer: <b>${ansTxt(q, r.a)}</b> · Correct: <b>${keyTxt(q)}</b>` }));
+    (r.dx || []).forEach(([k, t]) => c.append(h('div', { class: 'dx ' + k, html: (k === 'silly' ? '⚠ ' : k === 'blank' ? '○ ' : '◆ ') + t })));
+    c.append(h('details', {}, h('summary', {}, 'Explanation'), h('div', { class: 'exp', html: q.exp || '' }), h('button', { class: 'btn', style: 'margin-top:6px', onclick: () => go(q.topic) }, 'Open topic page →')));
+    return c;
+  }
+  /* ---------------------------------------------------------- boot */
+  startScreen();
+} });
 
 ;
 /* ===== Easy marks: low effort, high yield ===== */
@@ -1293,7 +1702,7 @@ page({ id: 'formulas', mod: 'home', title: 'Formula sheet & cheat sheet', kw: 'f
   G('DAB', 'dab', [['Power', 'Vin·Vo′·δ(π−δ)/(2π²·fs·L)', '60°, 200 V, 400 V′, 10 µH, 100 kHz → 8.89 kW'], ['Pmax', 'Vin·Vo′/(8·fs·L)', '500 W'], ['δ for P = x·Pmax', '(1 − √(1−x))/2 × 180°', '0.2 → 9.5°']]);
   G('Magnetics', 'magnetics', [['Core area', 'Ac = V·t/(N·ΔBpp)', '200'], ['Optimum ΔB (β = 2)', '(a/b)^¼', ''], ['Gapped inductor', 'L ≈ μ0N²Ac/lg', '']]);
   G('AC Type-2', 'ac-type2', [['Duty → current', '0.6 × D(%) for 10-85 %', '36 A → 60 % ; 48 A → 800 µs'], ['PP voltage', '5·(R5∥R6)/(R4 + R5∥R6)', '300 Ω → 2.30 V'], ['CP state C', '12·Rv/(1k + Rv)', '881 Ω → 5.6 V'], ['States', 'A12 B9 C6 D3 E0 F−12', '']]);
-  G('CCS2', 'ccs2', [['SLAC', '3 × start atten, 10 sounds, 58 groups', 'lowest attenuation wins'], ['Pre-charge', 'I &lt; 2 A, ΔV &lt; 20 V', 'contactors in C2']]);
+  G('CCS2', 'ccs2', [['SLAC', '3 × start atten, 10 sounds, 58 groups', 'lowest attenuation wins'], ['Pre-charge', 'I limit 2 A, ΔV &lt; 20 V', 'contactors in C2']]);
   G('CAN / OCPP', 'dc001-can', [['IDs', '2.0A 2¹¹, 2.0B 2²⁹', ''], ['Addresses', 'charger 0x56 (86), BMS 0xF4 (244)', ''], ['Priority', 'top 3 bits of 29-bit ID', '0x18 → 6'], ['OCPP-J types', 'CALL 2, CALLRESULT 3, CALLERROR 4', '']]);
   $$('[data-go]', body).forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
 } });
